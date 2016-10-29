@@ -1,3 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = "MyFirstProgram"
+mainClassName = "ru.stqa.pft.sandbox.MyFirstProgram"
+
+//откуда надо загружать библиотеки
+repositories{
+  mavenCentral()
+}
+
+//указание зависимости, добавление новой библиотеки
+dependencies {
+  //библиотека скопирована с сайта http://search.maven.org/
+  compile 'org.testng:testng:6.9.13.6'
+}
