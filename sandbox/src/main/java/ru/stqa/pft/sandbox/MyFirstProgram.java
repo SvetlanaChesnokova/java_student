@@ -2,6 +2,8 @@ package ru.stqa.pft.sandbox;
 
 public class MyFirstProgram {
 
+  // происходит вызов всех функций, передача и получение нужных параметров и пр.
+  // Т.к. эта основная main функция данного класса
   public static void main(String[] args) {
     hello("world");
     hello("user");
@@ -12,8 +14,10 @@ public class MyFirstProgram {
 
     Rectangle r = new Rectangle(4, 6);
     System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.area());
+
   }
 
+  //функция с одним параметром, которая выводит текст приветствия
   public static void hello(String somebody) {
 
     System.out.println("Hello," + somebody + "!");
