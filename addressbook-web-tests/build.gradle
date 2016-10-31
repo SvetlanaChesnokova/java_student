@@ -1,4 +1,4 @@
-﻿apply plugin: 'java'
+apply plugin: 'java'
 
 //откуда надо загружать библиотеки
 repositories{
@@ -9,4 +9,6 @@ repositories{
 dependencies {
   //библиотека скопирована с сайта http://search.maven.org/
   compile 'org.testng:testng:6.9.13.6'
+  compile 'org.seleniumhq.selenium:selenium-java:3.0.1'
+
 }

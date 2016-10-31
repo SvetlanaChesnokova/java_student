@@ -1,6 +1,6 @@
 package ru.stqa.pft.sandbox;
 
-//для использование коротких названий в тексте кода
+//для использования коротких названий в тексте кода
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
