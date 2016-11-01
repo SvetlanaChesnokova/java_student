@@ -9,9 +9,10 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
 
-public class AddNewCreationTests {
+public class AddNewCreationTests  {
     FirefoxDriver wd;
-    
+
+
     @BeforeMethod
     public void setUp() throws Exception {
         wd = new FirefoxDriver();
@@ -37,10 +38,9 @@ public class AddNewCreationTests {
         //содержимое теста
 
         gotoAddNew();
-        groupData(new fillGroupForm("Ivanov", "Petr", "Antonovich", "Petrusha@", "489", "IT", "RF, Novosib", "123", "78965498745", "_", "383", "Petr@ngs.ru"));
+        groupDataAdd(new fillGroupForm("Ivanov", "Petr", "Antonovich", "Petrusha@", "489", "IT", "RF, Novosib", "123", "78965498745", "_", "383", "Petr@ngs.ru"));
         saveAddNew();
         gotoHomePage();
-
     }
 
     private void gotoHomePage() {
@@ -51,7 +51,7 @@ public class AddNewCreationTests {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    private void groupData(fillGroupForm fillGroupForm) {
+    private void groupDataAdd(fillGroupForm fillGroupForm) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(fillGroupForm.getGetFirstName());
