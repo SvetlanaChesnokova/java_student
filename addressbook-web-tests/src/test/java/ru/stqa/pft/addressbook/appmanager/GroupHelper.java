@@ -89,4 +89,26 @@ public class GroupHelper extends HelperBase{
     type(By.name("phone2"), p_phone2);
     type(By.name("notes"), p_notes);
   }
+
+
+  public void initAddNewHome() {
+    click(By.linkText("home"));
+  }
+
+  public void initAddNewModification() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[17]/td[8]/a/img"));
+  }
+
+  public void ubdateAddNewCreation() {
+    click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+  }
+
+
+  public void initAddNewDelete() {
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  }
+
+  public void initAddNewAlert() {
+    wd.switchTo().alert().accept();
+  }
 }
