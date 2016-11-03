@@ -18,7 +18,9 @@ public class ApplicationManager {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     //серия действий для входа в систему
-    wd.get("http://localhost/addressbook/group.php");
+    wd.get("http://localhost/addressbook/");
+    //правильней сделать для всех тестов один вход на главную станицу, поэтому изменила ссылку
+    //wd.get("http://localhost/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);

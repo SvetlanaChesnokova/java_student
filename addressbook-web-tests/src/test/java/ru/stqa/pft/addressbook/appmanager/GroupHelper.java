@@ -111,4 +111,8 @@ public class GroupHelper extends HelperBase{
   public void initAddNewAlert() {
     wd.switchTo().alert().accept();
   }
+
+  public void selectAddNew() {
+    click(By.name("selected[]"));
+  }
 }

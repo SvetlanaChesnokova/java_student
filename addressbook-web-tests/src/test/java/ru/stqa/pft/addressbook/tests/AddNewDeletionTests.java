@@ -9,9 +9,8 @@ public class AddNewDeletionTests extends TestBase {
 
   @Test
   public void testAddNewDeletion(){
-    app.getNavigationHelper().gotoGroupPage();
     app.getGroupHelper().initAddNewHome();
-    app.getGroupHelper().selectGroup();
+    app.getGroupHelper().selectAddNew();
     app.getGroupHelper().initAddNewDelete();
     app.getGroupHelper().initAddNewAlert();
 
