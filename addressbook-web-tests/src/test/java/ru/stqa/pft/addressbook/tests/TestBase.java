@@ -11,8 +11,8 @@ import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 public class TestBase {
   // Выбор браузера для запусков тестов
   // драйверы для запуска в папке C:\tools
-  //protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
-  protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
+ // protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
  // protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
   @BeforeMethod

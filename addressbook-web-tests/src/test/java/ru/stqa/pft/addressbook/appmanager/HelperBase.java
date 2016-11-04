@@ -20,9 +20,11 @@ public class HelperBase {
   }
 
   protected void type(By locator, String text) {
-    click(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
+   // click(locator);
+    if (text != null) {
+      wd.findElement(locator).clear();
+      wd.findElement(locator).sendKeys(text);
+    }
   }
 
   public boolean isAlertPresent() {
