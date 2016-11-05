@@ -21,6 +21,7 @@ public class HelperBase {
 
   protected void type(By locator, String text) {
     click(locator); //используется во всех лекциях, поэтому оставила.
+   /* //временно комментирую, блок очень нужный
     if (text != null) {
       String existingText = wd.findElement(locator).getAttribute("value");
       //Проверка на совпадение текста, если совпадает, то не вводить.
@@ -29,14 +30,18 @@ public class HelperBase {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
       }
-    }
+    }*/
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
   }
 
+  // работа с диалоговым окном, исключениями, ошибками
   public boolean isAlertPresent() {
     try {
       wd.switchTo().alert();
       return true;
-    } catch (NoAlertPresentException e) {
+    } //описание исключения, при перехвате диалогового окна
+    catch (NoAlertPresentException e) {
       return false;
     }
   }
