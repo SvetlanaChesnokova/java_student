@@ -52,7 +52,7 @@ public class GroupHelper extends HelperBase{
 
   public void selectp() {
     //Работает
-   WebElement selected = wd.findElement(By.name("selected[]"));
+   //WebElement selected = wd.findElement(By.name("selected[]"));
 
   }
 }

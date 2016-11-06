@@ -14,6 +14,21 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void gotoGroupPage() {
-    click(By.linkText("groups"));
+    //проветка на то что мы находимся уже на нужной странице, чтобы не переходить на нее снова
+    //по наличию в заголовке имени Groups и кнопки new
+    if (isElementPresent(By.tagName("h1"))
+            && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+            && isElementPresent(By.name("new"))){
+      return;
+    }
+      click(By.linkText("groups"));
   }
+
+  public void gotoHomePage() {
+    if (isElementPresent(By.id("maintable"))){
+      return;
+    }
+    click(By.linkText("home"));
+  }
+
 }
