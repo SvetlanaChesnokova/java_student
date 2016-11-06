@@ -9,10 +9,10 @@ public class AddNewDeletionTests extends TestBase {
 
   @Test
   public void testAddNewDeletion(){
-    app.getGroupHelper().initAddNewHome();
-    app.getGroupHelper().selectAddNew();
-    app.getGroupHelper().initAddNewDelete();
-    app.getGroupHelper().initAddNewAlert();
+    app.getClientHelper().initAddNewHome();
+    app.getClientHelper().selectAddNew();
+    app.getClientHelper().initAddNewDelete();
+    app.getClientHelper().initAddNewAlert();
 
   }
 }

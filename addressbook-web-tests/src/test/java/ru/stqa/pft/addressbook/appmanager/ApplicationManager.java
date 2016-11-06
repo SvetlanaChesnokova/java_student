@@ -18,6 +18,7 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
+  private ClientHelper clientHelper;
   private String browser;
 
   public ApplicationManager(String browser) {
@@ -39,6 +40,7 @@ public class ApplicationManager {
     //правильней сделать для всех тестов один вход на главную станицу, поэтому изменила ссылку
     //wd.get("http://localhost/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
+    clientHelper = new ClientHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     sessionHelper.login("admin", "secret");
@@ -51,6 +53,10 @@ public class ApplicationManager {
 
   public GroupHelper getGroupHelper() {
     return groupHelper;
+  }
+
+  public ClientHelper getClientHelper() {
+    return clientHelper;
   }
 
   public NavigationHelper getNavigationHelper() {
