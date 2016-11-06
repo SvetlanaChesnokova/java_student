@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.stqa.pft.addressbook.model.ClientData;
 
 /**
  * Created by Светлана on 06.11.2016.
@@ -77,5 +78,12 @@ public class ClientHelper extends HelperBase{
 
   public void ubdateAddNewCreation() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+  }
+
+  public void emllAddNewForm(ClientData clientData) {
+    type(By.name("email"), clientData.getP_email());
+    type(By.name("email2"), clientData.getP_email2());
+    type(By.name("email3"), clientData.getP_email3());
+    type(By.name("homepage"), clientData.getP_homepage());
   }
 }
