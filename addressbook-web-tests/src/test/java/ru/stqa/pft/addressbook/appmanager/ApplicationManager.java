@@ -1,13 +1,18 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 /**
  * Created by Светлана on 01.11.2016.
@@ -34,8 +39,10 @@ public class ApplicationManager {
     } else if (Objects.equals(browser, BrowserType.IE)) {
       wd = new InternetExplorerDriver();
     }
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    //серия действий для входа в систему
+    //Ожидание всех элементов на форме, касательно всего проекта
+   // wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+     //серия действий для входа в систему
     wd.get("http://localhost/addressbook/");
     //правильней сделать для всех тестов один вход на главную станицу, поэтому изменила ссылку
     //wd.get("http://localhost/addressbook/group.php");

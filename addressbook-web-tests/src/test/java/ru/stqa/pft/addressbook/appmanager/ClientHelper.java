@@ -1,7 +1,10 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
 
 /**
@@ -80,10 +83,23 @@ public class ClientHelper extends HelperBase{
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
 
-  public void emllAddNewForm(ClientData clientData) {
+  public void emllAddNewForm(ClientData clientData, boolean creation) {
     type(By.name("email"), clientData.getP_email());
     type(By.name("email2"), clientData.getP_email2());
     type(By.name("email3"), clientData.getP_email3());
     type(By.name("homepage"), clientData.getP_homepage());
+
+    //проверка на то какая форма создание/изменение
+    if (creation){
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+   /* //проверка на наличие элемента, лучше проверять какая форма, как выше
+    if (isElementPresent(By.name("new_group"))){
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
+    }*/
   }
+
+
 }

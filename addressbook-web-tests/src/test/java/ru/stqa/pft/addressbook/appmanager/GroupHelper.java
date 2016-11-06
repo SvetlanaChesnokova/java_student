@@ -2,7 +2,10 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupData;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 /**
  * Created by Светлана on 01.11.2016.
@@ -47,4 +50,9 @@ public class GroupHelper extends HelperBase{
     click(By.name("update"));
   }
 
+  public void selectp() {
+    //Работает
+   WebElement selected = wd.findElement(By.name("selected[]"));
+
+  }
 }
