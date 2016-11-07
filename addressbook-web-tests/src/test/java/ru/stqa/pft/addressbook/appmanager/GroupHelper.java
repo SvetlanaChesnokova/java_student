@@ -57,4 +57,17 @@ public class GroupHelper extends HelperBase{
     WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
 
   }
+
+  public void createGroup(GroupData group) {
+    //все шаги для создания группы
+    initGroupCreation();
+    fillGroupForm(group);
+    submitGroupCreation();
+    returnToGroupPage();
+  }
+
+  public boolean isThereAGroup() {
+    //проверка на наличие объекта selected на форме
+    return isElementPresent(By.name("selected[]"));
+  }
 }

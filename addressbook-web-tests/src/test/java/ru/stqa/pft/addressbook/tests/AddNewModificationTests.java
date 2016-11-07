@@ -11,13 +11,16 @@ public class AddNewModificationTests extends TestBase {
   @Test
   public void testAddNewModification() {
     app.getClientHelper().initAddNewHome();
+   /* if (! app.getClientHelper().isThereAClient()) {
+      //если нет записи, то создаем ее
+      app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478", "3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"), true);
+    }*/
     app.getClientHelper().selectAddNew();
     app.getClientHelper().initAddNewModification();
-    app.getClientHelper().fillAddNewForm("Liza", "Vasilievna","Petrova", "Vasil", "", "KOL", "RF, P-T");
-    app.getClientHelper().telephoneAddNewForm("452463", "8969631478", "257", "27872kl");
-   // app.getClientHelper().emlAddNewForm("@", "Liza@tre", "Petrova@erw.ru", "--");
-    app.getClientHelper().emllAddNewForm( new ClientData("@", "Liza@tre", "Petrova@erw.ru", "--", null), false);
-    app.getClientHelper().secondaryAddNewForm("P-T, Lenina 876", "987456321", "g");
+    //app.getClientHelper().fillAddNewForm("Vasilievna", "Vasil", "", "KOL");
+   // app.getClientHelper().telephoneAddNewForm("452463", "257", "27872kl");
+    //app.getClientHelper().emllAddNewForm( new ClientData("Petrova","Liza", "RF, P-T","8969631478", "@", "Liza@tre", "Petrova@erw.ru", "--", null), false);
+   // app.getClientHelper().secondaryAddNewForm("P-T, Lenina 876", "987456321", "g");
     app.getClientHelper().ubdateAddNewCreation();
     app.getClientHelper().returnAddNewCreation();
 
