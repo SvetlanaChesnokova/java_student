@@ -41,8 +41,13 @@ public class ApplicationManager {
     }
     //Ожидание всех элементов на форме, касательно всего проекта
    // wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-     //серия действий для входа в систему
+   // wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    //DriverWait, явные ожидание конкретного элемента с заданным временем в секундах
+    WebDriverWait wait = new WebDriverWait(wd, 10);
+    // В GroupHelper не получается установить блок ожидания элемента selected. Где он должен быть, в какой вкладке?
+//  WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
+
+    //серия действий для входа в систему
     wd.get("http://localhost/addressbook/");
     //правильней сделать для всех тестов один вход на главную станицу, поэтому изменила ссылку
     //wd.get("http://localhost/addressbook/group.php");

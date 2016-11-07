@@ -53,6 +53,9 @@ public class GroupHelper extends HelperBase{
   public void selectp() {
     //Работает
    //WebElement selected = wd.findElement(By.name("selected[]"));
+   //Подсвечивается ошибкой
+    WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
+   // http://prntscr.com/d3umez
 
   }
 }
