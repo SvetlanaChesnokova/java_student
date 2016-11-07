@@ -43,7 +43,7 @@ public class ApplicationManager {
    // wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
    // wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     //DriverWait, явные ожидание конкретного элемента с заданным временем в секундах
-    WebDriverWait wait = new WebDriverWait(wd, 10);
+   // WebDriverWait wait = new WebDriverWait(wd, 10);
     // В GroupHelper не получается установить блок ожидания элемента selected. Где он должен быть, в какой вкладке?
 //  WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
 

@@ -5,15 +5,20 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Светлана on 01.11.2016.
  */
 public class HelperBase {
   protected WebDriver wd;
+  protected WebDriverWait wait;
+
 
   public HelperBase(WebDriver wd) {
     this.wd = wd;
+    //DriverWait, явные ожидание конкретного элемента с заданным временем в секундах
+    this.wait = new WebDriverWait(wd, 10);
   }
 
   protected void click(By locator) {
