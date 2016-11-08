@@ -10,6 +10,7 @@ public class AddNewDeletionTests extends TestBase {
 
   @Test
   public void testAddNewDeletion(){
+    //тест для удаления контакта
     app.getClientHelper().initAddNewHome();
     app.getNavigationHelper().gotoHomePage();
     //проверяем есть ли хоть одна запись для удаления

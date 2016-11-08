@@ -7,6 +7,7 @@ public class GroupDeletionTests extends TestBase {
 
   @Test
   public void testGroupDeletion() {
+    //тест для удаления группы
     app.getNavigationHelper().gotoGroupPage();
     //проверяем есть ли хоть одна запись для удаления
     if (! app.getGroupHelper().isThereAGroup()) {

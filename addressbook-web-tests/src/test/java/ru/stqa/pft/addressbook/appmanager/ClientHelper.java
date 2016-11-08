@@ -66,8 +66,9 @@ public class ClientHelper extends HelperBase{
   }
 
   public void initAddNewModification() {
-    click(By.linkText("Edit"));
-   // click(By.xpath("//table[@id='maintable']/tbody/tr[17]/td[8]/a/img"));
+    // tr[2] - строка в таблице  td[8] - столбец в таблице
+    // там находится элемент на который надо нажать для редактирования контакта
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
   public void ubdateAddNewCreation() {
@@ -98,12 +99,9 @@ public class ClientHelper extends HelperBase{
 
 
   public void createClient(ClientData clientData, boolean creation) {
-    //все шаги для создания контакта
+    //все шаги для создания контакта с минимальным набором данных
     initAddNewCreation();
-    //fillAddNewForm("Nikolai", "Aleksandrovich","Sidorov", "Nikol", "5", "IT", "RF, NSK");
-   // telephoneAddNewForm("3-147-258", "+72589631478", "5347-852", "357-1598");
     emllAddNewForm( clientData, creation);
-    //secondaryAddNewForm("Nsk, Lenina 7", "+72589631478", "");
     submitAddNewCreation();
     returnAddNewCreation();
   }

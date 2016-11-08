@@ -10,6 +10,7 @@ public class GroupModificationTests extends TestBase {
 
   @Test
   public void testGroupModification(){
+    //тест для модификации группы
     app.getNavigationHelper().gotoGroupPage();
     //проверяем есть ли хоть одна запись для удаления
     if (! app.getGroupHelper().isThereAGroup()) {
