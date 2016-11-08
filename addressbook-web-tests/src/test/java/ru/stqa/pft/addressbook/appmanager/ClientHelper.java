@@ -66,7 +66,8 @@ public class ClientHelper extends HelperBase{
   }
 
   public void initAddNewModification() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[17]/td[8]/a/img"));
+    click(By.linkText("Edit"));
+   // click(By.xpath("//table[@id='maintable']/tbody/tr[17]/td[8]/a/img"));
   }
 
   public void ubdateAddNewCreation() {

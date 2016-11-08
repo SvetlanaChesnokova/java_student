@@ -14,6 +14,6 @@ dependencies {
 
   //WebDriverWait, явные ожидания элемента, подключение библиотек
   compile 'org.apache.karaf.demos.profiles:static:4.0.7'
-  compile 'org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated'
+  //compile 'org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated'
 
 }
