@@ -98,10 +98,10 @@ public class ClientHelper extends HelperBase{
   }
 
 
-  public void createClient(ClientData clientData, boolean creation) {
+  public void createClient(ClientData clientData) {
     //все шаги для создания контакта с минимальным набором данных
     initAddNewCreation();
-    emllAddNewForm( clientData, creation);
+    emllAddNewForm( clientData, true);
     submitAddNewCreation();
     returnAddNewCreation();
   }

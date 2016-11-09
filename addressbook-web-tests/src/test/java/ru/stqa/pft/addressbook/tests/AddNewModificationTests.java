@@ -14,7 +14,7 @@ public class AddNewModificationTests extends TestBase {
     app.getClientHelper().initAddNewHome();
     if (! app.getClientHelper().isThereAClient()) {
       //если нет записи, то создаем ее
-      app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478", "3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"), true);
+      app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478", "3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"));
     }
    // можно и не делать, т.к. модификация работает и без выбора select, проставление галки
     // app.getClientHelper().selectAddNew();
