@@ -16,4 +16,7 @@ dependencies {
   compile 'org.apache.karaf.demos.profiles:static:4.0.7'
   //compile 'org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated'
 
+
+  compile 'com.google.cloud.bigdataoss:util:1.5.5'
+
 }
