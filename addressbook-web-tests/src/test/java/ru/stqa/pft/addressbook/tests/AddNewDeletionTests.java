@@ -21,7 +21,8 @@ public class AddNewDeletionTests extends TestBase {
     }
     //подсчет кол-ва строк до добавления
     int before = app.getClientHelper().getClientCount();
-    app.getClientHelper().selectAddNew();
+    //before-1 - выбор последней строки, можно указать любую с 0 по before-1
+    app.getClientHelper().selectAddNew(0);
     app.getClientHelper().initAddNewDelete();
     app.getClientHelper().initAddNewAlert();
     //подсчет кол-ва групп (строк) после добавления

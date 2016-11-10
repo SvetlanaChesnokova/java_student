@@ -20,7 +20,8 @@ public class GroupModificationTests extends TestBase {
     }
     //подсчет кол-ва групп (строк) до добавления
     int before = app.getGroupHelper().getGroupCount();
-    app.getGroupHelper().selectGroup();
+    //before-1 - выбор последней строки, можно указать любую с 0 по before-1
+    app.getGroupHelper().selectGroup(before-1);
     app.getGroupHelper().initGroupModification();
     app.getGroupHelper().fillGroupForm(new GroupData("test1", null, null));
     app.getGroupHelper().submitGroupModification();

@@ -53,8 +53,11 @@ public class ClientHelper extends HelperBase{
     click(By.linkText("home"));
   }
 
-  public void selectAddNew() {
-    click(By.name("selected[]"));
+  public void selectAddNew(int index) {
+    //выбор заданного - передаваемого из списка
+    wd.findElements(By.name("selected[]")).get(index).click();
+    //выбор любого из списка
+    // click(By.name("selected[]"));
   }
 
   public void initAddNewDelete() {

@@ -18,7 +18,8 @@ public class GroupDeletionTests extends TestBase {
     //подсчет кол-ва групп (строк) до добавления
     int before = app.getGroupHelper().getGroupCount();
   //  app.getGroupHelper().selectp(); //делала для себя, чтобы проверить ожидание
-    app.getGroupHelper().selectGroup();
+    //before-1 - выбор последней строки, можно указать любую с 0 по before-1, для удаления
+    app.getGroupHelper().selectGroup(before-1);
     app.getGroupHelper().deleteSelectedGroups();
     app.getGroupHelper().returnToGroupPage();
     //подсчет кол-ва групп (строк) после добавления
