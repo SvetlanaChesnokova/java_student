@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 
@@ -16,8 +17,8 @@ public class AddNewModificationTests extends TestBase {
       //если нет записи, то создаем ее
       app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478", "3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"));
     }
-   // можно и не делать, т.к. модификация работает и без выбора select, проставление галки
-    // app.getClientHelper().selectAddNew();
+    //подсчет кол-ва строк до добавления
+    int before = app.getClientHelper().getClientCount();
     app.getClientHelper().initAddNewModification();
     app.getClientHelper().fillAddNewForm("Vasilievna", "Vasil", "", "KOL");
     app.getClientHelper().telephoneAddNewForm("452463", "257", "27872kl");
@@ -25,6 +26,10 @@ public class AddNewModificationTests extends TestBase {
     app.getClientHelper().secondaryAddNewForm("P-T, Lenina 876", "987456321", "g");
     app.getClientHelper().ubdateAddNewCreation();
     app.getClientHelper().returnAddNewCreation();
+    //подсчет кол-ва групп (строк) после добавления
+    int after = app.getClientHelper().getClientCount();
+    //проверка, сравнение
+    Assert.assertEquals(after , before);
 
   }
 

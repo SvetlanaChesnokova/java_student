@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 
@@ -18,9 +19,15 @@ public class AddNewDeletionTests extends TestBase {
       //если нет записи, то создаем ее
       app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478","3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"));
     }
+    //подсчет кол-ва строк до добавления
+    int before = app.getClientHelper().getClientCount();
     app.getClientHelper().selectAddNew();
     app.getClientHelper().initAddNewDelete();
     app.getClientHelper().initAddNewAlert();
+    //подсчет кол-ва групп (строк) после добавления
+    int after = app.getClientHelper().getClientCount();
+    //проверка, сравнение
+    Assert.assertEquals(after , before-1);
 
   }
 }

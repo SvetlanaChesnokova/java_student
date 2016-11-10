@@ -110,4 +110,8 @@ public class ClientHelper extends HelperBase{
     //проверка на наличие объекта
     return isElementPresent(By.name("selected[]"));
   }
+
+    public int getClientCount() {
+      return wd.findElements(By.name("selected[]")).size();
+    }
 }
