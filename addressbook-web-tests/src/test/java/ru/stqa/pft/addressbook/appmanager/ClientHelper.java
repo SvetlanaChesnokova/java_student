@@ -3,9 +3,16 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 /**
  * Created by Светлана on 06.11.2016.
@@ -118,4 +125,20 @@ public class ClientHelper extends HelperBase{
     public int getClientCount() {
       return wd.findElements(By.name("selected[]")).size();
     }
+
+  public List<ClientData> getClientList() {
+    //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
+    WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
+    List<ClientData> contakts = new ArrayList<ClientData>();
+    // получить список Web елементов, которые на тег span и класс group
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    //Цикл по списку элиментов, чтобы считать их название
+    for (WebElement element : elements) {
+      String lastname = element.getText();
+      //String firstname = element.getText();
+      ClientData group = new ClientData(lastname, null, null, null, null, null, null, null, null);
+      contakts.add(group);
+    }
+    return contakts;
+  }
 }

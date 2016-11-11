@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 /**
@@ -74,9 +77,24 @@ public class GroupHelper extends HelperBase{
     return isElementPresent(By.name("selected[]"));
   }
 
+   //поменяла на список элементов
     public int getGroupCount() {
      return wd.findElements(By.name("selected[]")).size();
     }
+
+
+  public List<GroupData> getGroupList() {
+   List<GroupData> groups = new ArrayList<GroupData>();
+    // получить список Web елементов, которые на тег span и класс group
+   List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    //Цикл по списку элиментов, чтобы считать их название
+    for (WebElement element : elements) {
+      String name = element.getText();
+      GroupData group = new GroupData(name, null, null);
+      groups.add(group);
+    }
+   return groups;
+  }
 
 
 

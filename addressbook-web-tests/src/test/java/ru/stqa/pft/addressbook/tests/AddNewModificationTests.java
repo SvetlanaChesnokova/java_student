@@ -3,6 +3,9 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.List;
 
 /**
  * Created by Светлана on 02.11.2016.
@@ -18,7 +21,8 @@ public class AddNewModificationTests extends TestBase {
       app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478", "3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"));
     }
     //подсчет кол-ва строк до добавления
-    int before = app.getClientHelper().getClientCount();
+    //int before = app.getClientHelper().getClientCount();
+    List<GroupData> before = app.getGroupHelper().getGroupList();
     app.getClientHelper().initAddNewModification("2"); //как передать before-1 или преобразовать в str?
     app.getClientHelper().fillAddNewForm("Vasilievna", "Vasil", "", "KOL");
     app.getClientHelper().telephoneAddNewForm("452463", "257", "27872kl");
@@ -27,10 +31,11 @@ public class AddNewModificationTests extends TestBase {
     app.getClientHelper().ubdateAddNewCreation();
     app.getClientHelper().returnAddNewCreation();
     //подсчет кол-ва групп (строк) после добавления
-    int after = app.getClientHelper().getClientCount();
+    //int after = app.getClientHelper().getClientCount();
+    List<GroupData> after = app.getGroupHelper().getGroupList();
     //проверка, сравнение
-    Assert.assertEquals(after , before);
-
+    //Assert.assertEquals(after , before);
+    Assert.assertEquals(after.size() , before.size());
   }
 
 
