@@ -19,7 +19,7 @@ public class AddNewModificationTests extends TestBase {
     }
     //подсчет кол-ва строк до добавления
     int before = app.getClientHelper().getClientCount();
-    app.getClientHelper().initAddNewModification();
+    app.getClientHelper().initAddNewModification("2"); //как передать before-1 или преобразовать в str?
     app.getClientHelper().fillAddNewForm("Vasilievna", "Vasil", "", "KOL");
     app.getClientHelper().telephoneAddNewForm("452463", "257", "27872kl");
     app.getClientHelper().emllAddNewForm( new ClientData("Petrova","Liza", "RF, P-T","8969631478", "@", "Liza@tre", "Petrova@erw.ru", "--", null), false);

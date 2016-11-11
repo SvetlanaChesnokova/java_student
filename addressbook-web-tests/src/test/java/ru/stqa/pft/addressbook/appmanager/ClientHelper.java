@@ -68,10 +68,11 @@ public class ClientHelper extends HelperBase{
     wd.switchTo().alert().accept();
   }
 
-  public void initAddNewModification() {
+  public void initAddNewModification(String num) {
     // tr[2] - строка в таблице  td[8] - столбец в таблице
     // там находится элемент на который надо нажать для редактирования контакта
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    click(By.xpath("//table[@id='maintable']/tbody/tr["+num+"]/td[8]/a/img"));
+    // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
   public void ubdateAddNewCreation() {
