@@ -15,6 +15,32 @@ public class ClientData {
   private final String p_homepage;
   private  String group;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ClientData that = (ClientData) o;
+
+    if (p_lastname != null ? !p_lastname.equals(that.p_lastname) : that.p_lastname != null) return false;
+    return p_firstnam != null ? p_firstnam.equals(that.p_firstnam) : that.p_firstnam == null;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = p_lastname != null ? p_lastname.hashCode() : 0;
+    result = 31 * result + (p_firstnam != null ? p_firstnam.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "ClientData{" +
+            "p_lastname='" + p_lastname + '\'' +
+            ", p_firstnam='" + p_firstnam + '\'' +
+            '}';
+  }
 
   public ClientData (String p_lastname, String p_firstnam, String p_address, String p_phones, String p_email, String p_email2, String p_email3, String p_homepage, String group) {
     this.p_lastname = p_lastname;

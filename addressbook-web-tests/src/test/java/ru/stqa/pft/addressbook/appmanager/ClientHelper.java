@@ -135,8 +135,9 @@ public class ClientHelper extends HelperBase{
     //Цикл по списку элиментов, чтобы считать их название
     for (WebElement element : elements) {
       String lastname = element.getText();
-      //String firstname = element.getText();
-      ClientData group = new ClientData(lastname, null, null, null, null, null, null, null, null);
+      String firstname = element.getText();
+      //String firstname = element.getText(); // надо усложнить
+      ClientData group = new ClientData(lastname, firstname, null, null, null, null, null, null, null);
       contakts.add(group);
     }
     return contakts;

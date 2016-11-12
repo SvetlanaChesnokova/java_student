@@ -32,6 +32,12 @@ public class GroupDeletionTests extends TestBase {
     //проверка, сравнение
     //Assert.assertEquals(after , before-1);
     Assert.assertEquals(after.size() , before.size()-1);
+
+    //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
+    before.remove(before.size() - 1);
+    Assert.assertEquals(before, after);
+
+
   }
 
 

@@ -24,6 +24,8 @@ public class GroupCreationTests extends TestBase {
     //проверка, сравнение
    // Assert.assertEquals(after , before+1);
     Assert.assertEquals(after.size() , before.size()+1);
+
+
     app.getNavigationHelper().gotoHomePage();
   }
 

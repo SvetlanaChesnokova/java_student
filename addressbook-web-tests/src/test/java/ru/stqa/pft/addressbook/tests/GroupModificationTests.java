@@ -38,5 +38,8 @@ public class GroupModificationTests extends TestBase {
     //Assert.assertEquals(after , before);
     Assert.assertEquals(after.size() , before.size());
 
+    //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
+    Assert.assertEquals(before, after);
+
   }
 }
