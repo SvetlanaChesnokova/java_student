@@ -137,7 +137,7 @@ public class ClientHelper extends HelperBase{
       String lastname = element.getText();
       String firstname = element.getText();
       //поиск элемента внутри другого
-      String id = element.findElement(By.tagName("input")).getAttribute("id");
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       ClientData contakt = new ClientData(id, lastname, firstname, null, null, null, null, null, null, null);
       contakts.add(contakt);
 

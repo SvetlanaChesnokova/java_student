@@ -27,7 +27,6 @@ public class AddNewModificationTests extends TestBase {
     app.getClientHelper().initAddNewModification("2"); //before.size()-1
     app.getClientHelper().fillAddNewForm("Vasilievna", "Vasil", "", "KOL");
     app.getClientHelper().telephoneAddNewForm("452463", "257", "27872kl");
-//GroupData group =new GroupData(before.get(before.size()-1).getId(),"test1", null, null);
     // ClientData contakt =  new ClientData("Petrova","Liza", "RF, P-T","8969631478", "@", "Liza@tre", "Petrova@erw.ru", "--", null);
     ClientData contakt =  new ClientData(before.get(before.size()-1).getId(),"Petrova","Liza", "RF, P-T","8969631478", "@", "Liza@tre", "Petrova@erw.ru", "--", null);
     app.getClientHelper().emllAddNewForm(contakt, false);
