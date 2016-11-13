@@ -4,7 +4,7 @@ package ru.stqa.pft.addressbook.model;
  * Created by Светлана on 06.11.2016.
  */
 public class ClientData {
-
+  private final String id;
   private final String p_lastname;
   private final String p_firstnam;
   private final String p_address;
@@ -22,6 +22,7 @@ public class ClientData {
 
     ClientData that = (ClientData) o;
 
+    if (id != null ? !id.equals(that.id) : that.id != null) return false;
     if (p_lastname != null ? !p_lastname.equals(that.p_lastname) : that.p_lastname != null) return false;
     return p_firstnam != null ? p_firstnam.equals(that.p_firstnam) : that.p_firstnam == null;
 
@@ -29,7 +30,8 @@ public class ClientData {
 
   @Override
   public int hashCode() {
-    int result = p_lastname != null ? p_lastname.hashCode() : 0;
+    int result = id != null ? id.hashCode() : 0;
+    result = 31 * result + (p_lastname != null ? p_lastname.hashCode() : 0);
     result = 31 * result + (p_firstnam != null ? p_firstnam.hashCode() : 0);
     return result;
   }
@@ -37,12 +39,14 @@ public class ClientData {
   @Override
   public String toString() {
     return "ClientData{" +
-            "p_lastname='" + p_lastname + '\'' +
+            "id='" + id + '\'' +
+            ", p_lastname='" + p_lastname + '\'' +
             ", p_firstnam='" + p_firstnam + '\'' +
             '}';
   }
 
   public ClientData (String p_lastname, String p_firstnam, String p_address, String p_phones, String p_email, String p_email2, String p_email3, String p_homepage, String group) {
+    this.id = null;
     this.p_lastname = p_lastname;
     this.p_firstnam = p_firstnam;
     this.p_address = p_address;
@@ -54,6 +58,18 @@ public class ClientData {
     this.group = group;
   }
 
+  public ClientData (String id, String p_lastname, String p_firstnam, String p_address, String p_phones, String p_email, String p_email2, String p_email3, String p_homepage, String group) {
+    this.id = id;
+    this.p_lastname = p_lastname;
+    this.p_firstnam = p_firstnam;
+    this.p_address = p_address;
+    this.p_phones = p_phones;
+    this.p_email = p_email;
+    this.p_email2 = p_email2;
+    this.p_email3 = p_email3;
+    this.p_homepage = p_homepage;
+    this.group = group;
+  }
 
   public String getP_email() {
     return p_email;
@@ -89,5 +105,9 @@ public class ClientData {
 
   public String getP_phones () {
     return p_phones;
+  }
+
+  public String getId() {
+    return id;
   }
 }

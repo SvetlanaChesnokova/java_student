@@ -136,9 +136,11 @@ public class ClientHelper extends HelperBase{
     for (WebElement element : elements) {
       String lastname = element.getText();
       String firstname = element.getText();
-      //String firstname = element.getText(); // надо усложнить
-      ClientData group = new ClientData(lastname, firstname, null, null, null, null, null, null, null);
-      contakts.add(group);
+      //поиск элемента внутри другого
+      String id = element.findElement(By.tagName("input")).getAttribute("id");
+      ClientData contakt = new ClientData(id, lastname, firstname, null, null, null, null, null, null, null);
+      contakts.add(contakt);
+
     }
     return contakts;
   }

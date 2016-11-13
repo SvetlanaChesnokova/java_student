@@ -90,7 +90,9 @@ public class GroupHelper extends HelperBase{
     //Цикл по списку элиментов, чтобы считать их название
     for (WebElement element : elements) {
       String name = element.getText();
-      GroupData group = new GroupData(name, null, null);
+      //поиск элемента внутри другого
+      String id = element.findElement(By.tagName("input")).getAttribute("value");
+      GroupData group = new GroupData(id, name, null, null);
       groups.add(group);
     }
    return groups;

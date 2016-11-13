@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class GroupModificationTests extends TestBase {
     //проверяем есть ли хоть одна запись для удаления
     if (! app.getGroupHelper().isThereAGroup()) {
       //если нет записи, то создаем ее
-      app.getGroupHelper().createGroup(new GroupData("test1", "test2", "test3"));
+      app.getGroupHelper().createGroup( new GroupData("test1", "test2", "test3"));
     }
     //подсчет кол-ва групп (строк) до добавления
    // int before = app.getGroupHelper().getGroupCount();
@@ -27,7 +28,8 @@ public class GroupModificationTests extends TestBase {
     //before-1 - выбор последней строки, можно указать любую с 0 по before-1
     app.getGroupHelper().selectGroup(before.size()-1);
     app.getGroupHelper().initGroupModification();
-    app.getGroupHelper().fillGroupForm(new GroupData("test1", null, null));
+    GroupData group =new GroupData(before.get(before.size()-1).getId(),"test1", null, null);
+    app.getGroupHelper().fillGroupForm(group);
     app.getGroupHelper().submitGroupModification();
     app.getGroupHelper().returnToGroupPage();
     //подсчет кол-ва групп (строк) после добавления
@@ -39,7 +41,9 @@ public class GroupModificationTests extends TestBase {
     Assert.assertEquals(after.size() , before.size());
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
-    Assert.assertEquals(before, after);
+    before.remove(before.size() - 1);
+    before.add(group);
+    Assert.assertEquals(new HashSet<Object>(before) , new HashSet<Object>(after));
 
   }
 }
