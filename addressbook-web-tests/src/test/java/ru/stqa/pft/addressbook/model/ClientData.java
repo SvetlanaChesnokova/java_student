@@ -8,12 +8,6 @@ public class ClientData {
   private final String p_lastname;
   private final String p_firstnam;
   private final String p_address;
-  private final String p_phones;
-  private final String p_email;
-  private final String p_email2;
-  private final String p_email3;
-  private final String p_homepage;
-  private  String group;
 
   @Override
   public boolean equals(Object o) {
@@ -22,7 +16,6 @@ public class ClientData {
 
     ClientData that = (ClientData) o;
 
-    if (id != that.id) return false;
     if (p_lastname != null ? !p_lastname.equals(that.p_lastname) : that.p_lastname != null) return false;
     return p_firstnam != null ? p_firstnam.equals(that.p_firstnam) : that.p_firstnam == null;
 
@@ -30,11 +23,17 @@ public class ClientData {
 
   @Override
   public int hashCode() {
-    int result = id;
-    result = 31 * result + (p_lastname != null ? p_lastname.hashCode() : 0);
+    int result = p_lastname != null ? p_lastname.hashCode() : 0;
     result = 31 * result + (p_firstnam != null ? p_firstnam.hashCode() : 0);
     return result;
   }
+
+  private final String p_phones;
+  private final String p_email;
+  private final String p_email2;
+  private final String p_email3;
+  private final String p_homepage;
+  private  String group;
 
   @Override
   public String toString() {
@@ -46,7 +45,7 @@ public class ClientData {
   }
 
   public ClientData (String p_lastname, String p_firstnam, String p_address, String p_phones, String p_email, String p_email2, String p_email3, String p_homepage, String group) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.p_lastname = p_lastname;
     this.p_firstnam = p_firstnam;
     this.p_address = p_address;

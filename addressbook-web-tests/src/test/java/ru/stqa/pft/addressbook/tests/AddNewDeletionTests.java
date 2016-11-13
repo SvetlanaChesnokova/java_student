@@ -25,7 +25,7 @@ public class AddNewDeletionTests extends TestBase {
     //int before = app.getClientHelper().getClientCount();
     List<ClientData> before = app.getClientHelper().getClientList();
     //before-1 - выбор последней строки, можно указать любую с 0 по before-1
-    app.getClientHelper().selectAddNew(0);
+    app.getClientHelper().selectAddNew(before.size()-1);
     app.getClientHelper().initAddNewDelete();
     app.getClientHelper().initAddNewAlert();
     //явное ожидание, главной страницы

@@ -75,11 +75,8 @@ public class ClientHelper extends HelperBase{
     wd.switchTo().alert().accept();
   }
 
-  public void initAddNewModification(String num) {
-    // tr[2] - строка в таблице  td[8] - столбец в таблице
-    // там находится элемент на который надо нажать для редактирования контакта
-    click(By.xpath("//table[@id='maintable']/tbody/tr["+num+"]/td[8]/a/img"));
-    // click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  public void initAddNewModification(int num) {
+    wd.findElements(By.cssSelector("img[alt='Edit']")).get(num).click();
   }
 
   public void ubdateAddNewCreation() {
@@ -134,8 +131,9 @@ public class ClientHelper extends HelperBase{
     List<WebElement> elements = wd.findElements(By.name("entry"));
     //Цикл по списку элиментов, чтобы считать их название
     for (WebElement element : elements) {
-      String lastname = element.getText();
-      String firstname = element.getText();
+      List<WebElement> stol = element.findElements(By.tagName("td"));
+      String lastname = stol.get(1).getText();
+      String firstname = stol.get(2).getText();
       //поиск элемента внутри другого
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       ClientData contakt = new ClientData(id, lastname, firstname, null, null, null, null, null, null, null);

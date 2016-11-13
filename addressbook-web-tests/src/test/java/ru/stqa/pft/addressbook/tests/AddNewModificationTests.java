@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class AddNewModificationTests extends TestBase {
     //подсчет кол-ва строк до добавления
     //int before = app.getClientHelper().getClientCount();
     List<ClientData> before = app.getClientHelper().getClientList();
-    app.getClientHelper().initAddNewModification("2"); //before.size()-1
+    app.getClientHelper().initAddNewModification(before.size()-1);
     app.getClientHelper().fillAddNewForm("Vasilievna", "Vasil", "", "KOL");
     app.getClientHelper().telephoneAddNewForm("452463", "257", "27872kl");
     // ClientData contakt =  new ClientData("Petrova","Liza", "RF, P-T","8969631478", "@", "Liza@tre", "Petrova@erw.ru", "--", null);
@@ -41,13 +42,14 @@ public class AddNewModificationTests extends TestBase {
     Assert.assertEquals(after.size() , before.size());
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
-   // Assert.assertEquals(before, after);
 
-    //before.remove(before.size() - 1);
     before.remove(before.size()-1);
     before.add(contakt);
-    Assert.assertEquals(new HashSet<Object>(before) , new HashSet<Object>(after));
-
+    Comparator<? super ClientData> byId = (g1, g2) -> Integer.compare(g1.getId(),g2.getId());
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
+   // Assert.assertEquals(new HashSet<Object>(before) , new HashSet<Object>(after));
 
   }
 

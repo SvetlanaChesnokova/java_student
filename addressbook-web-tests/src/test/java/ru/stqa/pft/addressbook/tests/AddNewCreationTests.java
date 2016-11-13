@@ -29,15 +29,6 @@ public class AddNewCreationTests extends TestBase {
 
         //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
 
-       /* int max = 0;
-        for (ClientData g : after) {
-            if (g.getId() > max) {
-                max = g.getId();
-            }
-        }
-        group.setId(max);
-        */
-
         contakt.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
         before.add(contakt);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
