@@ -17,7 +17,7 @@ public class GroupCreationTests extends TestBase {
   //  int before = app.getGroupHelper().getGroupCount();
     //для сравнения размера списка до собавления записаи
     List<GroupData> before = app.getGroupHelper().getGroupList();
-    GroupData group =new GroupData("test1", "test2", "test3");
+    GroupData group =new GroupData("test177", "test2", "test3");
     //GroupData group =new GroupData(before.get(before.size()-1).getId(),"test1", "test2", "test3");
     app.getGroupHelper().createGroup(group);
     //подсчет кол-ва групп (строк) после добавления
@@ -29,14 +29,30 @@ public class GroupCreationTests extends TestBase {
     Assert.assertEquals(after.size() , before.size()+1);
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
-
+    //первый способ сравнения ID
     int max =0;
     for (GroupData g : after){
       if (g.getId() > max) {
         max = g.getId();
       }
     }
-    group.setId(max);
+    //второй способ сравнения ID
+    //поток для сравнения, с использованием лямдо выражением
+ //   Comparator<? super GroupData> byId = (Comparator<GroupData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
+    /*
+     //поток для сравнения, с использованием анонимного класса - реализация прям тут
+      Comparator<? super GroupData> byId = new Comparator<GroupData>() {
+        @Override
+      public int compare(GroupData o1, GroupData o2) {
+        return Integer.compare(o1.getId(), o2.getId());
+      }
+    };
+
+    int max1 = after.stream().max(byId).get().getId();
+    group.setId(max1);
+     */
+    //список переводим в поток, далее сравниваем и находим мах элемент по id
+    group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
     before.add(group);
     Assert.assertEquals(new HashSet<Object>(before) , new HashSet<Object>(after));
 
