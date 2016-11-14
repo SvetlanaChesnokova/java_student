@@ -48,6 +48,17 @@ public class ClientHelper extends HelperBase{
     type(By.name("notes"), p_notes);
   }
 
+  public void modifyContact(int index, ClientData contakt, String p_middlename, String p_nickname, String p_title, String p_company, String p_home, String p_work, String p_fax, String p_address2, String p_phone2, String p_notes) {
+    initAddNewModification(index);
+    fillAddNewForm(p_middlename, p_nickname, p_title, p_company );
+    telephoneAddNewForm(p_home, p_work, p_fax);
+    secondaryAddNewForm(p_address2,p_phone2, p_notes);
+    emllAddNewForm(contakt, false);
+    ubdateAddNewCreation();
+    returnAddNewCreation();
+  }
+
+
   public void submitAddNewCreation() {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
