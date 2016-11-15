@@ -34,7 +34,13 @@ public class AddNewModificationTests extends TestBase {
     int index = before.size()-1;
     ClientData contakt =  new ClientData().withId(before.get(index).getId()).withP_lastname("Petrova").withP_firstnam("Liza")
             .withP_address("RF, P-T").withP_phones("8969631478").withP_email("Liza@tre").withP_email2("Petrova@erw.ru");
-    app.contakt().modify(index, contakt,"Vasilievna", "Vasil", "", "KOL","452463", "257", "27872kl", "P-T, Lenina 876", "987456321", "g");
+
+    ClientData dop_fill =  new ClientData().withP_middlename("Vasilievna").withP_nickname("Vasil").withP_title("ttt")
+            .withP_company("KOL");
+    ClientData dop_telephone =  new ClientData().withP_home("452463").withP_work("257").withP_fax("27872kl");
+    ClientData dop_secondary=  new ClientData().withP_address2("P-T, Lenina 876").withP_phone2("987456321").withP_notes("g");
+
+    app.contakt().modify(index, contakt, dop_fill, dop_telephone, dop_secondary);
     //подсчет кол-ва групп (строк) после добавления
     List<ClientData> after = app.contakt().list();
     //проверка, сравнение

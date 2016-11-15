@@ -14,6 +14,66 @@ public class ClientData {
   private String p_email3;
   private String p_homepage;
   private String group;
+  private String p_address2;
+  private String p_phone2;
+  private String p_notes;
+  private String p_home;
+  private String p_work;
+  private String p_fax;
+  private String p_middlename;
+  private String p_nickname;
+  private String p_title;
+  private String p_company;
+
+  public ClientData withP_home(String p_home) {
+    this.p_home = p_home;
+    return this;
+  }
+
+  public ClientData withP_work(String p_work) {
+    this.p_work = p_work;
+    return this;
+  }
+
+  public ClientData withP_fax(String p_fax) {
+    this.p_fax = p_fax;
+    return this;
+  }
+
+  public ClientData withP_middlename(String p_middlename) {
+    this.p_middlename = p_middlename;
+    return this;
+  }
+
+  public ClientData withP_nickname(String p_nickname) {
+    this.p_nickname = p_nickname;
+    return this;
+  }
+
+  public ClientData withP_title(String p_title) {
+    this.p_title = p_title;
+    return this;
+  }
+
+  public ClientData withP_company(String p_company) {
+    this.p_company = p_company;
+    return this;
+  }
+
+  public ClientData withP_address2(String p_address2) {
+    this.p_address2 = p_address2;
+    return this;
+  }
+
+  public ClientData withP_phone2(String p_phone2) {
+    this.p_phone2 = p_phone2;
+    return this;
+  }
+
+  public ClientData withP_notes(String p_notes) {
+    this.p_notes = p_notes;
+    return this;
+  }
 
   public ClientData withP_lastname(String p_lastname) {
     this.p_lastname = p_lastname;
@@ -98,6 +158,34 @@ public class ClientData {
   }
 
 
+  public String getP_home() {
+    return p_home;
+  }
+
+  public String getP_work() {
+    return p_work;
+  }
+
+  public String getP_fax() {
+    return p_fax;
+  }
+
+  public String getP_middlename() {
+    return p_middlename;
+  }
+
+  public String getP_nickname() {
+    return p_nickname;
+  }
+
+  public String getP_title() {
+    return p_title;
+  }
+
+  public String getP_company() {
+    return p_company;
+  }
+
   public String getP_email() {
     return p_email;
   }
@@ -140,5 +228,17 @@ public class ClientData {
 
   public void setId(int id) {
         this.id = id;
+  }
+
+  public String getP_address2() {
+    return p_address2;
+  }
+
+  public String getP_phone2() {
+    return p_phone2;
+  }
+
+  public String getP_notes() {
+    return p_notes;
   }
 }

@@ -28,24 +28,23 @@ public class ClientHelper extends HelperBase{
   }
 
 
-  public void fillAddNewForm(String p_middlename, String p_nickname,
-                             String p_title, String p_company) {
-    type(By.name("middlename"), p_middlename);
-    type(By.name("nickname"), p_nickname);
-    type(By.name("title"), p_title);
-    type(By.name("company"), p_company);
+  public void fillAddNewForm(ClientData clientData) {
+    type(By.name("middlename"), clientData.getP_middlename());
+    type(By.name("nickname"), clientData.getP_nickname());
+    type(By.name("title"), clientData.getP_title());
+    type(By.name("company"), clientData.getP_company());
   }
 
-  public void telephoneAddNewForm(String p_home, String p_work, String p_fax) {
-    type(By.name("home"), p_home);
-    type(By.name("work"), p_work);
-    type(By.name("fax"), p_fax);
+  public void telephoneAddNewForm(ClientData clientData) {
+    type(By.name("home"), clientData.getP_home());
+    type(By.name("work"), clientData.getP_work());
+    type(By.name("fax"), clientData.getP_fax());
   }
 
-  public void secondaryAddNewForm(String p_address2,String p_phone2, String p_notes) {
-    type(By.name("address2"), p_address2);
-    type(By.name("phone2"), p_phone2);
-    type(By.name("notes"), p_notes);
+  public void secondaryAddNewForm(ClientData clientData) {
+    type(By.name("address2"), clientData.getP_address2());
+    type(By.name("phone2"), clientData.getP_phone2());
+    type(By.name("notes"), clientData.getP_notes());
   }
 
   public void create(ClientData clientData) {
@@ -56,11 +55,12 @@ public class ClientHelper extends HelperBase{
     returnAddNewCreation();
   }
 
-  public void modify(int index, ClientData contakt, String p_middlename, String p_nickname, String p_title, String p_company, String p_home, String p_work, String p_fax, String p_address2, String p_phone2, String p_notes) {
+  public void modify(int index, ClientData contakt, ClientData dop_fill, ClientData dop_telephone, ClientData dop_secondary) {
     initAddNewModification(index);
-    fillAddNewForm(p_middlename, p_nickname, p_title, p_company );
-    telephoneAddNewForm(p_home, p_work, p_fax);
-    secondaryAddNewForm(p_address2,p_phone2, p_notes);
+    //зделала разбивку на 3и группы для наглядности заполнения формы
+    fillAddNewForm(dop_fill);
+    telephoneAddNewForm(dop_telephone);
+    secondaryAddNewForm(dop_secondary);
     emllAddNewForm(contakt, false);
     ubdateAddNewCreation();
     returnAddNewCreation();
