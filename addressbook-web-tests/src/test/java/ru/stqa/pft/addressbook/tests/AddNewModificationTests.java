@@ -4,11 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -18,30 +15,29 @@ public class AddNewModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     //вынесена, подготовка теста
-    app.getClientHelper().initAddNewHome();
-    app.getNavigationHelper().gotoHomePage();
+    app.contakt().initHome();
+    app.goTo().gotoHomePage();
     //проверяем есть ли хоть одна запись для удаления
-    if (! app.getClientHelper().isThereAClient()) {
+    if (app.contakt().list().size() == 0) {
       //если нет записи, то создаем ее
-      app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478","3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"));
+      app.contakt().create(new ClientData().withP_lastname("Sidorov").withP_firstnam("Nikolai").withP_address("RF, NSK")
+              .withP_homepage("+72589631478").withP_email("3-147-258@").withP_email2("Nikolai@tre")
+              .withP_email3("Sidorov@erw.ru"));
     }
   }
 
   @Test
   public void testAddNewModification() {
     //тест для модификации контакта
-
     //подсчет кол-ва строк до добавления
-    //int before = app.getClientHelper().getClientCount();
-    List<ClientData> before = app.getClientHelper().getClientList();
+    List<ClientData> before = app.contakt().list();
     int index = before.size()-1;
-    ClientData contakt =  new ClientData(before.get(index).getId(),"Petrova","Liza", "RF, P-T","8969631478", "@", "Liza@tre", "Petrova@erw.ru", "--", null);
-    app.getClientHelper().modifyContact(index, contakt,"Vasilievna", "Vasil", "", "KOL","452463", "257", "27872kl", "P-T, Lenina 876", "987456321", "g");
+    ClientData contakt =  new ClientData().withId(before.get(index).getId()).withP_lastname("Petrova").withP_firstnam("Liza")
+            .withP_address("RF, P-T").withP_phones("8969631478").withP_email("Liza@tre").withP_email2("Petrova@erw.ru");
+    app.contakt().modify(index, contakt,"Vasilievna", "Vasil", "", "KOL","452463", "257", "27872kl", "P-T, Lenina 876", "987456321", "g");
     //подсчет кол-ва групп (строк) после добавления
-    //int after = app.getClientHelper().getClientCount();
-    List<ClientData> after = app.getClientHelper().getClientList();
+    List<ClientData> after = app.contakt().list();
     //проверка, сравнение
-    //Assert.assertEquals(after , before);
     Assert.assertEquals(after.size() , before.size());
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
@@ -52,7 +48,6 @@ public class AddNewModificationTests extends TestBase {
     before.sort(byId);
     after.sort(byId);
     Assert.assertEquals(before, after);
-   // Assert.assertEquals(new HashSet<Object>(before) , new HashSet<Object>(after));
 
   }
 

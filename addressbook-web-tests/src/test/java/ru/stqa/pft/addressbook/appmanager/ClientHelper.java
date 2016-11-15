@@ -48,7 +48,15 @@ public class ClientHelper extends HelperBase{
     type(By.name("notes"), p_notes);
   }
 
-  public void modifyContact(int index, ClientData contakt, String p_middlename, String p_nickname, String p_title, String p_company, String p_home, String p_work, String p_fax, String p_address2, String p_phone2, String p_notes) {
+  public void create(ClientData clientData) {
+    //все шаги для создания контакта с минимальным набором данных
+    initAddNewCreation();
+    emllAddNewForm( clientData, true);
+    submitAddNewCreation();
+    returnAddNewCreation();
+  }
+
+  public void modify(int index, ClientData contakt, String p_middlename, String p_nickname, String p_title, String p_company, String p_home, String p_work, String p_fax, String p_address2, String p_phone2, String p_notes) {
     initAddNewModification(index);
     fillAddNewForm(p_middlename, p_nickname, p_title, p_company );
     telephoneAddNewForm(p_home, p_work, p_fax);
@@ -58,6 +66,11 @@ public class ClientHelper extends HelperBase{
     returnAddNewCreation();
   }
 
+  public void delete(int index) {
+    selectAddNew(index);
+    initAddNewDelete();
+    initAddNewAlert();
+  }
 
   public void submitAddNewCreation() {
     click(By.xpath("//div[@id='content']/form/input[21]"));
@@ -67,7 +80,7 @@ public class ClientHelper extends HelperBase{
     click(By.linkText("home page"));
   }
 
-  public void initAddNewHome() {
+  public void initHome() {
     click(By.linkText("home"));
   }
 
@@ -117,14 +130,6 @@ public class ClientHelper extends HelperBase{
   }
 
 
-  public void createClient(ClientData clientData) {
-    //все шаги для создания контакта с минимальным набором данных
-    initAddNewCreation();
-    emllAddNewForm( clientData, true);
-    submitAddNewCreation();
-    returnAddNewCreation();
-  }
-
   public boolean isThereAClient() {
     //проверка на наличие объекта
     return isElementPresent(By.name("selected[]"));
@@ -134,7 +139,7 @@ public class ClientHelper extends HelperBase{
       return wd.findElements(By.name("selected[]")).size();
     }
 
-  public List<ClientData> getClientList() {
+  public List<ClientData> list() {
     //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
     WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
     List<ClientData> contakts = new ArrayList<ClientData>();
@@ -147,9 +152,7 @@ public class ClientHelper extends HelperBase{
       String firstname = stol.get(2).getText();
       //поиск элемента внутри другого
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      ClientData contakt = new ClientData(id, lastname, firstname, null, null, null, null, null, null, null);
-      contakts.add(contakt);
-
+      contakts.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname));
     }
     return contakts;
   }

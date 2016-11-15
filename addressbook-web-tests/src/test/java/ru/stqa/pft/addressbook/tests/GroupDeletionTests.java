@@ -11,11 +11,11 @@ public class GroupDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     //вынесена, подготовка теста
-    app.getNavigationHelper().gotoGroupPage();
+    app.goTo().groupPage();
     //проверяем есть ли хоть одна запись для удаления
-    if (! app.getGroupHelper().isThereAGroup()) {
+    if (app.group().list().size() == 0) {
       //если нет записи, то создаем ее
-      app.getGroupHelper().createGroup( new GroupData("test1", "test2", "test3"));
+      app.group().create( new GroupData().withName("test1").withFooter("tt"));
     }
   }
 
@@ -23,29 +23,23 @@ public class GroupDeletionTests extends TestBase {
   public void testGroupDeletion() {
     //тест для удаления группы
 
-    //подсчет кол-ва групп (строк) до добавления
-   // int before = app.getGroupHelper().getGroupCount();
-    //для сравнения размера списка до собавления записаи
-    List<GroupData> before = app.getGroupHelper().getGroupList();
+    //для сравнения размера списка до обавления записаи
+    List<GroupData> before = app.group().list();
     int index = before.size()-1;
     //before-1 - выбор последней строки, можно указать любую с 0 по before-1, для удаления
-    app.getGroupHelper().selectGroup(index);
-    app.getGroupHelper().deleteSelectedGroups();
-    app.getGroupHelper().returnToGroupPage();
-    //подсчет кол-ва групп (строк) после добавления
-    //int after = app.getGroupHelper().getGroupCount();
+    app.group().delete(index);
     //для сравнения размера списка после собавления записаи
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    List<GroupData> after = app.group().list();
     //проверка, сравнение
-    //Assert.assertEquals(after , before-1);
-    Assert.assertEquals(after.size() , index);
+    Assert.assertEquals(after.size() , before.size()-1);
 
-    //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     before.remove(index);
     Assert.assertEquals(before, after);
 
 
   }
+
+
 
 
 }

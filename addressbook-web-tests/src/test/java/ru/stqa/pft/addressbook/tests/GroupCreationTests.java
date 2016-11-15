@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
@@ -13,13 +12,13 @@ public class GroupCreationTests extends TestBase {
   @Test
   public void testGroupCreation() {
     //тест для создания группы
-    app.getNavigationHelper().gotoGroupPage();
+    app.goTo().groupPage();
     //для сравнения размера списка до добавления записаи
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    GroupData group =new GroupData("test177", "test2", "test3");
-    app.getGroupHelper().createGroup(group);
+    List<GroupData> before = app.group().list();
+    GroupData group =new GroupData().withName ("test17");
+    app.group().create(group);
     //для сравнения размера списка после собавления записаи
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    List<GroupData> after = app.group().list();
     //проверка, сравнение
     Assert.assertEquals(after.size() , before.size()+1);
 
@@ -32,7 +31,7 @@ public class GroupCreationTests extends TestBase {
     after.sort(byId);
     Assert.assertEquals(before , after);
 
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
   }
 
 }

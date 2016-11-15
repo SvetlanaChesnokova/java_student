@@ -13,7 +13,7 @@ public class NavigationHelper extends HelperBase {
     super(wd);
   }
 
-  public void gotoGroupPage() {
+  public void groupPage() {
     //проветка на то что мы находимся уже на нужной странице, чтобы не переходить на нее снова
     //по наличию в заголовке имени Groups и кнопки new
     if (isElementPresent(By.tagName("h1"))

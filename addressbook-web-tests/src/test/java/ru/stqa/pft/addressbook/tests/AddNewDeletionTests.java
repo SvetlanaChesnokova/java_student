@@ -14,12 +14,14 @@ public class AddNewDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     //вынесена, подготовка теста
-    app.getClientHelper().initAddNewHome();
-    app.getNavigationHelper().gotoHomePage();
+    app.contakt().initHome();
+    app.goTo().gotoHomePage();
     //проверяем есть ли хоть одна запись для удаления
-    if (! app.getClientHelper().isThereAClient()) {
+    if (app.contakt().list().size() == 0) {
       //если нет записи, то создаем ее
-      app.getClientHelper().createClient(new ClientData("Sidorov","Nikolai", "RF, NSK","+72589631478","3-147-258@", "Nikolai@tre", "Sidorov@erw.ru", "357-1598", "test1"));
+      app.contakt().create(new ClientData().withP_lastname("Sidorov").withP_firstnam("Nikolai").withP_address("RF, NSK")
+              .withP_homepage("+72589631478").withP_email("3-147-258@").withP_email2("Nikolai@tre")
+              .withP_email3("Sidorov@erw.ru"));
     }
   }
 
@@ -29,21 +31,15 @@ public class AddNewDeletionTests extends TestBase {
     //тест для удаления контакта
 
     //подсчет кол-ва строк до добавления
-    //int before = app.getClientHelper().getClientCount();
-    List<ClientData> before = app.getClientHelper().getClientList();
+    List<ClientData> before = app.contakt().list();
     int index = before.size()-1;
     //before-1 - выбор последней строки, можно указать любую с 0 по before-1
-    app.getClientHelper().selectAddNew(index);
-    app.getClientHelper().initAddNewDelete();
-    app.getClientHelper().initAddNewAlert();
+    app.contakt().delete(index);
     //явное ожидание, главной страницы
-    //app.getClientHelper().selectp();
     //подсчет кол-ва групп (строк) после добавления
-    //int after = app.getClientHelper().getClientCount();
-    List<ClientData> after = app.getClientHelper().getClientList();
+    List<ClientData> after = app.contakt().list();
     //проверка, сравнение
-    //Assert.assertEquals(after , before-1);
-    Assert.assertEquals(after.size() , index);
+    Assert.assertEquals(after.size() , before.size()-1);
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     before.remove(index);
@@ -52,4 +48,6 @@ public class AddNewDeletionTests extends TestBase {
 
 
   }
+
+
 }
