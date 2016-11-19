@@ -13,7 +13,7 @@ public class TestBase {
   // драйверы для запуска в папке C:\tools
   // static самостаятельная глобальная переменная.
   protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
-  //protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+ // protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
  // protected static final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
   @BeforeSuite
