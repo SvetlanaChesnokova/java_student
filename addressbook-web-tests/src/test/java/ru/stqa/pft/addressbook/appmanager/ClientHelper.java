@@ -10,7 +10,9 @@ import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -66,8 +68,25 @@ public class ClientHelper extends HelperBase{
     returnAddNewCreation();
   }
 
+   public void modify(ClientData contakt, ClientData dop_fill, ClientData dop_telephone, ClientData dop_secondary) {
+    initAddNewModificationById(contakt.getId());
+    //зделала разбивку на 3и группы для наглядности заполнения формы
+    fillAddNewForm(dop_fill);
+    telephoneAddNewForm(dop_telephone);
+    secondaryAddNewForm(dop_secondary);
+    emllAddNewForm(contakt, false);
+    ubdateAddNewCreation();
+    returnAddNewCreation();
+  }
+
   public void delete(int index) {
     selectAddNew(index);
+    initAddNewDelete();
+    initAddNewAlert();
+  }
+
+  public void delete(ClientData clientData) {
+    selectAddNewById(clientData.getId());
     initAddNewDelete();
     initAddNewAlert();
   }
@@ -91,6 +110,13 @@ public class ClientHelper extends HelperBase{
     // click(By.name("selected[]"));
   }
 
+  public void selectAddNewById(int id) {
+        //выбор заданного - передаваемого из списка
+        wd.findElement(By.cssSelector("input[value='"+ id +"']")).click();
+        //выбор любого из списка
+        // click(By.name("selected[]"));
+    }
+
   public void initAddNewDelete() {
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
   }
@@ -103,11 +129,34 @@ public class ClientHelper extends HelperBase{
     wd.findElements(By.cssSelector("img[alt='Edit']")).get(num).click();
   }
 
+  public void initAddNewModificationById(int id) {
+      // получить список Web елементов, которые на тег span и класс
+      List<WebElement> elements = wd.findElements(By.name("entry"));
+      //Цикл по списку элиментов, чтобы считать их название
+      for (WebElement element : elements) {
+        //  List<WebElement> stol = element.findElements(By.tagName("td"));
+          int id_td = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+          if (id_td == id) {
+              wd.findElement(By.cssSelector("img[alt='Edit']")).click();
+          }
+          //так не работает
+          //wd.findElement(By.cssSelector("edit.php?id='"+ id +"']")).click();
+          //так не работает
+        // stol.get(7).click();
+          // и так тоже, не работает
+         // wd.findElements(By.cssSelector("img[alt='Edit']")).get(id).click();
+          //поиск элемента внутри другого           .get(num).
+        /*  int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+        wd.findElement(By.cssSelector("edit.id='"+ id +"']")).click();  */
+      }
+    }
+
   public void ubdateAddNewCreation() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
 
   public void emllAddNewForm(ClientData clientData, boolean creation) {
+
     type(By.name("lastname"), clientData.getP_lastname());
     type(By.name("firstname"), clientData.getP_firstnam());
     type(By.name("address"), clientData.getP_address());
@@ -116,14 +165,9 @@ public class ClientHelper extends HelperBase{
     type(By.name("email2"), clientData.getP_email2());
     type(By.name("email3"), clientData.getP_email3());
     type(By.name("homepage"), clientData.getP_homepage());
-     /*
-     чтобы можно было заполнять не все -- в коде должны быть проверки типа
-     if (что-то != null) {
-     заполняем поле
-     }
-      */
+
     //проверка на то какая форма создание/изменение
-   //перестало работать 19.11.16
+    // обязательно надо передавать значение параметра, при создании контакта, по которому осуществляется проверка
     if (creation){
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
     } else {
@@ -162,4 +206,24 @@ public class ClientHelper extends HelperBase{
     }
     return contakts;
   }
+
+  public Set<ClientData> all() {
+    //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
+    WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
+    Set<ClientData> contakts = new HashSet<ClientData>();
+    // получить список Web елементов, которые на тег span и класс group
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    //Цикл по списку элиментов, чтобы считать их название
+    for (WebElement element : elements) {
+      List<WebElement> stol = element.findElements(By.tagName("td"));
+      String lastname = stol.get(1).getText();
+      String firstname = stol.get(2).getText();
+      //поиск элемента внутри другого           .get(num).
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      contakts.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname));
+    }
+    return contakts;
+  }
+
+
 }

@@ -30,6 +30,27 @@ public class ClientData {
     return this;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ClientData that = (ClientData) o;
+
+    if (id != that.id) return false;
+    if (p_lastname != null ? !p_lastname.equals(that.p_lastname) : that.p_lastname != null) return false;
+    return p_firstnam != null ? p_firstnam.equals(that.p_firstnam) : that.p_firstnam == null;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (p_lastname != null ? p_lastname.hashCode() : 0);
+    result = 31 * result + (p_firstnam != null ? p_firstnam.hashCode() : 0);
+    return result;
+  }
+
   public ClientData withP_work(String p_work) {
     this.p_work = p_work;
     return this;
@@ -124,28 +145,6 @@ public class ClientData {
     this.id = id;
     return this;
   }
-
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    ClientData that = (ClientData) o;
-
-    if (p_lastname != null ? !p_lastname.equals(that.p_lastname) : that.p_lastname != null) return false;
-    return p_firstnam != null ? p_firstnam.equals(that.p_firstnam) : that.p_firstnam == null;
-
-  }
-
-  @Override
-  public int hashCode() {
-    int result = p_lastname != null ? p_lastname.hashCode() : 0;
-    result = 31 * result + (p_firstnam != null ? p_firstnam.hashCode() : 0);
-    return result;
-  }
-
 
 
   @Override
