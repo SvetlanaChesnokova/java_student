@@ -22,7 +22,7 @@ public class AddNewModificationTests extends TestBase {
       //если нет записи, то создаем ее
       app.contakt().create(new ClientData().withP_lastname("Sidorov").withP_firstnam("Nikolai").withP_address("RF, NSK")
               .withP_homepage("+72589631478").withP_email("3-147-258@").withP_email2("Nikolai@tre")
-              .withP_email3("Sidorov@erw.ru").withP_homepage("_"));
+              .withP_email3("Sidorov@erw.ru"));
     }
   }
 

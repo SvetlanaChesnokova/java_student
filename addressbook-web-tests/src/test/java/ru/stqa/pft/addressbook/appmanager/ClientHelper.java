@@ -116,12 +116,7 @@ public class ClientHelper extends HelperBase{
     type(By.name("email2"), clientData.getP_email2());
     type(By.name("email3"), clientData.getP_email3());
     type(By.name("homepage"), clientData.getP_homepage());
-     /*
-     чтобы можно было заполнять не все -- в коде должны быть проверки типа
-     if (что-то != null) {
-     заполняем поле
-     }
-      */
+
     //проверка на то какая форма создание/изменение
     if (creation){
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
@@ -146,7 +141,7 @@ public class ClientHelper extends HelperBase{
 
   public List<ClientData> list() {
     //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
-   // WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
+    WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
     List<ClientData> contakts = new ArrayList<ClientData>();
     // получить список Web елементов, которые на тег span и класс group
     List<WebElement> elements = wd.findElements(By.name("entry"));
