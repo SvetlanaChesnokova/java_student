@@ -18,6 +18,7 @@ public class AddNewCreationTests extends TestBase {
                 .withP_homepage("+72589631478").withP_email("3-147-258@").withP_email2("Nikolai@tre")
                 .withP_email3("Sidorov@erw.ru").withP_phones("357-1598").withGroup("test1");
         app.contakt().create(contakt);
+
         //подсчет кол-ва групп (строк) после добавления
         List<ClientData> after = app.contakt().list();
         //проверка, сравнение
