@@ -123,6 +123,7 @@ public class ClientHelper extends HelperBase{
      }
       */
     //проверка на то какая форма создание/изменение
+   //перестало работать 19.11.16
     if (creation){
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
     } else {

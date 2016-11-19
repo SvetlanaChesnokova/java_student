@@ -20,9 +20,13 @@ public class AddNewModificationTests extends TestBase {
     //проверяем есть ли хоть одна запись для удаления
     if (app.contakt().list().size() == 0) {
       //если нет записи, то создаем ее
-      app.contakt().create(new ClientData().withP_lastname("Sidorov").withP_firstnam("Nikolai").withP_address("RF, NSK")
+      app.contakt().create(new ClientData().withP_firstnam("Sidorov8").withP_lastname("Nikolai").withP_address("RF, NSK")
               .withP_homepage("+72589631478").withP_email("3-147-258@").withP_email2("Nikolai@tre")
-              .withP_email3("Sidorov@erw.ru").withP_homepage("_"));
+              .withP_email3("Sidorov@erw.ru").withP_phones("357-1598"));
+      /*
+
+       */
+
     }
   }
 
@@ -38,7 +42,7 @@ public class AddNewModificationTests extends TestBase {
     ClientData dop_fill =  new ClientData().withP_middlename("Vasilievna").withP_nickname("Vasil").withP_title("ttt")
             .withP_company("KOL");
     ClientData dop_telephone =  new ClientData().withP_home("452463").withP_work("257").withP_fax("27872kl");
-    ClientData dop_secondary=  new ClientData().withP_address2("P-T, Lenina 876").withP_phone2("987456321").withP_notes("g");
+    ClientData dop_secondary=  new ClientData().withP_address2("P-T, Lenina 876").withP_phone2("987456321").withP_notes("****7g");
 
     app.contakt().modify(index, contakt, dop_fill, dop_telephone, dop_secondary);
     //подсчет кол-ва групп (строк) после добавления
