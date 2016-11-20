@@ -21,4 +21,7 @@ dependencies {
 
   compile 'org.hamcrest:java-hamcrest:2.0.0.0'
 
+  //Hamcrest: улучшение внешнего вида проверок
+  compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+
 }

@@ -4,10 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Clients;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Светлана on 02.11.2016.
@@ -33,35 +36,40 @@ public class AddNewModificationTests extends TestBase {
   public void testAddNewModification() {
     //тест для модификации контакта
     //подсчет кол-ва строк до добавления
-    Set<ClientData> before = app.contakt().all();
-   // int index = before.size()-1;
-    ClientData modifClient = before.iterator().next();
+
+
+    Clients before = app.contakt().all();
+    ClientData modifClient = before.iterator().next(); ///****
     ClientData contakt =  new ClientData().withId(modifClient.getId()).withP_lastname("Igorevna96").withP_firstnam("Liza")
             .withP_address("RF, P-T").withP_phones("8969631478").withP_email("Liza@tre");//.withP_email2("Petrova@erw.ru");
 
-    ClientData dop_fill =  new ClientData().withId(modifClient.getId()).withP_middlename("Vasilievna69").withP_nickname("Gosh").withP_title("ttt")
+    ClientData dop_fill =  new ClientData().withP_middlename("Vasilievna69").withP_nickname("Gosh").withP_title("ttt")
             .withP_company("KOL");
-    ClientData dop_telephone =  new ClientData().withId(modifClient.getId()).withP_home("45246396").withP_work("257").withP_fax("27872kl");
-    ClientData dop_secondary=  new ClientData().withId(modifClient.getId()).withP_address2("96P-T, Lenina 876").withP_phone2("987456321").withP_notes("****7g");
+    ClientData dop_telephone =  new ClientData().withP_home("45246396").withP_work("257").withP_fax("27872kl");
+    ClientData dop_secondary=  new ClientData().withP_address2("96P-T, Lenina 876").withP_phone2("987456321").withP_notes("****7g");
 
     app.contakt().modify(contakt, dop_fill, dop_telephone, dop_secondary);
     //подсчет кол-ва групп (строк) после добавления
-    Set<ClientData> after = app.contakt().all();
+    Clients after = app.contakt().all();
     //проверка, сравнение
-    Assert.assertEquals(after.size() , before.size());
+    assertEquals(after.size() , before.size());
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
 
-    before.remove(modifClient);
+  /*  before.remove(modifClient);
     before.add(contakt);
     contakt.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
     contakt.withId(before.stream().mapToInt((c) -> c.getId()).max().getAsInt());
+   */
    /* Comparator<? super ClientData> byId = (g1, g2) -> Integer.compare(g1.getId(),g2.getId());
     before.sort(byId);
     after.sort(byId); */
 
 
-    Assert.assertEquals(before, after);
+    //не работает это сравнение корректно , что-то не так сортирую
+   // assertEquals(before, after);
+
+    assertThat(after, equalTo(before.withOut(modifClient).withAdded(contakt)));
 
   }
 

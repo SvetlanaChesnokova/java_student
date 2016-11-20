@@ -4,9 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Clients;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Светлана on 03.11.2016.
@@ -32,19 +37,17 @@ public class AddNewDeletionTests extends TestBase {
     //тест для удаления контакта
 
     //подсчет кол-ва строк до добавления
-    Set<ClientData> before = app.contakt().all();
+    Clients before = app.contakt().all();
     ClientData deletedClient = before.iterator().next();
     app.contakt().delete(deletedClient);
     //явное ожидание, главной страницы
     //подсчет кол-ва групп (строк) после добавления
-    Set<ClientData> after = app.contakt().all();
+    Clients after = app.contakt().all();
     //проверка, сравнение
-    Assert.assertEquals(after.size() , before.size()-1);
+    assertEquals(after.size(), before.size()-1);
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
-    before.remove(deletedClient);
-    Assert.assertEquals(before, after);
-
+    assertThat(after, equalTo(before.withOut(deletedClient)));
 
 
   }

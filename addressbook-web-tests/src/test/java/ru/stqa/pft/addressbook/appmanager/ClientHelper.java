@@ -1,18 +1,15 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
-import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Clients;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -131,7 +128,7 @@ public class ClientHelper extends HelperBase{
 
   public void initAddNewModificationById(int id) {
       // получить список Web елементов, которые на тег span и класс
-      List<WebElement> elements = wd.findElements(By.name("entry"));
+      //List<WebElement> elements = wd.findElements(By.name("entry"));
       //Цикл по списку элиментов, чтобы считать их название
      /* for (WebElement element : elements) {
         //  List<WebElement> stol = element.findElements(By.tagName("td"));
@@ -142,7 +139,7 @@ public class ClientHelper extends HelperBase{
              // break; //прерывает ЦИКл
           }          */
           //так не работает
-         // wd.findElement(By.xpath("edit.php?id='"+ id +"']")).click();
+          wd.findElement(By.xpath("//input[@id='"+ id +"']//..//..//..//img[@alt='Edit']")).click();
           //так не работает
         // stol.get(7).click();
           // и так тоже, не работает
@@ -153,7 +150,8 @@ public class ClientHelper extends HelperBase{
      // }
       //WebElement row = checkbox.findElement(By.xpath("./../.."));
       //wd.findElement(By.xpath("/center/img[alt='Edit']")).click();
-      wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr['"+ id +"']/td[8]/a/img")).click();
+     // wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr['"+ id +"']/td[8]/a/img")).click();
+      wd.findElement(By.cssSelector("//input[value='"+ id +"']/img[alt='Edit']")).click();
     }
 
   public void ubdateAddNewCreation() {
@@ -212,10 +210,10 @@ public class ClientHelper extends HelperBase{
     return contakts;
   }
 
-  public Set<ClientData> all() {
+  public Clients all() {
     //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
     WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
-    Set<ClientData> contakts = new HashSet<ClientData>();
+     Clients contakts = new Clients();
     // получить список Web елементов, которые на тег span и класс group
     List<WebElement> elements = wd.findElements(By.name("entry"));
     //Цикл по списку элиментов, чтобы считать их название
@@ -226,6 +224,8 @@ public class ClientHelper extends HelperBase{
       //поиск элемента внутри другого           .get(num).
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       contakts.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname));
+
+
     }
     return contakts;
   }
