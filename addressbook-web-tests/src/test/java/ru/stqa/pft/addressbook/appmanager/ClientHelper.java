@@ -133,14 +133,16 @@ public class ClientHelper extends HelperBase{
       // получить список Web елементов, которые на тег span и класс
       List<WebElement> elements = wd.findElements(By.name("entry"));
       //Цикл по списку элиментов, чтобы считать их название
-      for (WebElement element : elements) {
+     /* for (WebElement element : elements) {
         //  List<WebElement> stol = element.findElements(By.tagName("td"));
           int id_td = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
           if (id_td == id) {
               wd.findElement(By.cssSelector("img[alt='Edit']")).click();
-          }
+             // return;  //прерывает ЦИКл
+             // break; //прерывает ЦИКл
+          }          */
           //так не работает
-          //wd.findElement(By.cssSelector("edit.php?id='"+ id +"']")).click();
+         // wd.findElement(By.xpath("edit.php?id='"+ id +"']")).click();
           //так не работает
         // stol.get(7).click();
           // и так тоже, не работает
@@ -148,7 +150,10 @@ public class ClientHelper extends HelperBase{
           //поиск элемента внутри другого           .get(num).
         /*  int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
         wd.findElement(By.cssSelector("edit.id='"+ id +"']")).click();  */
-      }
+     // }
+      //WebElement row = checkbox.findElement(By.xpath("./../.."));
+      //wd.findElement(By.xpath("/center/img[alt='Edit']")).click();
+      wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr['"+ id +"']/td[8]/a/img")).click();
     }
 
   public void ubdateAddNewCreation() {

@@ -36,13 +36,13 @@ public class AddNewModificationTests extends TestBase {
     Set<ClientData> before = app.contakt().all();
    // int index = before.size()-1;
     ClientData modifClient = before.iterator().next();
-    ClientData contakt =  new ClientData().withId(modifClient.getId()).withP_lastname("Petrova").withP_firstnam("Liza")
+    ClientData contakt =  new ClientData().withId(modifClient.getId()).withP_lastname("Igorevna96").withP_firstnam("Liza")
             .withP_address("RF, P-T").withP_phones("8969631478").withP_email("Liza@tre");//.withP_email2("Petrova@erw.ru");
 
-    ClientData dop_fill =  new ClientData().withP_middlename("Vasilievna").withP_nickname("Vasil").withP_title("ttt")
+    ClientData dop_fill =  new ClientData().withId(modifClient.getId()).withP_middlename("Vasilievna69").withP_nickname("Gosh").withP_title("ttt")
             .withP_company("KOL");
-    ClientData dop_telephone =  new ClientData().withP_home("452463").withP_work("257").withP_fax("27872kl");
-    ClientData dop_secondary=  new ClientData().withP_address2("P-T, Lenina 876").withP_phone2("987456321").withP_notes("****7g");
+    ClientData dop_telephone =  new ClientData().withId(modifClient.getId()).withP_home("45246396").withP_work("257").withP_fax("27872kl");
+    ClientData dop_secondary=  new ClientData().withId(modifClient.getId()).withP_address2("96P-T, Lenina 876").withP_phone2("987456321").withP_notes("****7g");
 
     app.contakt().modify(contakt, dop_fill, dop_telephone, dop_secondary);
     //подсчет кол-ва групп (строк) после добавления
@@ -54,9 +54,13 @@ public class AddNewModificationTests extends TestBase {
 
     before.remove(modifClient);
     before.add(contakt);
+    contakt.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
+    contakt.withId(before.stream().mapToInt((c) -> c.getId()).max().getAsInt());
    /* Comparator<? super ClientData> byId = (g1, g2) -> Integer.compare(g1.getId(),g2.getId());
     before.sort(byId);
     after.sort(byId); */
+
+
     Assert.assertEquals(before, after);
 
   }
