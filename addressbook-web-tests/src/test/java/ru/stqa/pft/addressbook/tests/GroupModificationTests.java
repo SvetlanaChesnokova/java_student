@@ -34,10 +34,11 @@ public class GroupModificationTests extends TestBase {
     GroupData group =new GroupData().withId(modifiedGroup.getId()).withName("test1")
             .withFooter("test2").withHeader("abc");
     app.group().modify(group);
-    //для сравнения размера списка после собавления записаи
+      //проверка, сравнение
+     //Хеширование и предварительные проверки при использовании более быстрой операции  app.group().count()
+      assertThat(app.group().count()  , equalTo(before.size()));
+    //для сравнения размера списка после добавления записаи, загрузка данных
     Groups after = app.group().all();
-    //проверка, сравнение
-    assertEquals(after.size() , before.size());
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     assertThat(after, equalTo(before.withOut(modifiedGroup).withAdded(group)));

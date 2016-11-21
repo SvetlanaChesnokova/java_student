@@ -34,11 +34,13 @@ public class GroupDeletionTests extends TestBase {
     Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
-    //для сравнения размера списка после собавления записаи
+      //проверка, сравнение
+    //Хеширование и предварительные проверки при использовании более быстрой операции  app.group().count()
+      assertThat(app.group().count()  , equalTo(before.size()-1));
+    //для сравнения размера списка после удаления записаи  , загрузка данных
     Groups after = app.group().all();
-    //проверка, сравнение
-    assertEquals(after.size() , before.size()-1);
-      //проверялка на совпадение 2-х элиментов - объектов
+
+     //проверялка на совпадение 2-х элиментов - объектов
     assertThat(after, equalTo(before.withOut(deletedGroup)));
   }
 

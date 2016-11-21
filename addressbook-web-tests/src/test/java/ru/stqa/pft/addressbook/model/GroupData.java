@@ -19,6 +19,7 @@ public class GroupData {
 
   }
 
+  //hashCode - способ ускорения проверки, если hashCode не совпал, то дальше проверку equals можно не делать
   @Override
   public int hashCode() {
     int result = id;

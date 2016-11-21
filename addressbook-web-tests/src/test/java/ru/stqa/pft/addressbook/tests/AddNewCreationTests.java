@@ -21,15 +21,30 @@ public class AddNewCreationTests extends TestBase {
                 .withP_email2("Nikolai@tre").withP_email3("Sidorov@erw.ru").withP_phones("357-1598")
                 .withGroup("test17");
         app.contakt().create(contakt);
-
+        //проверка, сравнение
+        assertThat(app.contakt().count(), equalTo(before.size()+1));
         //подсчет кол-ва групп (строк) после добавления
         Clients after = app.contakt().all();
-        //проверка, сравнение
-        assertEquals(after.size(), before.size() + 1);
 
         //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
         assertThat(after, equalTo(before.withAdded(
                 contakt.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+    }
+
+    @Test
+    public void testBadAddNewCreation() {
+        //тест для создания контакта
+        //подсчет кол-ва строк до добавления
+        Clients before = app.contakt().all();
+        ClientData contakt =  new ClientData().withP_firstnam("Sidorov8 это негативный тест ' - на запрет апострофа").withP_lastname("Nikolai")
+                .withP_address("RF, NSK").withP_homepage("+72589631478").withGroup("test17");
+        app.contakt().create(contakt);
+        //проверка, сравнение
+        assertThat(app.contakt().count(), equalTo(before.size()));
+       //подсчет кол-ва групп (строк) после добавления
+        Clients after = app.contakt().all();
+        //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
+        assertThat(after, equalTo(before));
     }
 
 }

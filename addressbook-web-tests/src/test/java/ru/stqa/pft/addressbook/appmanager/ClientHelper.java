@@ -124,9 +124,11 @@ public class ClientHelper extends HelperBase{
   }
 
 
-  public boolean isThereAClient() {
-    //проверка на наличие объекта
-    return isElementPresent(By.name("selected[]"));
+  //поменяла на список элементов
+  public int count() {
+    //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
+    WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
+    return wd.findElements(By.name("selected[]")).size();
   }
 
   private Clients clientCache = null;

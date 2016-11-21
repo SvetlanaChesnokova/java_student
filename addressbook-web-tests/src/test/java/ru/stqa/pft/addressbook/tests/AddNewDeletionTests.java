@@ -39,10 +39,11 @@ public class AddNewDeletionTests extends TestBase {
     Clients before = app.contakt().all();
     ClientData deletedClient = before.iterator().next();
     app.contakt().delete(deletedClient);
+
+    //проверка, сравнение
+    assertThat(app.contakt().count(), equalTo(before.size()-1));
     //подсчет кол-ва групп (строк) после добавления
     Clients after = app.contakt().all();
-    //проверка, сравнение
-    assertEquals(after.size(), before.size()-1);
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     assertThat(after, equalTo(before.withOut(deletedClient)));
