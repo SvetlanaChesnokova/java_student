@@ -26,14 +26,14 @@ public class Clients  extends ForwardingSet<ClientData> {
         return delegate;
     }
 
-    //добавление
+    //добавление  контакта
     public Clients withAdded (ClientData client)  {
         Clients clients = new Clients(this);
         clients.add(client);
         return clients;
     }
 
-    //добавлудаление
+    //удаление контакта
     public Clients withOut (ClientData client)  {
         Clients clients = new Clients(this);
         clients.remove(client);

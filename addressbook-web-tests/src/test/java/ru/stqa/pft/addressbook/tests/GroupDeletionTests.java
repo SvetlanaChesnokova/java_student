@@ -29,7 +29,6 @@ public class GroupDeletionTests extends TestBase {
   @Test
   public void testGroupDeletion() {
     //тест для удаления группы
-
     //для сравнения размера списка до добавления записаи
     //Set - возвращает множество элементов
     Groups before = app.group().all();
@@ -41,11 +40,7 @@ public class GroupDeletionTests extends TestBase {
     assertEquals(after.size() , before.size()-1);
       //проверялка на совпадение 2-х элиментов - объектов
     assertThat(after, equalTo(before.withOut(deletedGroup)));
-
-
-
   }
-
 
 
 

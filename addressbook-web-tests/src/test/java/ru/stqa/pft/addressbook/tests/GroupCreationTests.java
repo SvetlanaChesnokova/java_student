@@ -22,9 +22,6 @@ public class GroupCreationTests extends TestBase {
     //проверка, сравнение
       assertThat(after.size() , equalTo(before.size()+1));
 
-    //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
-
-
       //проверялка на совпадение 2-х элиментов - объектов
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));

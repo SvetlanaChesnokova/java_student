@@ -35,12 +35,10 @@ public class AddNewDeletionTests extends TestBase {
   @Test
   public void testAddNewDeletion(){
     //тест для удаления контакта
-
     //подсчет кол-ва строк до добавления
     Clients before = app.contakt().all();
     ClientData deletedClient = before.iterator().next();
     app.contakt().delete(deletedClient);
-    //явное ожидание, главной страницы
     //подсчет кол-ва групп (строк) после добавления
     Clients after = app.contakt().all();
     //проверка, сравнение

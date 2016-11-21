@@ -64,7 +64,6 @@ public class GroupHelper extends HelperBase{
    //WebElement selected = wd.findElement(By.name("selected[]"));
    //Работает, явное ожидание
     WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
-
   }
 
   public void create(GroupData group) {
