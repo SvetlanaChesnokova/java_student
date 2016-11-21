@@ -31,21 +31,23 @@ public class ClientHelper extends HelperBase{
     initAddNewCreation();
     emllAddNewForm( clientData, true);
     submitAddNewCreation();
+    clientCache = null;
     returnAddNewCreation();
   }
 
 
    public void modify(ClientData contakt) {
     initAddNewModificationById(contakt.getId());
-    //зделала разбивку на 3и группы для наглядности заполнения формы
     emllAddNewForm(contakt, false);
     ubdateAddNewCreation();
+    clientCache = null;
     returnAddNewCreation();
   }
 
   public void delete(ClientData clientData) {
     selectAddNewById(clientData.getId());
     initAddNewDelete();
+    clientCache = null;
     initAddNewAlert();
   }
 
@@ -127,10 +129,15 @@ public class ClientHelper extends HelperBase{
     return isElementPresent(By.name("selected[]"));
   }
 
+  private Clients clientCache = null;
+
   public Clients all() {
+      if (clientCache != null) {
+          return  new Clients(clientCache);
+      }
     //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
     WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
-     Clients contakts = new Clients();
+     clientCache = new Clients();
     // получить список Web елементов, которые на тег span и класс group
     List<WebElement> elements = wd.findElements(By.name("entry"));
     //Цикл по списку элиментов, чтобы считать их название
@@ -140,11 +147,11 @@ public class ClientHelper extends HelperBase{
       String firstname = stol.get(2).getText();
       //поиск элемента внутри другого           .get(num).
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contakts.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname));
+      clientCache.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname));
 
 
     }
-    return contakts;
+    return new Clients(clientCache);
   }
 
 
