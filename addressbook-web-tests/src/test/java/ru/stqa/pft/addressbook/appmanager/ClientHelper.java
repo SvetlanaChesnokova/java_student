@@ -54,16 +54,6 @@ public class ClientHelper extends HelperBase{
     returnAddNewCreation();
   }
 
-  public void modify(int index, ClientData contakt, ClientData dop_fill, ClientData dop_telephone, ClientData dop_secondary) {
-    initAddNewModification(index);
-    //зделала разбивку на 3и группы для наглядности заполнения формы
-    fillAddNewForm(dop_fill);
-    telephoneAddNewForm(dop_telephone);
-    secondaryAddNewForm(dop_secondary);
-    emllAddNewForm(contakt, false);
-    ubdateAddNewCreation();
-    returnAddNewCreation();
-  }
 
    public void modify(ClientData contakt, ClientData dop_fill, ClientData dop_telephone, ClientData dop_secondary) {
     initAddNewModificationById(contakt.getId());
@@ -74,12 +64,6 @@ public class ClientHelper extends HelperBase{
     emllAddNewForm(contakt, false);
     ubdateAddNewCreation();
     returnAddNewCreation();
-  }
-
-  public void delete(int index) {
-    selectAddNew(index);
-    initAddNewDelete();
-    initAddNewAlert();
   }
 
   public void delete(ClientData clientData) {
@@ -100,15 +84,9 @@ public class ClientHelper extends HelperBase{
     click(By.linkText("home"));
   }
 
-  public void selectAddNew(int index) {
-    //выбор заданного - передаваемого из списка
-    wd.findElements(By.name("selected[]")).get(index).click();
-    //выбор любого из списка
-    // click(By.name("selected[]"));
-  }
 
   public void selectAddNewById(int id) {
-        //выбор заданного - передаваемого из списка
+        //выбор заданного - передаваемого из теста
         wd.findElement(By.cssSelector("input[value='"+ id +"']")).click();
         //выбор любого из списка
         // click(By.name("selected[]"));
@@ -122,36 +100,10 @@ public class ClientHelper extends HelperBase{
     wd.switchTo().alert().accept();
   }
 
-  public void initAddNewModification(int num) {
-    wd.findElements(By.cssSelector("img[alt='Edit']")).get(num).click();
-  }
 
   public void initAddNewModificationById(int id) {
-      // получить список Web елементов, которые на тег span и класс
-      //List<WebElement> elements = wd.findElements(By.name("entry"));
-      //Цикл по списку элиментов, чтобы считать их название
-     /* for (WebElement element : elements) {
-        //  List<WebElement> stol = element.findElements(By.tagName("td"));
-          int id_td = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-          if (id_td == id) {
-              wd.findElement(By.cssSelector("img[alt='Edit']")).click();
-             // return;  //прерывает ЦИКл
-             // break; //прерывает ЦИКл
-          }          */
-          //так не работает
-          wd.findElement(By.xpath("//input[@id='"+ id +"']//..//..//..//img[@alt='Edit']")).click();
-          //так не работает
-        // stol.get(7).click();
-          // и так тоже, не работает
-         // wd.findElements(By.cssSelector("img[alt='Edit']")).get(id).click();
-          //поиск элемента внутри другого           .get(num).
-        /*  int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-        wd.findElement(By.cssSelector("edit.id='"+ id +"']")).click();  */
-     // }
-      //WebElement row = checkbox.findElement(By.xpath("./../.."));
-      //wd.findElement(By.xpath("/center/img[alt='Edit']")).click();
-     // wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr['"+ id +"']/td[8]/a/img")).click();
-      wd.findElement(By.cssSelector("//input[value='"+ id +"']/img[alt='Edit']")).click();
+          //wd.findElements(By.cssSelector("img[alt='Edit']")).get(num).click();
+          wd.findElement(By.xpath("//input[@id='"+ id +"']//..//..//img[@alt='Edit']")).click();
     }
 
   public void ubdateAddNewCreation() {
@@ -186,28 +138,6 @@ public class ClientHelper extends HelperBase{
   public boolean isThereAClient() {
     //проверка на наличие объекта
     return isElementPresent(By.name("selected[]"));
-  }
-
-    public int getClientCount() {
-      return wd.findElements(By.name("selected[]")).size();
-    }
-
-  public List<ClientData> list() {
-    //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
-   // WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
-    List<ClientData> contakts = new ArrayList<ClientData>();
-    // получить список Web елементов, которые на тег span и класс group
-    List<WebElement> elements = wd.findElements(By.name("entry"));
-    //Цикл по списку элиментов, чтобы считать их название
-    for (WebElement element : elements) {
-      List<WebElement> stol = element.findElements(By.tagName("td"));
-      String lastname = stol.get(1).getText();
-      String firstname = stol.get(2).getText();
-      //поиск элемента внутри другого
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      contakts.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname));
-    }
-    return contakts;
   }
 
   public Clients all() {
