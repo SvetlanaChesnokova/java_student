@@ -40,10 +40,10 @@ public class AddNewModificationTests extends TestBase {
             .withP_phone2("987456321").withP_notes("****7g");
 
     app.contakt().modify(contakt);
+    //проверка, сравнение
+    assertThat(app.contakt().count(), equalTo(before.size()));
     //подсчет кол-ва групп (строк) после добавления
     Clients after = app.contakt().all();
-    //проверка, сравнение
-    assertEquals(after.size() , before.size());
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     assertThat(after, equalTo(before.withOut(modifClient).withAdded(contakt)));
