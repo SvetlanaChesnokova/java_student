@@ -18,7 +18,7 @@ public class GroupModificationTests extends TestBase {
   public void ensurePreconditions(){
     //вынесена, подготовка теста
     app.goTo().groupPage();
-    //проверяем есть ли хоть одна запись для удаления
+    //проверяем есть ли хоть одна запись для модификации
     if (app.group().all().size() == 0) {
       //если нет записи, то создаем ее
       app.group().create( new GroupData().withName("test3"));

@@ -27,7 +27,8 @@ public class AddNewDeletionTests extends TestBase {
       //если нет записи, то создаем ее
       app.contakt().create(new ClientData().withP_lastname("Sidorov").withP_firstnam("Nikolai").withP_address("RF, NSK")
               .withP_phones("+72589631478").withP_email("3-147-258@").withP_email2("Nikolai@tre")
-              .withP_email3("Sidorov@erw.ru").withP_homepage("ttt").withGroup("test17"));
+              .withP_email3("Sidorov@erw.ru").withP_homepage("ttt").withGroup("test17")
+              .withP_home("741 85").withP_work("858(41) 4757"));
     }
   }
 

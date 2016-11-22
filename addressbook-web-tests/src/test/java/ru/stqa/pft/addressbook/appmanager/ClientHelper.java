@@ -93,22 +93,54 @@ public class ClientHelper extends HelperBase{
 
     type(By.name("lastname"), clientData.getP_lastname());
     type(By.name("firstname"), clientData.getP_firstnam());
-    type(By.name("address"), clientData.getP_address());
-    type(By.name("mobile"), clientData.getP_phones());
-    type(By.name("email"), clientData.getP_email());
-    type(By.name("email2"), clientData.getP_email2());
-    type(By.name("email3"), clientData.getP_email3());
     type(By.name("homepage"), clientData.getP_homepage());
     type(By.name("middlename"), clientData.getP_middlename());
     type(By.name("nickname"), clientData.getP_nickname());
     type(By.name("title"), clientData.getP_title());
     type(By.name("company"), clientData.getP_company());
-    type(By.name("home"), clientData.getP_home());
-    type(By.name("work"), clientData.getP_work());
     type(By.name("fax"), clientData.getP_fax());
     type(By.name("address2"), clientData.getP_address2());
     type(By.name("phone2"), clientData.getP_phone2());
     type(By.name("notes"), clientData.getP_notes());
+    type(By.name("address"), clientData.getP_address());
+
+    //сделала для себя проверку, на случай если не заполню поля, которые не должны быть пустыми
+    if (clientData.getP_phones() != null ) {
+      type(By.name("mobile"), clientData.getP_phones());
+    } else {
+      type(By.name("mobile"), "нет_данных");
+    }
+
+    if (clientData.getP_home() != null ) {
+      type(By.name("home"), clientData.getP_home());
+    } else {
+      type(By.name("home"), "нет_данных");
+    }
+
+    if (clientData.getP_work() != null ) {
+      type(By.name("work"), clientData.getP_work());
+    } else {
+      type(By.name("work"), "нет_данных");
+    }
+
+    if (clientData.getP_email() != null ) {
+      type(By.name("email"), clientData.getP_email());
+    } else {
+      type(By.name("email"), "нет_данных");
+    }
+
+    if (clientData.getP_email2() != null ) {
+      type(By.name("email2"), clientData.getP_email2());
+    } else {
+      type(By.name("email2"), "нет_данных");
+    }
+
+    if (clientData.getP_email3() != null ) {
+      type(By.name("email3"), clientData.getP_email3());
+    } else {
+      type(By.name("email3"), "нет_данных");
+    }
+
 
     //проверка на то какая форма создание/изменение
     // обязательно надо передавать значение параметра, при создании контакта, по которому осуществляется проверка
@@ -145,16 +177,47 @@ public class ClientHelper extends HelperBase{
     //Цикл по списку элиментов, чтобы считать их название
     for (WebElement element : elements) {
       List<WebElement> stol = element.findElements(By.tagName("td"));
-      String lastname = stol.get(1).getText();
-      String firstname = stol.get(2).getText();
       //поиск элемента внутри другого           .get(num).
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      clientCache.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname));
-
-
+      String lastname = stol.get(1).getText();
+      String firstname = stol.get(2).getText();
+      //разбиваем строку телефонов на фрагменты, спомощью split("\n")
+      String [] phones = stol.get(5).getText().split("\n");
+      clientCache.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname)
+                 .withP_home(phones[0]).withP_phones(phones[1]).withP_work(phones[2]));
     }
     return new Clients(clientCache);
   }
 
 
+    public ClientData infoFromEditForm(ClientData contact) {
+     initContactModificationById(contact.getId());
+     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+     String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+     String home = wd.findElement(By.name("home")).getAttribute("value");
+     String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+     String work = wd.findElement(By.name("work")).getAttribute("value");
+     wd.navigate().back();
+     return new ClientData().withId(contact.getId()).withP_firstnam(firstname).withP_lastname(lastname)
+             .withP_home(home).withP_phones(mobile).withP_work(work);
+    }
+
+  private void initContactModificationById(int id) {
+    //Несколько способов поиска и обращения к объекту, редактирования формы:
+    //1-й способ, состоит из 4-х строк
+    // %s- искользуется как переменное значение в коде в которое можно подставить даннные, как :id -в оракле
+    WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+    //поднятие на 2-а уровня выше , к родительскому дереву
+    WebElement row = checkbox.findElement(By.xpath("./../.."));
+    List<WebElement> cells = row.findElements(By.tagName("td"));
+    cells.get(7).findElement(By.tagName("a")).click();
+
+    //2-й способ
+    //wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a",id))).click();
+    //3-й способ
+    //wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click();
+    //4-й способ
+    //wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+
+  }
 }
