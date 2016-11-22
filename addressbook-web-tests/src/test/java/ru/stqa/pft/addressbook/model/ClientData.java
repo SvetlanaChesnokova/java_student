@@ -24,6 +24,20 @@ public class ClientData {
   private String p_nickname;
   private String p_title;
   private String p_company;
+  private String allPhones;
+
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public ClientData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    //  возвращает this, для вытягивания в цепочку
+    return this;
+  }
+
+
 
   public ClientData withP_home(String p_home) {
     this.p_home = p_home;

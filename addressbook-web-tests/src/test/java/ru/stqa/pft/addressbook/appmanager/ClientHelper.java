@@ -104,8 +104,15 @@ public class ClientHelper extends HelperBase{
     type(By.name("notes"), clientData.getP_notes());
     type(By.name("address"), clientData.getP_address());
 
+    type(By.name("mobile"), clientData.getP_phones());
+    type(By.name("home"), clientData.getP_home());
+    type(By.name("work"), clientData.getP_work());
+    type(By.name("email"), clientData.getP_email());
+    type(By.name("email2"), clientData.getP_email2());
+    type(By.name("email3"), clientData.getP_email3());
+
     //сделала для себя проверку, на случай если не заполню поля, которые не должны быть пустыми
-    if (clientData.getP_phones() != null ) {
+  /*  if (clientData.getP_phones() != null ) {
       type(By.name("mobile"), clientData.getP_phones());
     } else {
       type(By.name("mobile"), "нет_данных");
@@ -139,7 +146,7 @@ public class ClientHelper extends HelperBase{
       type(By.name("email3"), clientData.getP_email3());
     } else {
       type(By.name("email3"), "нет_данных");
-    }
+    }    */
 
 
     //проверка на то какая форма создание/изменение
@@ -182,9 +189,11 @@ public class ClientHelper extends HelperBase{
       String lastname = stol.get(1).getText();
       String firstname = stol.get(2).getText();
       //разбиваем строку телефонов на фрагменты, спомощью split("\n")
-      String [] phones = stol.get(5).getText().split("\n");
+      //String [] phones = stol.get(5).getText().split("\n");
+      String allphones = stol.get(5).getText();
       clientCache.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname)
-                 .withP_home(phones[0]).withP_phones(phones[1]).withP_work(phones[2]));
+              .withAllPhones(allphones));
+             // .withP_home(phones[0]).withP_phones(phones[1]).withP_work(phones[2]));
     }
     return new Clients(clientCache);
   }

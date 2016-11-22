@@ -5,6 +5,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -38,13 +41,19 @@ public class ContactPhoneTests extends TestBase {
         //загрузка контактов с сайта, из формы редактирования, для дальнейшего сравнения
         ClientData contactInfoFromEditFotm = app.contakt().infoFromEditForm(contact);
 
-        MatcherAssert.assertThat(contact.getP_home(), equalTo(cleaned(contactInfoFromEditFotm.getP_home())));
-        MatcherAssert.assertThat(contact.getP_phones(), equalTo(cleaned(contactInfoFromEditFotm.getP_phones())));
-        MatcherAssert.assertThat(contact.getP_work(), equalTo(cleaned(contactInfoFromEditFotm.getP_work())));
-
+        //обратный метод проверок
+        MatcherAssert.assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditFotm)));
     }
 
-    private String cleaned(String phone) {
+    private String mergePhones(ClientData contact) {
+        //фильтрация и склеивание строк
+        return Arrays.asList(contact.getP_home(),contact.getP_phones(),contact.getP_work())
+                .stream().filter((s) ->! s.equals(""))
+                .map(ContactPhoneTests::cleaned)
+                .collect(Collectors.joining("\n"));
+    }
+
+    private static String cleaned(String phone) {
         //убираем из записи пробел , записывается так: "\\s"
         //убираем из записи () скобки и знак тире - , записывается так: "[-()]"
         //можно указать так: replaceAll("[a-z]", "") - это для замены определенного вида на пробел, в данном случае букв.
