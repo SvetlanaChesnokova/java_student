@@ -41,7 +41,7 @@ public class ContactPhoneTests extends TestBase {
         //загрузка контактов с сайта, из формы редактирования, для дальнейшего сравнения
         ClientData contactInfoFromEditFotm = app.contakt().infoFromEditForm(contact);
 
-        //обратный метод проверок
+        //метод обратной проверки
         MatcherAssert.assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditFotm)));
     }
 
