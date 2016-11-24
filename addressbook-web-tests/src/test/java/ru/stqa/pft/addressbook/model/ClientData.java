@@ -25,6 +25,16 @@ public class ClientData {
   private String p_title;
   private String p_company;
   private String allPhones;
+  private String allEmail;
+
+  public String getAllEmail() {
+    return allEmail;
+  }
+
+  public ClientData withAllEmail(String allEmail) {
+    this.allEmail = allEmail;
+    return this;
+  }
 
 
   public String getAllPhones() {

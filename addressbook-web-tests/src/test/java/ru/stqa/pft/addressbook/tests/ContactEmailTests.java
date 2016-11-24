@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
- * Created by chesnokova.sa on 22.11.2016.
+ * Created by chesnokova.sa on 25.11.2016.
  */
-public class ContactPhoneTests extends TestBase {
+public class ContactEmailTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
@@ -32,7 +32,7 @@ public class ContactPhoneTests extends TestBase {
 
 
     @Test
-    public void testContactPhones() {
+    public void testContactEmail (){
         //переходим на главную страницу
         app.goTo().gotoHomePage();
         //загружаем множество контактов, выбор случайным образом
@@ -41,21 +41,22 @@ public class ContactPhoneTests extends TestBase {
         ClientData contactInfoFromEditFotm = app.contakt().infoFromEditForm(contact);
 
         //метод обратной проверки
-        MatcherAssert.assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditFotm)));
+        MatcherAssert.assertThat(contact.getAllEmail(), equalTo(mergeEmail(contactInfoFromEditFotm)));
+
     }
 
-    private String mergePhones(ClientData contact) {
+    private String  mergeEmail(ClientData contact) {
         //фильтрация и склеивание строк
-        return Arrays.asList(contact.getP_home(),contact.getP_phones(),contact.getP_work())
+        return Arrays.asList(contact.getP_email(),contact.getP_email2(),contact.getP_email3())
                 .stream().filter((s) ->! s.equals(""))
-                .map(ContactPhoneTests::cleaned)
+                .map(ContactEmailTests::cleaned)
                 .collect(Collectors.joining("\n"));
     }
 
     private static String cleaned(String phone) {
         //убираем из записи пробел , записывается так: "\\s"
-        //убираем из записи () скобки и знак тире - , записывается так: "[-()]"
-        //можно указать так: replaceAll("[a-z]", "") - это для замены определенного вида на пробел, в данном случае букв.
-        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+        return phone.replaceAll("\\s", "");
     }
+
+
 }

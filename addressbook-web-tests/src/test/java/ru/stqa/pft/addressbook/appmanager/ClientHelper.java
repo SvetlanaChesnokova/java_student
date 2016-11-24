@@ -111,43 +111,6 @@ public class ClientHelper extends HelperBase{
     type(By.name("email2"), clientData.getP_email2());
     type(By.name("email3"), clientData.getP_email3());
 
-    //сделала для себя проверку, на случай если не заполню поля, которые не должны быть пустыми
-  /*  if (clientData.getP_phones() != null ) {
-      type(By.name("mobile"), clientData.getP_phones());
-    } else {
-      type(By.name("mobile"), "нет_данных");
-    }
-
-    if (clientData.getP_home() != null ) {
-      type(By.name("home"), clientData.getP_home());
-    } else {
-      type(By.name("home"), "нет_данных");
-    }
-
-    if (clientData.getP_work() != null ) {
-      type(By.name("work"), clientData.getP_work());
-    } else {
-      type(By.name("work"), "нет_данных");
-    }
-
-    if (clientData.getP_email() != null ) {
-      type(By.name("email"), clientData.getP_email());
-    } else {
-      type(By.name("email"), "нет_данных");
-    }
-
-    if (clientData.getP_email2() != null ) {
-      type(By.name("email2"), clientData.getP_email2());
-    } else {
-      type(By.name("email2"), "нет_данных");
-    }
-
-    if (clientData.getP_email3() != null ) {
-      type(By.name("email3"), clientData.getP_email3());
-    } else {
-      type(By.name("email3"), "нет_данных");
-    }    */
-
 
     //проверка на то какая форма создание/изменение
     // обязательно надо передавать значение параметра, при создании контакта, по которому осуществляется проверка
@@ -188,11 +151,13 @@ public class ClientHelper extends HelperBase{
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       String lastname = stol.get(1).getText();
       String firstname = stol.get(2).getText();
+      String address = stol.get(3).getText();
+      String allemail = stol.get(4).getText();
       //разбиваем строку телефонов на фрагменты, спомощью split("\n")
       //String [] phones = stol.get(5).getText().split("\n");
       String allphones = stol.get(5).getText();
       clientCache.add(new ClientData().withId(id).withP_lastname(lastname).withP_firstnam(firstname)
-              .withAllPhones(allphones));
+              .withAllPhones(allphones).withAllEmail(allemail).withP_address(address));
              // .withP_home(phones[0]).withP_phones(phones[1]).withP_work(phones[2]));
     }
     return new Clients(clientCache);
@@ -206,9 +171,14 @@ public class ClientHelper extends HelperBase{
      String home = wd.findElement(By.name("home")).getAttribute("value");
      String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
      String work = wd.findElement(By.name("work")).getAttribute("value");
+     String email = wd.findElement(By.name("email")).getAttribute("value");
+     String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+     String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+     String address = wd.findElement(By.name("address")).getAttribute("value");
      wd.navigate().back();
      return new ClientData().withId(contact.getId()).withP_firstnam(firstname).withP_lastname(lastname)
-             .withP_home(home).withP_phones(mobile).withP_work(work);
+             .withP_home(home).withP_phones(mobile).withP_work(work).withP_email(email).withP_email2(email2)
+             .withP_email3(email3).withP_address(address);
     }
 
   private void initContactModificationById(int id) {

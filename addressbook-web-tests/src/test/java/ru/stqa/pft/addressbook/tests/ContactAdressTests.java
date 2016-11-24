@@ -1,19 +1,16 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Created by chesnokova.sa on 22.11.2016.
+ * Created by chesnokova.sa on 25.11.2016.
  */
-public class ContactPhoneTests extends TestBase {
+public class ContactAdressTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
@@ -30,32 +27,18 @@ public class ContactPhoneTests extends TestBase {
         }
     }
 
-
     @Test
-    public void testContactPhones() {
+    public void testContactAdress  () {
         //переходим на главную страницу
         app.goTo().gotoHomePage();
         //загружаем множество контактов, выбор случайным образом
         ClientData contact = app.contakt().all().iterator().next();
         //загрузка контактов с сайта, из формы редактирования, для дальнейшего сравнения
-        ClientData contactInfoFromEditFotm = app.contakt().infoFromEditForm(contact);
+        ClientData contactInfoFromEditForm = app.contakt().infoFromEditForm(contact);
+        //проверка обычная
+        assertThat(contact.getP_address(), equalTo(contactInfoFromEditForm.getP_address()));
 
-        //метод обратной проверки
-        MatcherAssert.assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditFotm)));
     }
 
-    private String mergePhones(ClientData contact) {
-        //фильтрация и склеивание строк
-        return Arrays.asList(contact.getP_home(),contact.getP_phones(),contact.getP_work())
-                .stream().filter((s) ->! s.equals(""))
-                .map(ContactPhoneTests::cleaned)
-                .collect(Collectors.joining("\n"));
-    }
 
-    private static String cleaned(String phone) {
-        //убираем из записи пробел , записывается так: "\\s"
-        //убираем из записи () скобки и знак тире - , записывается так: "[-()]"
-        //можно указать так: replaceAll("[a-z]", "") - это для замены определенного вида на пробел, в данном случае букв.
-        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
-}

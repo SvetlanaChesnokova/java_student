@@ -35,10 +35,10 @@ public class AddNewModificationTests extends TestBase {
     Clients before = app.contakt().all();
     ClientData modifClient = before.iterator().next();
     ClientData contakt =  new ClientData().withId(modifClient.getId()).withP_lastname("Igorevna96").withP_firstnam("Liza")
-            .withP_address("RF, P-T").withP_phones("896-963-1478").withP_email("Liza@tre").withP_email2("Petrova@erw.ru")
+            .withP_address("RF, P-T xmxmxm jzjzj52857 , yystr").withP_phones("896-963-1478").withP_email("Liza@tre").withP_email2("Petrova@erw.ru")
             .withP_middlename("Vasilievna69").withP_nickname("Gosh").withP_title("ttt").withP_company("KOL")
             .withP_home("4(524)6396").withP_work("257").withP_fax("27872kl").withP_address2("96P-T, Lenina 876")
-            .withP_phone2("987456321").withP_notes("****7g");
+            .withP_email3("fhhj5632@gj.jg").withP_notes("****7g");
 
     app.contakt().modify(contakt);
     //проверка, сравнение
