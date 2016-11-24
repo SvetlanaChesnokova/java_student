@@ -111,7 +111,7 @@ public class ClientHelper extends HelperBase{
     type(By.name("email2"), clientData.getP_email2());
     type(By.name("email3"), clientData.getP_email3());
 
-
+  /* проверку на группу и ее добавление убираю для задачи № 13
     //проверка на то какая форма создание/изменение
     // обязательно надо передавать значение параметра, при создании контакта, по которому осуществляется проверка
     if (creation){
@@ -119,6 +119,8 @@ public class ClientHelper extends HelperBase{
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
+    */
+
    /* //проверка на наличие элемента, лучше проверять какая форма, как выше
     if (isElementPresent(By.name("new_group"))){
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
@@ -140,7 +142,7 @@ public class ClientHelper extends HelperBase{
           return  new Clients(clientCache);
       }
     //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
-    WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
+  //  WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
      clientCache = new Clients();
     // получить список Web елементов, которые на тег span и класс group
     List<WebElement> elements = wd.findElements(By.name("entry"));
@@ -199,4 +201,24 @@ public class ClientHelper extends HelperBase{
     //wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
 
   }
+
+  public ClientData infoDetailsForm(ClientData contact) {
+    //переход на страницу детализации
+    wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", contact.getId()))).click();
+    //сразу форматируем строку
+    String data[] = wd.findElement(By.id("content")).getText().replaceAll("[HMW:]", "")
+            .replaceAll("\\n+\\s*", "\n").replaceFirst(" ", "\n").split("\n");
+   /* String email = wd.findElement(By.cssSelector(String.format("a[href='mailto:%email']"))).getText();
+    String email2 = wd.findElement(By.cssSelector(String.format("a[href='mailto:%email2']"))).getText();
+    String email3 = wd.findElement(By.cssSelector(String.format("a[href='mailto:%email3']"))).getText();
+    //a href="mailto:Nikolai@tre"     */
+    wd.navigate().back();
+
+    return new ClientData().withId(contact.getId()).withP_firstnam(data [0]).withP_lastname(data [1])
+            .withP_address(data [2]).withP_home(data [3]).withP_phones(data [4]).withP_work(data [5])
+            //.withP_email(email).withP_email2(email2).withP_email3(email3)
+            ;
+  }
+
+
 }
