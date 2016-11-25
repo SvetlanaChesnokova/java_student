@@ -47,10 +47,11 @@ public class ContactDetailsTests extends TestBase {
         //переход к детализации контакта, загрузка контактов с сайта, для дальнейшего сравнения
         ClientData contactInfoDetailsFotm = app.contakt().infoDetailsForm(contact);
         //для вывода на экран промежуточных результатов, и быстрого поиска его
-        System.out.println("************************");
-        System.out.println("from detail: " + (merge(contactInfoDetailsFotm)));
-        System.out.println("from edit: " + (merge(contactInfoFromEditFotm)));
-        System.out.println("************************");
+        System.out.println("**************************");
+        System.out.println("from Detail: " + (merge(contactInfoDetailsFotm)));
+        System.out.println("**************************");
+        System.out.println("from Edit: " + (merge(contactInfoFromEditFotm)));
+        System.out.println("**************************");
         //метод обратной проверки
         MatcherAssert.assertThat((merge(contactInfoDetailsFotm)), equalTo(merge(contactInfoFromEditFotm)));
 
