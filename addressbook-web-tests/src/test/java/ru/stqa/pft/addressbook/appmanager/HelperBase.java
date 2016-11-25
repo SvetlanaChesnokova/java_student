@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+
 /**
  * Created by Светлана on 01.11.2016.
  */
@@ -27,7 +29,7 @@ public class HelperBase {
 
   protected void type(By locator, String text) {
     click(locator); //используется во всех лекциях, поэтому оставила.
-   /* //временно комментирую, блок очень нужный
+    //временно комментирую, блок очень нужный
     if (text != null) {
       String existingText = wd.findElement(locator).getAttribute("value");
       //Проверка на совпадение текста, если совпадает, то не вводить.
@@ -36,9 +38,17 @@ public class HelperBase {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
       }
-    }*/
+    }
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
+  }
+
+
+  protected void attach(By locator, File file) {
+    if (file != null) {
+      // file.getAbsolutePath() - передача фактического пути к файлу  и его преобоазование в полный путь
+        wd.findElement(locator).sendKeys(file.getAbsolutePath());
+    }
   }
 
   // работа с диалоговым окном, исключениями, ошибками

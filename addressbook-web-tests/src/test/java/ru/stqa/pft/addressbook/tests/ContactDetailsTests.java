@@ -27,7 +27,7 @@ public class ContactDetailsTests extends TestBase {
           app.contakt().create(new ClientData().withP_firstnam("Sidorov").withP_lastname("Nikolai")
                     .withP_email("3-147-258@").withP_email2("Nikolai@tre")
                     .withP_email3("Sidorov@erw.ru").withP_phones("357-1598").withP_address("RF, NSK")
-                    .withP_home("741 85").withP_work("858(41) 4757"));
+                  .withGroup("test17").withP_home("741 85").withP_work("858(41) 4757"));
         }
     }
 

@@ -103,15 +103,14 @@ public class ClientHelper extends HelperBase{
     type(By.name("phone2"), clientData.getP_phone2());
     type(By.name("notes"), clientData.getP_notes());
     type(By.name("address"), clientData.getP_address());
-
     type(By.name("mobile"), clientData.getP_phones());
     type(By.name("home"), clientData.getP_home());
     type(By.name("work"), clientData.getP_work());
     type(By.name("email"), clientData.getP_email());
     type(By.name("email2"), clientData.getP_email2());
     type(By.name("email3"), clientData.getP_email3());
+    attach(By.name("photo"), clientData.getPhoto());
 
-  /* проверку на группу и ее добавление убираю для задачи № 13
     //проверка на то какая форма создание/изменение
     // обязательно надо передавать значение параметра, при создании контакта, по которому осуществляется проверка
     if (creation){
@@ -119,7 +118,6 @@ public class ClientHelper extends HelperBase{
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
-    */
 
    /* //проверка на наличие элемента, лучше проверять какая форма, как выше
     if (isElementPresent(By.name("new_group"))){
@@ -142,7 +140,7 @@ public class ClientHelper extends HelperBase{
           return  new Clients(clientCache);
       }
     //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
-  //  WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
+   // WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
      clientCache = new Clients();
     // получить список Web елементов, которые на тег span и класс group
     List<WebElement> elements = wd.findElements(By.name("entry"));
