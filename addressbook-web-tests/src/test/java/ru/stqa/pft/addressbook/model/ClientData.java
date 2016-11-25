@@ -26,16 +26,6 @@ public class ClientData {
   private String p_company;
   private String allPhones;
   private String allEmail;
-  private String allDetails;
-
-  public String getAllDetails() {
-    return allDetails;
-  }
-
-  public ClientData withAllDetails(String allDetails) {
-    this.allDetails = allDetails;
-    return this;
-  }
 
   public String getAllEmail() {
     return allEmail;

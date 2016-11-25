@@ -208,16 +208,15 @@ public class ClientHelper extends HelperBase{
     //сразу форматируем строку
     String data[] = wd.findElement(By.id("content")).getText().replaceAll("[HMW:]", "")
             .replaceAll("\\n+\\s*", "\n").replaceFirst(" ", "\n").split("\n");
-   /* String email = wd.findElement(By.cssSelector(String.format("a[href='mailto:%email']"))).getText();
-    String email2 = wd.findElement(By.cssSelector(String.format("a[href='mailto:%email2']"))).getText();
-    String email3 = wd.findElement(By.cssSelector(String.format("a[href='mailto:%email3']"))).getText();
-    //a href="mailto:Nikolai@tre"     */
+
+    String email = wd.findElement(By.xpath(String.format("//div/div[4]/a[1]"))).getText();
+    String email2 = wd.findElement(By.xpath(String.format("//div/div[4]/a[2]"))).getText();
+    String email3 = wd.findElement(By.xpath(String.format("//div/div[4]/a[3]"))).getText();
     wd.navigate().back();
 
     return new ClientData().withId(contact.getId()).withP_firstnam(data [0]).withP_lastname(data [1])
             .withP_address(data [2]).withP_home(data [3]).withP_phones(data [4]).withP_work(data [5])
-            //.withP_email(email).withP_email2(email2).withP_email3(email3)
-            ;
+            .withP_email(email).withP_email2(email2).withP_email3(email3);
   }
 
 

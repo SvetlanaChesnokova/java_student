@@ -48,8 +48,8 @@ public class ContactDetailsTests extends TestBase {
         ClientData contactInfoDetailsFotm = app.contakt().infoDetailsForm(contact);
         //для вывода на экран промежуточных результатов, и быстрого поиска его
         System.out.println("************************");
-        System.out.println("from detail = " + (merge(contactInfoDetailsFotm)));
-        System.out.println("from edit = " + (merge(contactInfoFromEditFotm)));
+        System.out.println("from detail: " + (merge(contactInfoDetailsFotm)));
+        System.out.println("from edit: " + (merge(contactInfoFromEditFotm)));
         System.out.println("************************");
         //метод обратной проверки
         MatcherAssert.assertThat((merge(contactInfoDetailsFotm)), equalTo(merge(contactInfoFromEditFotm)));
@@ -59,7 +59,8 @@ public class ContactDetailsTests extends TestBase {
     private String merge(ClientData contact) {
         //фильтрация и склеивание строк
         return Arrays.asList(contact.getP_lastname(),contact.getP_firstnam(),contact.getP_address(),
-                contact.getP_home(),contact.getP_phones(),contact.getP_work())
+                contact.getP_home(),contact.getP_phones(),contact.getP_work(),contact.getP_email(),
+                contact.getP_email2(),contact.getP_email3())
                 .stream().filter((s) ->! s.equals(""))
                 .collect(Collectors.joining("\n"));
     }
