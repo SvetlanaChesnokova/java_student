@@ -1,6 +1,13 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+//@XStreamAlias("group") - преобразование файла *.xml
+@XStreamAlias("group")
 public class GroupData {
+  //@XStreamOmitField - пропустить вывод id поля в файле  *.xml
+  @XStreamOmitField
   //final - знацит что это значение остается внутри этого метода, надо убрать, чтобы можно было изменить
   private int id  = Integer.MAX_VALUE;
   private String name;

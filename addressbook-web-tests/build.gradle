@@ -28,4 +28,8 @@ dependencies {
   // Анализ опций командой строки при запуске генератора данных
   compile 'com.beust:jcommander:1.58'
 
+  //Формат сохранения файлов XML
+  compile 'com.thoughtworks.xstream:xstream:1.4.9'
+
+
 }
