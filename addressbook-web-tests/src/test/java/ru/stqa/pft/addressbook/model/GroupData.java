@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -10,8 +11,12 @@ public class GroupData {
   @XStreamOmitField
   //final - знацит что это значение остается внутри этого метода, надо убрать, чтобы можно было изменить
   private int id  = Integer.MAX_VALUE;
+  //@Expose - помечают в *.json нужные поля
+  @Expose
   private String name;
+  @Expose
   private String header;
+  @Expose
   private String footer;
 
   @Override

@@ -30,6 +30,7 @@ dependencies {
 
   //Формат сохранения файлов XML
   compile 'com.thoughtworks.xstream:xstream:1.4.9'
-
+  //Формат сохранения файлов JSON
+  compile 'com.google.code.gson:gson-parent:2.8.0'
 
 }

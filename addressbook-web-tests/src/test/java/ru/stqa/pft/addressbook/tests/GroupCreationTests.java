@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,7 +21,7 @@ public class GroupCreationTests extends TestBase {
 
   //провайдер тестовых данных, для большого кол-ва выполняемых тестов
    @DataProvider
-   public Iterator<Object[]> validGroups() throws IOException {
+   public Iterator<Object[]> validGroupsFromXml() throws IOException {
        List<Object[]> list = new ArrayList<Object[]>();
        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
        String xml = "";
@@ -36,7 +38,26 @@ public class GroupCreationTests extends TestBase {
    }
 
 
-  @Test(dataProvider = "validGroups")
+    @DataProvider
+    public Iterator<Object[]> validGroupsFromJson() throws IOException {
+        List<Object[]> list = new ArrayList<Object[]>();
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));
+        String json = "";
+        //читает и возвращает строку
+        String line = reader.readLine();
+        while (line != null) {
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    }
+
+
+    // тут мы указываем какой провайдер использовать(dataProvider = "validGroupsFromJson") - для файлов *.Json
+    //(dataProvider = "validGroupsFromXml") - - для файлов *.Xml
+    @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
 
     // GroupData group =new GroupData().withName ("test17");
