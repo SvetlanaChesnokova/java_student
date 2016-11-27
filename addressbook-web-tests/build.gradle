@@ -46,6 +46,17 @@ test {
     useTestNG {
       suites 'src/test/resources/testng-groups.xml'
     }
+    //для обращения к этому свойству,при запусе теста через cmd надо написать -Pbrowser
+    // полный текст команды, для примера: gradlew -Pbrowser=firefox testContacts
+    if (project.hasProperty('browser')) {
+      systemProperty 'browser', "${browser}"
+    }
+
+    //для обращения к этому свойству(запуск конфигурационного файла),при запусе теста через cmd надо написать -Ptarget
+    // полный текст команды, для примера: gradlew -Ptarget=local testContacts
+    if (project.hasProperty('target')) {
+      systemProperty 'target', "${target}"
+    }
   }
 
   //в cmd указать надо, для запуска только этгого теста,  gradlew testContacts
@@ -53,6 +64,11 @@ test {
     useTestNG {
       suites 'src/test/resources/testng-contacts.xml'
     }
+    if (project.hasProperty('browser'))
+      systemProperty 'browser', "${browser}"
+
+    if (project.hasProperty('target'))
+      systemProperty 'target', "${target}"
   }
 
 

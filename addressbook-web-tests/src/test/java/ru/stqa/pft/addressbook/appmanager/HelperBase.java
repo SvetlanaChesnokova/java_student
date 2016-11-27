@@ -30,7 +30,8 @@ public class HelperBase {
   protected void type(By locator, String text) {
     click(locator); //используется во всех лекциях, поэтому оставила.
     //временно комментирую, блок очень нужный
-    if (text != null) {
+   // if (text != null)   {
+    if ((text != null) && !text.equals( wd.findElement(locator).getAttribute("value")))  {
       String existingText = wd.findElement(locator).getAttribute("value");
       //Проверка на совпадение текста, если совпадает, то не вводить.
       //Удобно и хорошо аптимизирует, если в поле большие значения.

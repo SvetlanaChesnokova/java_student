@@ -30,7 +30,7 @@ public class ContactDataGenerator {
 
     //генерация тестовых данных
     //настройки, кол-во и путь можно указать в Edit Configuration
-    //пример заполнения -f src/test/resources/contakts.xml -c 4 -d xml
+    //пример заполнения -f src/test/resources/contakts.json -c 4 -d json
     //путь до E:\data\java_prodgekt\2016\student Test\java_student\addressbook-web-tests
 
     public static void main (String[] args) throws IOException {
