@@ -1,0 +1,30 @@
+<list>
+  <contact>
+    <p__lastname>Ivanov 0</p__lastname>
+    <p__firstnam>Vasj 0</p__firstnam>
+    <p__address>address 0</p__address>
+    <p__phones>9-546-540</p__phones>
+    <p__email>email@ngs.ru</p__email>
+  </contact>
+  <contact>
+    <p__lastname>Ivanov 1</p__lastname>
+    <p__firstnam>Vasj 1</p__firstnam>
+    <p__address>address 1</p__address>
+    <p__phones>9-546-541</p__phones>
+    <p__email>email@ngs.ru</p__email>
+  </contact>
+  <contact>
+    <p__lastname>Ivanov 2</p__lastname>
+    <p__firstnam>Vasj 2</p__firstnam>
+    <p__address>address 2</p__address>
+    <p__phones>9-546-542</p__phones>
+    <p__email>email@ngs.ru</p__email>
+  </contact>
+  <contact>
+    <p__lastname>Ivanov 3</p__lastname>
+    <p__firstnam>Vasj 3</p__firstnam>
+    <p__address>address 3</p__address>
+    <p__phones>9-546-543</p__phones>
+    <p__email>email@ngs.ru</p__email>
+  </contact>
+</list>

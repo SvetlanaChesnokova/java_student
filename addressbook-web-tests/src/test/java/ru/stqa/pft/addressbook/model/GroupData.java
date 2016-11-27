@@ -11,7 +11,7 @@ public class GroupData {
   @XStreamOmitField
   //final - знацит что это значение остается внутри этого метода, надо убрать, чтобы можно было изменить
   private int id  = Integer.MAX_VALUE;
-  //@Expose - помечают в *.json нужные поля
+  //@Expose - помечают в *.json нужные поля для вывода в файл
   @Expose
   private String name;
   @Expose

@@ -6,7 +6,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
-import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.ClientData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,11 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by chesnokova.sa on 26.11.2016.
+ * Created by chesnokova.sa on 27.11.2016.
  */
-public class GroupDataGenerator {
-
-    @Parameter (names = "-c", description = "Group count")
+public class ContactDataGenerator {
+    @Parameter(names = "-c", description = "Group count")
     public int count;
 
     @Parameter (names = "-f", description = "Target file")
@@ -31,11 +30,11 @@ public class GroupDataGenerator {
 
     //генерация тестовых данных
     //настройки, кол-во и путь можно указать в Edit Configuration
-    //пример заполнения -f src/test/resources/groups.xml -c 3 -d xml
+    //пример заполнения -f src/test/resources/contakts.xml -c 4 -d xml
     //путь до E:\data\java_prodgekt\2016\student Test\java_student\addressbook-web-tests
 
     public static void main (String[] args) throws IOException {
-        GroupDataGenerator generator = new GroupDataGenerator();
+        ContactDataGenerator generator = new ContactDataGenerator();
         //generator- заполнено опцией, args-передано в командной строке
         JCommander jCommander = new JCommander(generator);
         try {
@@ -48,9 +47,9 @@ public class GroupDataGenerator {
     }
 
     private void run() throws IOException {
-        List<GroupData> groups = geberateGroups(count);
+        List<ClientData> groups = geberateGroups(count);
         if (format.equals("csv")){
-            saveAsCsv(groups, new File (file));
+            saveAsCsv(groups, new File(file));
         } else if (format.equals("xml")) {
             saveAsXml(groups, new File(file));
         } else if (format.equals("json")) {
@@ -60,43 +59,45 @@ public class GroupDataGenerator {
         }
     }
 
-    private void saveAsJson(List<GroupData> groups, File file) throws IOException {
-          Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-          String json = gson.toJson(groups);
-          Writer writer = new FileWriter(file);
-          writer.write(json);
-          writer.close();
-        }
+    private void saveAsJson(List<ClientData> groups, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(groups);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
+        writer.close();
+    }
 
-    private void saveAsCsv(List<GroupData> groups, File file) throws IOException {
+    private void saveAsCsv(List<ClientData> groups, File file) throws IOException {
         //вывожу для себя путь
         System.out.println("**************************");
         System.out.println(new File(".").getAbsolutePath());
         System.out.println("**************************");
 
         Writer writer =  new FileWriter(file);
-        for (GroupData group : groups){
-            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(),group.getFooter()));
+        for (ClientData group : groups){
+            writer.write(String.format("%s;%s;%s;%s;%s\n", group.getP_lastname(), group.getP_firstnam(),group.getP_address(),
+                    group.getP_email(),group.getP_phones()));
         }
         writer.close();
 
     }
 
-    private void saveAsXml(List<GroupData> groups, File file) throws IOException {
+    private void saveAsXml(List<ClientData> groups, File file) throws IOException {
         XStream xstream = new XStream();
-        xstream.processAnnotations(GroupData.class);
+        xstream.processAnnotations(ClientData.class);
         String xml = xstream.toXML(groups);
 
-       Writer writer =  new FileWriter(file);
-       writer.write(xml);
-       writer.close();
+        Writer writer =  new FileWriter(file);
+        writer.write(xml);
+        writer.close();
     }
 
-    private List<GroupData> geberateGroups(int count) {
-        List<GroupData> groups = new ArrayList<GroupData>();
+    private List<ClientData> geberateGroups(int count) {
+        List<ClientData> groups = new ArrayList<ClientData>();
         for (int i = 0; i < count; i++){
-            groups.add(new GroupData().withName(String.format("test %s", i))
-                    .withHeader(String.format("header %s", i)).withFooter(String.format("footer %s", i)));
+            groups.add(new ClientData().withP_lastname(String.format("Ivanov %s", i))
+                    .withP_firstnam(String.format("Vasj %s", i)).withP_address(String.format("address %s", i))
+                    .withP_email("email@ngs.ru").withP_phones((String.format("9-546-54%s", i))));
         }
         return groups;
     }

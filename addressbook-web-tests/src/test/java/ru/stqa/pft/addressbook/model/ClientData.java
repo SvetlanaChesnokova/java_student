@@ -1,16 +1,32 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
 /**
  * Created by Светлана on 06.11.2016.
  */
+
+//@XStreamAlias("group") - преобразование файла *.xml
+@XStreamAlias("contact")
 public class ClientData {
+  //@XStreamOmitField - пропустить вывод id поля в файле  *.xml
+  @XStreamOmitField
+  //final - знацит что это значение остается внутри этого метода, надо убрать, чтобы можно было изменить
   private int id  = Integer.MAX_VALUE;
+  //@Expose - помечают в *.json нужные поля
+  @Expose
   private String p_lastname;
+  @Expose
   private String p_firstnam;
+  @Expose
   private String p_address;
+  @Expose
   private String p_phones;
+  @Expose
   private String p_email;
   private String p_email2;
   private String p_email3;

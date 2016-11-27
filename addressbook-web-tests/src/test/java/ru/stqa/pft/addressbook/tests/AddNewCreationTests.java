@@ -58,8 +58,6 @@ public class AddNewCreationTests extends TestBase {
       File photo = new File("src/test/resources/image.png");
       System.out.println(photo.getAbsolutePath());
       System.out.println(photo.exists());
-      //у меня берется другой путь: C:\data\tests\src\test\resources\image.png
-
     }
 
 }
