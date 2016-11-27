@@ -59,9 +59,8 @@ public class GroupCreationTests extends TestBase {
     //(dataProvider = "validGroupsFromXml") - - для файлов *.Xml
     @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
-
     // GroupData group =new GroupData().withName ("test17");
-    //тест для создания группы
+    //тест для создания группы, с использованием тестовых данных из указанного файла
     app.goTo().groupPage();
     //для сравнения размера списка до добавления записаи
     Groups before = app.group().all();

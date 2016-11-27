@@ -31,6 +31,7 @@ public class ClientData {
   private String p_email2;
   private String p_email3;
   private String p_homepage;
+  @Expose
   private String group;
   private String p_address2;
   private String p_phone2;
