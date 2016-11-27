@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -60,7 +62,6 @@ public class GroupCreationTests extends TestBase {
     //(dataProvider = "validGroupsFromXml") - - для файлов *.Xml
     @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
-    // GroupData group =new GroupData().withName ("test17");
     //тест для создания группы, с использованием тестовых данных из указанного файла
     app.goTo().groupPage();
     //для сравнения размера списка до добавления записаи
@@ -71,8 +72,6 @@ public class GroupCreationTests extends TestBase {
     assertThat(app.group().count()  , equalTo(before.size()+1));
     //для сравнения размера списка после собавления записаи
     Groups after = app.group().all();
-
-
       //проверялка на совпадение 2-х элиментов - объектов
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
@@ -86,7 +85,8 @@ public class GroupCreationTests extends TestBase {
         app.goTo().groupPage();
         //для сравнения размера списка до добавления записаи
         Groups before = app.group().all();
-        GroupData group =new GroupData().withName ("test17это негативный тест ' - на запрет апострофа");
+        GroupData group =new GroupData().withName ("test17это негативный тест ' - на запрет апострофа")
+                .withFooter("f").withHeader("v");
         app.group().create(group);
         //проверка, сравнение
         assertThat(app.group().count() , equalTo(before.size()));

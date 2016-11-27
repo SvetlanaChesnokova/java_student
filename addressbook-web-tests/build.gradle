@@ -33,6 +33,11 @@ dependencies {
   //Формат сохранения файлов JSON
   compile 'com.google.code.gson:gson-parent:2.8.0'
 
+  //библиотека для протоколирования данных, сайт документации http://logback.qos.ch/manual/configuration.html
+  compile 'ch.qos.logback:logback-classic:1.1.7'
+
+
+
  //запуск всех тестов, через командную строку cmd
 // прописать в ней (cmd) gradlew test , при этом путь в консоле должен соответствовать репозиторию
  // чтобы отчистить запуски тестов и запустить повторно в cmd надо указать: gradlew cleanTest test
@@ -70,6 +75,5 @@ test {
     if (project.hasProperty('target'))
       systemProperty 'target', "${target}"
   }
-
 
 }
