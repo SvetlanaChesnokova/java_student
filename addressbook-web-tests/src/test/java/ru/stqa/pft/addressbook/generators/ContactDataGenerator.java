@@ -62,9 +62,9 @@ public class ContactDataGenerator {
     private void saveAsJson(List<ClientData> groups, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
     private void saveAsCsv(List<ClientData> groups, File file) throws IOException {
@@ -72,24 +72,21 @@ public class ContactDataGenerator {
         System.out.println("**************************");
         System.out.println(new File(".").getAbsolutePath());
         System.out.println("**************************");
-
-        Writer writer =  new FileWriter(file);
-        for (ClientData group : groups){
-            writer.write(String.format("%s;%s;%s;%s;%s;%s\n", group.getP_lastname(), group.getP_firstnam(),group.getP_address(),
-                    group.getP_email(),group.getP_phones(), group.getGroup()));
+        try (Writer writer = new FileWriter(file)) {
+            for (ClientData group : groups) {
+                writer.write(String.format("%s;%s;%s;%s;%s;%s\n", group.getP_lastname(), group.getP_firstnam(), group.getP_address(),
+                        group.getP_email(), group.getP_phones(), group.getGroup()));
+            }
         }
-        writer.close();
-
     }
 
     private void saveAsXml(List<ClientData> groups, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(ClientData.class);
         String xml = xstream.toXML(groups);
-
-        Writer writer =  new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
     }
 
     private List<ClientData> geberateGroups(int count) {

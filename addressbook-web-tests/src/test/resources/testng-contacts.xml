@@ -1,0 +1,10 @@
+<suite name="Suite1" verbose="1" >
+
+        <test name="Contacts">
+           <classes>
+                <class name="ru.stqa.pft.addressbook.tests.AddNewCreationTests" />
+                <class name="ru.stqa.pft.addressbook.tests.AddNewModificationTests" />
+                <class name="ru.stqa.pft.addressbook.tests.AddNewDeletionTests" />
+            </classes>
+        </test>
+    </suite>

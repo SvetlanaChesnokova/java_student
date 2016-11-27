@@ -33,4 +33,27 @@ dependencies {
   //Формат сохранения файлов JSON
   compile 'com.google.code.gson:gson-parent:2.8.0'
 
+ //запуск всех тестов, через командную строку cmd
+// прописать в ней (cmd) gradlew test , при этом путь в консоле должен соответствовать репозиторию
+ // чтобы отчистить запуски тестов и запустить повторно в cmd надо указать: gradlew cleanTest test
+test {
+  useTestNG()
+   // если прописать такой путь, то запускается конкретные тесты, что в файле
+  suites 'src/test/resources/testng.xml'
+}
+
+  task testGroups(type: Test) {
+    useTestNG {
+      suites 'src/test/resources/testng-groups.xml'
+    }
+  }
+
+  //в cmd указать надо, для запуска только этгого теста,  gradlew testContacts
+  task testContacts(type: Test) {
+    useTestNG {
+      suites 'src/test/resources/testng-contacts.xml'
+    }
+  }
+
+
 }
