@@ -4,9 +4,9 @@
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <!-- формируем каждый раз при запуске, уникальный файл с логом, с указанием даты  -->
-        <file>test-${bySecond}.log</file>
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+         <file>test-${bySecond}.log</file>
+         <!-- encoders are assigned the type
+              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
             <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
@@ -20,8 +20,8 @@
         </encoder>
     </appender>
 
-    <!-- <root level="debug">   сильно подробно  -->
-     <root level="info">
+    <!-- <root level="debug">info   сильно подробно  -->
+     <root level="debug">
 
          <!-- указали что данные будутвыводиться и на консоль и в файл   -->
        <appender-ref ref="STDOUT" />
