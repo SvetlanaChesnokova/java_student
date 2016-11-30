@@ -3,20 +3,37 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 //@XStreamAlias("group") - преобразование файла *.xml
 @XStreamAlias("group")
+// @Entity- определяет привязанность к базе
+@Entity
+@Table(name = "group_list")
 public class GroupData {
   //@XStreamOmitField - пропустить вывод id поля в файле  *.xml
   @XStreamOmitField
+  @Id
+  //привязка к столбцу таблици
+  @Column(name = "group_id")
   //final - знацит что это значение остается внутри этого метода, надо убрать, чтобы можно было изменить
   private int id  = Integer.MAX_VALUE;
   //@Expose - помечают в *.json нужные поля для вывода в файл
   @Expose
+  @Column(name = "group_name")
   private String name;
   @Expose
+  @Column(name = "group_header")
+  @Type(type = "text")
   private String header;
   @Expose
+  @Column(name = "group_footer")
+  @Type(type = "text")
   private String footer;
 
   @Override
