@@ -15,9 +15,11 @@ public class DbConnectionTest {
         Connection conn = null;
 
         try {
-            //:3306 -порт ; addressbook - название базы; user= &password=  -для соединения с базой
+            //:3306 -порт ; addressbook - название базы; user= &password=  -для соединения с базой ;
+            // serverTimezone=UTC& - таймзону в адресе базы данных.
+            //Java-программа обращается к базе данных по сети, при этом Java-программа и СУБД могут работать на разных машинах, находящихся в разных часовых поясах.
             conn =
-                    DriverManager.getConnection("jdbc:mysql://localhost:3306/addressbook?user=root&password=");
+                    DriverManager.getConnection ("jdbc:mysql://localhost:3306/addressbook?serverTimezone=UTC&user=root&password=");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select group_id, group_name, group_header, group_footer from group_list");
             Groups groups = new Groups();
