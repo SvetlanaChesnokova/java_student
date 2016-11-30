@@ -3,7 +3,9 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
 /**
@@ -12,47 +14,104 @@ import java.io.File;
 
 //@XStreamAlias("group") - преобразование файла *.xml
 @XStreamAlias("contact")
+// @Entity- определяет привязанность к базе
+@Entity
+@Table(name = "addressbook")
 public class ClientData {
   //@XStreamOmitField - пропустить вывод id поля в файле  *.xml
   @XStreamOmitField
   //final - знацит что это значение остается внутри этого метода, надо убрать, чтобы можно было изменить
+  @Id
+  @Column(name = "id")
   private int id  = Integer.MAX_VALUE;
+  @Column(name = "lastname")
   //@Expose - помечают в *.json нужные поля
   @Expose
   private String p_lastname;
+  @Column(name = "firstname")
   @Expose
   private String p_firstnam;
+  @Column(name = "address")
+  @Type(type = "text")
   @Expose
   private String p_address;
+  @Column(name = "mobile")
+  @Type(type = "text")
   @Expose
   private String p_phones;
+  @Column(name = "email")
+  @Type(type = "text")
   @Expose
   private String p_email;
+  @Column(name = "email2")
+  @Type(type = "text")
+  @Expose
   private String p_email2;
+  @Column(name = "email3")
+  @Type(type = "text")
+  @Expose
   private String p_email3;
+  @Column(name = "homepage")
+  @Type(type = "text")
   private String p_homepage;
+  //group не будет извлекаться из БД, если указать @Transient
+  @Transient
   @Expose
   private String group;
+  @Column(name = "address2")
+  @Type(type = "text")
   private String p_address2;
+  @Column(name = "phone2")
+  @Type(type = "text")
   private String p_phone2;
+  @Column(name = "notes")
+  @Type(type = "text")
   private String p_notes;
+  @Column(name = "home")
+  @Type(type = "text")
   private String p_home;
+  @Column(name = "work")
+  @Type(type = "text")
   private String p_work;
+
+  @Override
+  public String toString() {
+    return "ClientData{" +
+            "id=" + id +
+            ", p_lastname='" + p_lastname + '\'' +
+            ", p_firstnam='" + p_firstnam + '\'' +
+            '}';
+  }
+
+  @Type(type = "text")
+  @Column(name = "fax")
   private String p_fax;
+  @Column(name = "middlename")
   private String p_middlename;
+  @Column(name = "nickname")
   private String p_nickname;
+  @Column(name = "title")
+  @Expose
   private String p_title;
+  @Column(name = "company")
   private String p_company;
+  @Transient
+  @Expose
   private String allPhones;
+  @Transient
+  @Expose
   private String allEmail;
-  private File photo;
+
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public ClientData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -198,16 +257,6 @@ public class ClientData {
   public ClientData withId(int id) {
     this.id = id;
     return this;
-  }
-
-
-  @Override
-  public String toString() {
-    return "ClientData{" +
-            "id='" + id + '\'' +
-            ", p_lastname='" + p_lastname + '\'' +
-            ", p_firstnam='" + p_firstnam + '\'' +
-            '}';
   }
 
 
