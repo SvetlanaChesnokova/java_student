@@ -102,7 +102,32 @@ public class ClientData {
   @Expose
   private String allEmail;
 
-  @Column(name = "photo")
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ClientData that = (ClientData) o;
+
+    if (id != that.id) return false;
+    if (p_lastname != null ? !p_lastname.equals(that.p_lastname) : that.p_lastname != null) return false;
+    if (p_firstnam != null ? !p_firstnam.equals(that.p_firstnam) : that.p_firstnam != null) return false;
+    if (p_address != null ? !p_address.equals(that.p_address) : that.p_address != null) return false;
+    return p_phones != null ? p_phones.equals(that.p_phones) : that.p_phones == null;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (p_lastname != null ? p_lastname.hashCode() : 0);
+    result = 31 * result + (p_firstnam != null ? p_firstnam.hashCode() : 0);
+    result = 31 * result + (p_address != null ? p_address.hashCode() : 0);
+    result = 31 * result + (p_phones != null ? p_phones.hashCode() : 0);
+    return result;
+  }
+
+  /* @Column(name = "photo")
   @Type(type = "text")
   private String photo;
 
@@ -113,7 +138,7 @@ public class ClientData {
   public ClientData withPhoto(File photo) {
     this.photo = photo.getPath();
     return this;
-  }
+  }         */
 
 
   public String getAllEmail() {
@@ -141,27 +166,6 @@ public class ClientData {
   public ClientData withP_home(String p_home) {
     this.p_home = p_home;
     return this;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    ClientData that = (ClientData) o;
-
-    if (id != that.id) return false;
-    if (p_lastname != null ? !p_lastname.equals(that.p_lastname) : that.p_lastname != null) return false;
-    return p_firstnam != null ? p_firstnam.equals(that.p_firstnam) : that.p_firstnam == null;
-
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id;
-    result = 31 * result + (p_lastname != null ? p_lastname.hashCode() : 0);
-    result = 31 * result + (p_firstnam != null ? p_firstnam.hashCode() : 0);
-    return result;
   }
 
   public ClientData withP_work(String p_work) {

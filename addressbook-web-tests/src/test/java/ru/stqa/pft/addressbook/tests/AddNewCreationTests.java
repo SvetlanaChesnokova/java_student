@@ -62,12 +62,12 @@ public class AddNewCreationTests extends TestBase {
     public void testAddNewCreation(ClientData contakt) {
         //тест для создания контакта, с использованием тестовых данных из указанного файла
         //подсчет кол-ва строк до добавления
-        Clients before = app.contakt().all();
+        Clients before = app.db().clients();
         app.contakt().create(contakt);
         //проверка, сравнение
         assertThat(app.contakt().count(), equalTo(before.size()+1));
         //подсчет кол-ва групп (строк) после добавления
-        Clients after = app.contakt().all();
+        Clients after = app.db().clients();
 
         //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
         assertThat(after, equalTo(before.withAdded(
@@ -79,17 +79,17 @@ public class AddNewCreationTests extends TestBase {
     public void testAddNewCreation() {
         //тест для создания контакта
         //подсчет кол-ва строк до добавления
-        Clients before = app.contakt().all();
+        Clients before = app.db().clients();
         File photo = new File("src/test/resources/image.png");
         ClientData contakt =  new ClientData().withP_firstnam("Sidorov8").withP_lastname("Nikolai")
                 .withP_address("RF, NSK").withP_homepage("+72589631478").withP_email("3-147-258@")
                 .withP_email2("Nikolai@tre").withP_email3("Sidorov@erw.ru").withP_phones("357-1598")
-                .withGroup("test17").withP_home("741 85").withP_work("858(41) 4757").withPhoto(photo);
+                .withGroup("test17").withP_home("741 85").withP_work("858(41) 4757");//.withPhoto(photo);
         app.contakt().create(contakt);
         //проверка, сравнение
         assertThat(app.contakt().count(), equalTo(before.size()+1));
         //подсчет кол-ва групп (строк) после добавления
-        Clients after = app.contakt().all();
+        Clients after = app.db().clients();
 
         //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
         assertThat(after, equalTo(before.withAdded(
@@ -101,14 +101,14 @@ public class AddNewCreationTests extends TestBase {
     public void testBadAddNewCreation() {
         //тест для создания контакта
         //подсчет кол-ва строк до добавления
-        Clients before = app.contakt().all();
+        Clients before = app.db().clients();
         ClientData contakt =  new ClientData().withP_firstnam("Sidorov8 это негативный тест ' - на запрет апострофа").withP_lastname("Nikolai")
                 .withP_address("RF, NSK").withP_homepage("+72589631478").withGroup("test17");
         app.contakt().create(contakt);
         //проверка, сравнение
         assertThat(app.contakt().count(), equalTo(before.size()));
        //подсчет кол-ва групп (строк) после добавления
-        Clients after = app.contakt().all();
+        Clients after = app.db().clients();
         //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
         assertThat(after, equalTo(before));
     }

@@ -23,7 +23,7 @@ public class AddNewDeletionTests extends TestBase {
     app.contakt().initHome();
     app.goTo().gotoHomePage();
     //проверяем есть ли хоть одна запись для удаления
-    if (app.contakt().all().size() == 0) {
+    if (app.db().clients().size() == 0) {
       //если нет записи, то создаем ее
       app.contakt().create(new ClientData().withP_lastname("Sidorov").withP_firstnam("Nikolai").withP_address("RF, NSK")
               .withP_phones("+72589631478").withP_email("3-147-258@").withP_email2("Nikolai@tre")
@@ -37,14 +37,14 @@ public class AddNewDeletionTests extends TestBase {
   public void testAddNewDeletion(){
     //тест для удаления контакта
     //подсчет кол-ва строк до добавления
-    Clients before = app.contakt().all();
+    Clients before = app.db().clients();
     ClientData deletedClient = before.iterator().next();
     app.contakt().delete(deletedClient);
 
     //проверка, сравнение
     assertThat(app.contakt().count(), equalTo(before.size()-1));
     //подсчет кол-ва групп (строк) после добавления
-    Clients after = app.contakt().all();
+    Clients after = app.db().clients();
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     assertThat(after, equalTo(before.withOut(deletedClient)));

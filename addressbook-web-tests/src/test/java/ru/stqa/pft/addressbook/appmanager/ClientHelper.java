@@ -109,7 +109,7 @@ public class ClientHelper extends HelperBase{
     type(By.name("email"), clientData.getP_email());
     type(By.name("email2"), clientData.getP_email2());
     type(By.name("email3"), clientData.getP_email3());
-    attach(By.name("photo"), clientData.getPhoto());
+   // attach(By.name("photo"), clientData.getPhoto());
 
     //проверка на то какая форма создание/изменение
     // обязательно надо передавать значение параметра, при создании контакта, по которому осуществляется проверка
