@@ -65,13 +65,13 @@ public class GroupCreationTests extends TestBase {
     //тест для создания группы, с использованием тестовых данных из указанного файла
     app.goTo().groupPage();
     //для сравнения размера списка до добавления записаи
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     app.group().create(group);
     //проверка, сравнение, по кол-ву.
     //Хеширование и предварительные проверки при использовании более быстрой операции  app.group().count()
     assertThat(app.group().count()  , equalTo(before.size()+1));
     //для сравнения размера списка после собавления записаи
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
       //проверялка на совпадение 2-х элиментов - объектов
     assertThat(after, equalTo(
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
@@ -84,14 +84,14 @@ public class GroupCreationTests extends TestBase {
         //тест для создания группы
         app.goTo().groupPage();
         //для сравнения размера списка до добавления записаи
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData group =new GroupData().withName ("test17это негативный тест ' - на запрет апострофа")
                 .withFooter("f").withHeader("v");
         app.group().create(group);
         //проверка, сравнение
         assertThat(app.group().count() , equalTo(before.size()));
         //для сравнения размера списка после собавления записаи
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
        //проверялка на совпадение 2-х элиментов - объектов
         assertThat(after, equalTo(before));
 

@@ -17,12 +17,11 @@ import static org.testng.Assert.assertEquals;
 public class GroupDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
-    //вынесена, подготовка теста
-    app.goTo().groupPage();
-    //проверяем есть ли хоть одна запись для удаления
-    if (app.group().all().size() == 0) {
+    if (app.db().groups().size()==0) {
+      //вынесена, подготовка теста
+      app.goTo().groupPage();
       //если нет записи, то создаем ее
-      app.group().create( new GroupData().withName("test1").withFooter("tt"));
+      app.group().create( new GroupData().withName("test3"));
     }
   }
 
@@ -31,14 +30,15 @@ public class GroupDeletionTests extends TestBase {
     //тест для удаления группы
     //для сравнения размера списка до добавления записаи
     //Set - возвращает множество элементов
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     GroupData deletedGroup = before.iterator().next();
+    app.goTo().groupPage();
     app.group().delete(deletedGroup);
       //проверка, сравнение
     //Хеширование и предварительные проверки при использовании более быстрой операции  app.group().count()
       assertThat(app.group().count()  , equalTo(before.size()-1));
     //для сравнения размера списка после удаления записаи  , загрузка данных
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
 
      //проверялка на совпадение 2-х элиментов - объектов
     assertThat(after, equalTo(before.withOut(deletedGroup)));
