@@ -16,12 +16,11 @@ public class GroupModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
-    //вынесена, подготовка теста
+    if (app.db().groups().size()==0) {
+      //вынесена, подготовка теста
     app.goTo().groupPage();
-    //проверяем есть ли хоть одна запись для модификации
-    if (app.group().all().size() == 0) {
       //если нет записи, то создаем ее
-      app.group().create( new GroupData().withName("test3"));
+    app.group().create( new GroupData().withName("test3"));
     }
   }
 
@@ -29,16 +28,17 @@ public class GroupModificationTests extends TestBase {
   public void testGroupModification(){
     //тест для модификации группы
     //для сравнения размера списка до собавления записаи
-    Groups before = app.group().all();
+    Groups before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
     GroupData group =new GroupData().withId(modifiedGroup.getId()).withName("test1")
             .withFooter("test2").withHeader("abc");
+    app.goTo().groupPage();
     app.group().modify(group);
       //проверка, сравнение
      //Хеширование и предварительные проверки при использовании более быстрой операции  app.group().count()
       assertThat(app.group().count()  , equalTo(before.size()));
     //для сравнения размера списка после добавления записаи, загрузка данных
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     assertThat(after, equalTo(before.withOut(modifiedGroup).withAdded(group)));
