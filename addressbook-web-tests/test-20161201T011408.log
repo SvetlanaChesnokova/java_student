@@ -1,6 +1,0 @@
-217  [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider
-248  [main] DEBUG o.h.i.i.IntegratorServiceImpl - Adding Integrator [org.hibernate.cfg.beanvalidation.BeanValidationIntegrator].
-250  [main] DEBUG o.h.i.i.IntegratorServiceImpl - Adding Integrator [org.hibernate.secure.spi.JaccIntegrator].
-259  [main] DEBUG o.h.i.i.IntegratorServiceImpl - Adding Integrator [org.hibernate.cache.internal.CollectionCacheInvalidator].
-441  [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.2.5.Final}
-445  [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
