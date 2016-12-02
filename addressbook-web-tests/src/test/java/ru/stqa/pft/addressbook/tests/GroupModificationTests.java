@@ -42,7 +42,12 @@ public class GroupModificationTests extends TestBase {
 
     //сравнеие списков построчно целиком, как задам в шаблоне equals(Object o) , toString,  hashCode() в  листе GroupData
     assertThat(after, equalTo(before.withOut(modifiedGroup).withAdded(group)));
+
+    //проверка в пользовательском интерфейсе / откльчаемый метод
+    verifyGroupListUI();
   }
+
+
 
 
 }

@@ -57,11 +57,13 @@ test {
     if (project.hasProperty('browser')) {
       systemProperty 'browser', "${browser}"
     }
-
     //для обращения к этому свойству(запуск конфигурационного файла),при запусе теста через cmd надо написать -Ptarget
     // полный текст команды, для примера: gradlew -Ptarget=local testContacts
     if (project.hasProperty('target')) {
       systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+      systemProperty 'verifyUI', "${target}"
     }
   }
 
@@ -70,11 +72,15 @@ test {
     useTestNG {
       suites 'src/test/resources/testng-contacts.xml'
     }
-    if (project.hasProperty('browser'))
+    if (project.hasProperty('browser')) {
       systemProperty 'browser', "${browser}"
-
-    if (project.hasProperty('target'))
+    }
+    if (project.hasProperty('target')) {
       systemProperty 'target', "${target}"
-  }
+    }
+    if (project.hasProperty('verifyUI')) {
+      systemProperty 'verifyUI', "${target}"
+    }
+    }
 
 }
