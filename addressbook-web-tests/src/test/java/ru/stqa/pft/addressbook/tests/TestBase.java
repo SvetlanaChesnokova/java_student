@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.apache.bcel.classfile.Method;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +8,12 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Clients;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -70,5 +72,26 @@ public class TestBase {
               .collect(Collectors.toSet())));
     }
   }
+
+
+  public void verifyClientListUI()  {
+    // возможность отключения проверки, настраивается в концигурации  -DverifyUI=true
+    if(Boolean.getBoolean("verifyUI")) {
+      //данные из БД
+      Clients dbClients = app.db().clients();
+      //данные из пользовательского интерфейса
+      Clients uiClients = app.contakt().all();
+      //данные БД упрощаем и берем только пару столбцов
+      assertThat(uiClients, equalTo(dbClients.stream()
+              .map((g) -> new ClientData().withId(g.getId()).withP_lastname(g.getP_lastname())
+              .withP_firstnam(g.getP_firstnam()).withP_middlename(g.getP_middlename()).withP_address(g.getP_address()))
+             // .withP_email(g.getP_email()).withP_email2(g.getP_email2()).withP_email3(g.getP_email3())
+             // .withP_phones(g.getP_phones()).withP_homepage(g.getP_homepage()).withP_home(g.getP_home()))
+              .collect(Collectors.toSet())));
+
+    }
+  }
+
+
 
 }
