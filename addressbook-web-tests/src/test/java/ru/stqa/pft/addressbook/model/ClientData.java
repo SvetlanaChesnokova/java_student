@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Светлана on 06.11.2016.
@@ -54,10 +56,7 @@ public class ClientData {
   @Column(name = "homepage")
   @Type(type = "text")
   private String p_homepage;
-  //group не будет извлекаться из БД, если указать @Transient
-  @Transient
-  @Expose
-  private String group;
+
   @Column(name = "address2")
   @Type(type = "text")
   private String p_address2;
@@ -95,12 +94,20 @@ public class ClientData {
   private String p_title;
   @Column(name = "company")
   private String p_company;
+  //не будет извлекаться из БД, если указать @Transient
   @Transient
   @Expose
   private String allPhones;
   @Transient
   @Expose
   private String allEmail;
+
+  //примечание (fetch = FetchType.EAGER) - позволяет спомощью метода извлеч как можно больше информации
+  @ManyToMany (fetch = FetchType.EAGER)
+  //связь группы с контактами, указана таблица и столбцы
+  @JoinTable (name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"),inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   @Override
   public boolean equals(Object o) {
@@ -253,11 +260,6 @@ public class ClientData {
     return this;
   }
 
-  public ClientData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public ClientData withId(int id) {
     this.id = id;
     return this;
@@ -308,8 +310,8 @@ public class ClientData {
     return p_homepage;
   }
 
-  public String getGroup() {
-    return group;
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public String getP_firstnam() {
@@ -346,5 +348,11 @@ public class ClientData {
 
   public String getP_notes() {
     return p_notes;
+  }
+
+  public ClientData inGroup(GroupData group) {
+    groups.add(group);
+    // для того чтобы можно было один контакт помещать в несколько групп
+    return this;
   }
 }
