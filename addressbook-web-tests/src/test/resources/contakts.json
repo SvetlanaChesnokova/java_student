@@ -4,23 +4,27 @@
     "p_firstnam": "Vasj 0",
     "p_address": "address 0",
     "p_phones": "9-546-540",
-    "p_email": "email@ngs.ru",
-    "group": "test 0"
+    "p_email": "email@ngs.ru"
   },
   {
     "p_lastname": "Ivanov 1",
     "p_firstnam": "Vasj 1",
     "p_address": "address 1",
     "p_phones": "9-546-541",
-    "p_email": "email@ngs.ru",
-    "group": "test 1"
+    "p_email": "email@ngs.ru"
   },
   {
     "p_lastname": "Ivanov 2",
     "p_firstnam": "Vasj 2",
     "p_address": "address 2",
     "p_phones": "9-546-542",
-    "p_email": "email@ngs.ru",
-    "group": "test 2"
+    "p_email": "email@ngs.ru"
+  },
+  {
+    "p_lastname": "Ivanov 3",
+    "p_firstnam": "Vasj 3",
+    "p_address": "address 3",
+    "p_phones": "9-546-543",
+    "p_email": "email@ngs.ru"
   }
 ]

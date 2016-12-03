@@ -4,6 +4,7 @@ import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class ContactDetailsTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
+        Groups groups = app.db().groups();
         //вынесена, подготовка теста
         app.contakt().initHome();
         app.goTo().gotoHomePage();
@@ -27,7 +29,7 @@ public class ContactDetailsTests extends TestBase {
           app.contakt().create(new ClientData().withP_firstnam("Sidorov").withP_lastname("Nikolai")
                     .withP_email("3-147-258@").withP_email2("Nikolai@tre")
                     .withP_email3("Sidorov@erw.ru").withP_phones("357-1598").withP_address("RF, NSK")
-                  .withGroup("test17").withP_home("741 85").withP_work("858(41) 4757"));
+                  .inGroup(groups.iterator().next()).withP_home("741 85").withP_work("858(41) 4757"));
         }
     }
 

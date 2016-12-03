@@ -55,11 +55,14 @@ public class HbConnectionTest {
         session.beginTransaction();
         //в этой строке можно указывать запрос, который влияет на вывод данных
         List<ClientData> result = session.createQuery("from ClientData where deprecated = '0000-00-00'").list();
-        for ( ClientData contact : result ) {
-            System.out.println(contact);
-        }
         session.getTransaction().commit();
         session.close();
+
+        for ( ClientData contact : result ) {
+            System.out.println(contact);
+            System.out.println(contact.getGroups());
+        }
+
 
     }
 }

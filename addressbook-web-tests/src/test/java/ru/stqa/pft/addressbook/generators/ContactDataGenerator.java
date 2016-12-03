@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -74,8 +75,8 @@ public class ContactDataGenerator {
         System.out.println("**************************");
         try (Writer writer = new FileWriter(file)) {
             for (ClientData group : groups) {
-                writer.write(String.format("%s;%s;%s;%s;%s;%s\n", group.getP_lastname(), group.getP_firstnam(), group.getP_address(),
-                        group.getP_email(), group.getP_phones(), group.getGroup()));
+                writer.write(String.format("%s;%s;%s;%s;%s\n", group.getP_lastname(), group.getP_firstnam(), group.getP_address(),
+                        group.getP_email(), group.getP_phones()));
             }
         }
     }
@@ -94,8 +95,7 @@ public class ContactDataGenerator {
         for (int i = 0; i < count; i++){
             groups.add(new ClientData().withP_lastname(String.format("Ivanov %s", i))
                     .withP_firstnam(String.format("Vasj %s", i)).withP_address(String.format("address %s", i))
-                    .withP_email("email@ngs.ru").withP_phones(String.format("9-546-54%s", i))
-                    .withGroup(String.format("test %s", i)));
+                    .withP_email("email@ngs.ru").withP_phones(String.format("9-546-54%s", i)));
         }
         return groups;
     }

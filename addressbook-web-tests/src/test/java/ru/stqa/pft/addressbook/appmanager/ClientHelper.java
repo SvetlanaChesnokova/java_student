@@ -114,7 +114,12 @@ public class ClientHelper extends HelperBase{
     //проверка на то какая форма создание/изменение
     // обязательно надо передавать значение параметра, при создании контакта, по которому осуществляется проверка
     if (creation){
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
+      if (clientData.getGroups().size() > 0) {
+        //условия, чтобы была выбрана одна группа
+        Assert.assertTrue(clientData.getGroups().size() == 1);
+        //clientData.getGroups().iterator().next().getName() - извлекаем группу любую и берем у нее название
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroups().iterator().next().getName());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }

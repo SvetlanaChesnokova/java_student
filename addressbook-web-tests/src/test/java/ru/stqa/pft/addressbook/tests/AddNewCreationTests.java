@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.Clients;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -60,6 +61,7 @@ public class AddNewCreationTests extends TestBase {
 
     @Test (dataProvider = "validContaktsFromJson")
     public void testAddNewCreation(ClientData contakt) {
+        Groups groups = app.db().groups();
         //тест для создания контакта, с использованием тестовых данных из указанного файла
         //подсчет кол-ва строк до добавления
         Clients before = app.db().clients();
@@ -80,6 +82,7 @@ public class AddNewCreationTests extends TestBase {
 
     @Test (enabled = false)
     public void testAddNewCreation() {
+        Groups groups = app.db().groups();
         //тест для создания контакта
         //подсчет кол-ва строк до добавления
         Clients before = app.db().clients();
@@ -87,7 +90,9 @@ public class AddNewCreationTests extends TestBase {
         ClientData contakt =  new ClientData().withP_firstnam("Sidorov8").withP_lastname("Nikolai")
                 .withP_address("RF, NSK").withP_homepage("+72589631478").withP_email("3-147-258@")
                 .withP_email2("Nikolai@tre").withP_email3("Sidorov@erw.ru").withP_phones("357-1598")
-                .withGroup("test17").withP_home("741 85").withP_work("858(41) 4757");//.withPhoto(photo);
+                .withP_home("741 85").withP_work("858(41) 4757")
+                .inGroup(groups.iterator().next());//.withPhoto(photo);
+        //.inGroup(groups.iterator().next()) - таким образом выбираем группу, но если нет группы то ее надо создать
         app.contakt().create(contakt);
         //проверка, сравнение
         assertThat(app.contakt().count(), equalTo(before.size()+1));
@@ -102,11 +107,12 @@ public class AddNewCreationTests extends TestBase {
     //отключаем тест (enabled = false)
     @Test (enabled = false)
     public void testBadAddNewCreation() {
+        Groups groups = app.db().groups();
         //тест для создания контакта
         //подсчет кол-ва строк до добавления
         Clients before = app.db().clients();
         ClientData contakt =  new ClientData().withP_firstnam("Sidorov8 это негативный тест ' - на запрет апострофа").withP_lastname("Nikolai")
-                .withP_address("RF, NSK").withP_homepage("+72589631478").withGroup("test17");
+                .withP_address("RF, NSK").withP_homepage("+72589631478").inGroup(groups.iterator().next());
         app.contakt().create(contakt);
         //проверка, сравнение
         assertThat(app.contakt().count(), equalTo(before.size()));
