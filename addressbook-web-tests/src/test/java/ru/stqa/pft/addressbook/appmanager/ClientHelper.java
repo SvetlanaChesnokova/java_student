@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.Clients;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,4 +225,13 @@ public class ClientHelper extends HelperBase{
   }
 
 
+  public void selectGroupC(ClientData clientData, GroupData groupData) {
+    selectAddNewById(clientData.getId());
+    wd.findElement(By.xpath("//select[@name='to_group']//option[@value='"+ groupData.getId()+"']")).click();
+    click(By.xpath("//input[@name='add']"));
+    click(By.xpath("//div[@class='msgbox']//a[.='group page \""+ groupData.getName()+"\"']"));
+    selectAddNewById(clientData.getId());
+    click(By.xpath("//input[@name='remove']"));
+
+  }
 }
