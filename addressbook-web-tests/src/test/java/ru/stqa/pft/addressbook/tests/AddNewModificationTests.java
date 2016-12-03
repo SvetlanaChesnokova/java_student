@@ -51,6 +51,7 @@ public class AddNewModificationTests extends TestBase {
 
     //проверка в пользовательском интерфейсе / откльчаемый метод
     verifyClientListUI();
+
   }
 
 

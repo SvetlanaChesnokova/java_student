@@ -74,7 +74,7 @@ public class AddNewCreationTests extends TestBase {
                 contakt.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
 
         //проверка в пользовательском интерфейсе / откльчаемый метод
-        verifyGroupListUI();
+        verifyClientListUI();
     }
 
 

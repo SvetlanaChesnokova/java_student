@@ -85,8 +85,6 @@ public class TestBase {
       assertThat(uiClients, equalTo(dbClients.stream()
               .map((g) -> new ClientData().withId(g.getId()).withP_lastname(g.getP_lastname())
               .withP_firstnam(g.getP_firstnam()).withP_middlename(g.getP_middlename()).withP_address(g.getP_address()))
-             // .withP_email(g.getP_email()).withP_email2(g.getP_email2()).withP_email3(g.getP_email3())
-             // .withP_phones(g.getP_phones()).withP_homepage(g.getP_homepage()).withP_home(g.getP_home()))
               .collect(Collectors.toSet())));
 
     }
