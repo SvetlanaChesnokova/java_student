@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static ru.stqa.pft.addressbook.tests.TestBase.app;
 
 /**
  * Created by Светлана on 06.11.2016.
@@ -133,8 +134,10 @@ public class ClientHelper extends HelperBase{
 
   //поменяла на список элементов
   public int count() {
-    //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
-    WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
+    if (clientCache != null) {
+      //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
+      WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
+    }
     return wd.findElements(By.name("selected[]")).size();
   }
 
@@ -145,7 +148,7 @@ public class ClientHelper extends HelperBase{
           return  new Clients(clientCache);
       }
     //явное ожидание элемента таблицы, и ожидание закрытия всплывающего окна
-   // WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
+  //  WebElement selected = wait.until(presenceOfElementLocated(By.name("entry")));
      clientCache = new Clients();
     // получить список Web елементов, которые на тег span и класс group
     List<WebElement> elements = wd.findElements(By.name("entry"));

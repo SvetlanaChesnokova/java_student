@@ -3,10 +3,12 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.Clients;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
@@ -22,6 +24,20 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AddNewCreationTests extends TestBase {
+
+    @BeforeMethod
+    public void ensurePreconditions(){
+        //вынесена, подготовка теста
+        //проверяем есть ли хоть группа, для возможности выбрать ее в контакте
+        if (app.db().groups().size() == 0) {
+            //если нет записи, то создаем ее
+                //вынесена, подготовка теста
+                app.goTo().groupPage();
+                //если нет записи, то создаем ее
+                app.group().create( new GroupData().withName("test3"));
+            }
+
+    }
 
     //провайдер тестовых данных, для большого кол-ва выполняемых тестов
     @DataProvider

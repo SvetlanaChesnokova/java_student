@@ -32,7 +32,7 @@ public class TestBase {
   // static самостаятельная глобальная переменная.
   //browser - парамет позволяет передавать вид браузера для запуска
   //в конфигурациях запуска прописывать -ea -Dbrowser=chrome, к примеру
-  protected static final ApplicationManager app
+  public static final ApplicationManager app
           = new ApplicationManager(System.getProperty("browser", BrowserType.FIREFOX));
  // protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser",BrowserType.CHROME));
  // protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser",BrowserType.IE));
