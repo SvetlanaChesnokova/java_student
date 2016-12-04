@@ -1,11 +1,13 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 
+import com.sun.jna.platform.win32.WinDef;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.Clients;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -51,4 +53,26 @@ public class DbHelper {
         session.close();
         return  new Clients(result);
     }
+
+
+    public Clients grContact() {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        //в этой строке можно указывать запрос, который влияет на вывод данных
+        List<ClientData> result = session.createQuery("from ClientData where deprecated = '0000-00-00' ").list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        for ( ClientData contact : result ) {
+            System.out.println(contact);
+            System.out.println(contact.getGroups());
+
+           // return  new Clients(contact.getGroups());
+
+        }
+        return  new Clients(result);
+    }
+
 }

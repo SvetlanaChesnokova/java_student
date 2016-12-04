@@ -226,12 +226,32 @@ public class ClientHelper extends HelperBase{
 
 
   public void selectGroupC(ClientData clientData, GroupData groupData) {
-    selectAddNewById(clientData.getId());
-    wd.findElement(By.xpath("//select[@name='to_group']//option[@value='"+ groupData.getId()+"']")).click();
-    click(By.xpath("//input[@name='add']"));
-    click(By.xpath("//div[@class='msgbox']//a[.='group page \""+ groupData.getName()+"\"']"));
-    selectAddNewById(clientData.getId());
-    click(By.xpath("//input[@name='remove']"));
+    if (clientData.getGroups().size() == 0) {
+      //условия, чтобы была выбрана одна группа
+    //  Assert.assertTrue(clientData.getGroups().size() == 1);
 
+      selectAddNewById(clientData.getId());
+      wd.findElement(By.xpath("//select[@name='to_group']//option[@value='" + groupData.getId() + "']")).click();
+      click(By.xpath("//input[@name='add']"));
+      click(By.xpath("//div[@class='msgbox']//a[.='group page \"" + groupData.getName() + "\"']"));
+      selectAddNewById(clientData.getId());
+      click(By.xpath("//input[@name='remove']"));
+    }
+    else  {
+      System.out.println("***-------------------***");
+      System.out.println("inf gr- " + clientData.getGroups());
+      System.out.println("inf gr size - " + clientData.getGroups().size());
+     // Assert.assertTrue(clientData.getGroups().hashCode() == groupData.getId());
+     // System.out.println("dfsf- " + clientData.getId().iterator().);
+    }
+
+  }
+
+  public void optGroupC(GroupData groupData) {
+    wd.findElement(By.xpath("//select[@name='group']//option[@value='"+ groupData.getId()+"']")).click();
+  }
+
+  public void optGroupCn(String none) {
+    wd.findElement(By.xpath("//select[@name='group']//option[@value='"+ none+"']")).click();
   }
 }

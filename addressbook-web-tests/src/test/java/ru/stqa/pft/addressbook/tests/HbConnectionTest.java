@@ -15,13 +15,13 @@ import java.util.List;
 /**
  * Created by chesnokova.sa on 30.11.2016.
  */
-public class HbConnectionTest {
+public class HbConnectionTest  {
 
     //процедура инициализации к БД
     private SessionFactory sessionFactory;
 
     @BeforeClass
-     protected void setUp() throws Exception {
+    public void setUp() throws Exception {
        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
        try {
           sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
