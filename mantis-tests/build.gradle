@@ -1,0 +1,53 @@
+apply plugin: 'java'
+
+//откуда надо загружать библиотеки
+repositories{
+  mavenCentral()
+}
+
+//указание зависимости, добавление новой библиотеки
+dependencies {
+  //библиотека скопирована с сайта http://search.maven.org/
+  compile 'org.testng:testng:6.9.13.6'
+  //compile 'org.seleniumhq.selenium:selenium-java:3.0.1'
+  compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
+
+  compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+
+
+
+
+
+  //запуск всех тестов, через командную строку cmd
+// прописать в ней (cmd) gradlew test , при этом путь в консоле должен соответствовать репозиторию
+ // чтобы отчистить запуски тестов и запустить повторно в cmd надо указать: gradlew cleanTest test
+test {
+  useTestNG() {
+    // если прописать такой путь, то запускается конкретные тесты, что в файле
+    suites 'src/test/resources/testng.xml'
+  }
+}
+
+  tast  {
+    useTestNG {
+      suites 'src/test/resources/testng.xml'
+    }
+    //для обращения к этому свойству,при запусе теста через cmd надо написать -Pbrowser
+    // полный текст команды, для примера: gradlew -Pbrowser=firefox testContacts
+    //позволяет указывать-выбирать любой браузер, browser
+    if (project.hasProperty('browser')) {
+      systemProperty 'browser', "${browser}"
+    }
+    //для обращения к этому свойству(запуск конфигурационного файла),при запусе теста через cmd надо написать -Ptarget
+    // полный текст команды, для примера: gradlew -Ptarget=local testContacts
+    //описывает свойства окружения
+    if (project.hasProperty('target')) {
+      systemProperty 'target', "${target}"
+    }
+    //позволяет включать и отключать сложные проверки, через интерфейс (конфигурационный файл)
+    if (project.hasProperty('verifyUI')) {
+      systemProperty 'verifyUI', "${target}"
+    }
+  }
+
+}
