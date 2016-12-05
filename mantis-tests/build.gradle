@@ -17,18 +17,18 @@ dependencies {
 
 
 
-
   //запуск всех тестов, через командную строку cmd
 // прописать в ней (cmd) gradlew test , при этом путь в консоле должен соответствовать репозиторию
- // чтобы отчистить запуски тестов и запустить повторно в cmd надо указать: gradlew cleanTest test
-test {
-  useTestNG() {
-    // если прописать такой путь, то запускается конкретные тесты, что в файле
-    suites 'src/test/resources/testng.xml'
+  // чтобы отчистить запуски тестов и запустить повторно в cmd надо указать: gradlew cleanTest test
+  test {
+    useTestNG() {
+      // если прописать такой путь, то запускается конкретные тесты, что в файле
+      suites 'src/test/resources/testng.xml'
+    }
   }
-}
 
-  tast  {
+
+  test  {
     useTestNG {
       suites 'src/test/resources/testng.xml'
     }

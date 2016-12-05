@@ -72,9 +72,15 @@ public class GroupContactTest extends TestBase {
         ClientData grClient = before.iterator().next();
         GroupData groupChoice = app.db().groups().iterator().next();
 
+   /*     app.contakt().optGroupC(groupChoice);
+        app.wd.findElements(By.id("search_count")).size();
+        System.out.println("gr - " + grClient.inGroup());
+
+        app.contakt().optGroupCn("[none]");
+    */
        /* app.contakt().optGroupC(groupChoice);
 
-
+       <span id="search_count">3</span>
         id="search_count">0
 
         app.contakt().optGroupC(groupChoice);
@@ -89,6 +95,13 @@ public class GroupContactTest extends TestBase {
         System.out.println("**************************");
 
         app.contakt().selectGroupC(grClient,groupChoice);
+
+        //app.contakt().proverkaGroupC(grClient,groupChoice);
+
+        app.goTo().gotoHomePage();
+        app.contakt().optGroupCn("");
+        //проверка в пользовательском интерфейсе / откльчаемый метод
+        verifyClientListUI();
     }
 
 }
