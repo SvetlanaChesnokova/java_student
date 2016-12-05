@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 
 public class ApplicationManager {
@@ -38,7 +39,7 @@ public class ApplicationManager {
     }
     //Ожидание всех элементов на форме, касательно всего проекта
    // wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-   // wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     //DriverWait, явные ожидание конкретного элемента с заданным временем в секундах
    // WebDriverWait wait = new WebDriverWait(wd, 10);
     // В GroupHelper не получается установить блок ожидания элемента selected. Где он должен быть, в какой вкладке?
@@ -52,5 +53,13 @@ public class ApplicationManager {
     wd.quit();
   }
 
+  public HttpSession newSession(){
+    // можно выполнять сразу несколько сессий, под разными пользователями,
+    // проверяя больше функционала и делегирование его. Используя сетивой протокол.
+    return new HttpSession(this);
+  }
 
+  public String getProperty(String key) {
+   return properties.getProperty(key);
+  }
 }
