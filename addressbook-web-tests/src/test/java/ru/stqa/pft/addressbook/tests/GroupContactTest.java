@@ -1,19 +1,11 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hibernate.Session;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.openqa.selenium.By;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.Clients;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
-
-import java.util.List;
 
 /**
  * Created by chesnokova.sa on 04.12.2016.
@@ -52,19 +44,6 @@ public class GroupContactTest extends TestBase {
         //переход на нужную форму, при необходимосте
         app.goTo().gotoHomePage();
 
-
-       /* Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        //в этой строке можно указывать запрос, который влияет на вывод данных
-        List<ClientData> result = session.createQuery("from ClientData where deprecated = '0000-00-00'").list();
-        session.getTransaction().commit();
-        session.close();
-
-        for ( ClientData contact : result ) {
-            System.out.println(contact);
-            System.out.println(contact.getGroups());
-        }   */
-
       //  app.contakt().optGroupCn("[none]");
 
         //подсчет кол-ва строк до добавления
@@ -72,31 +51,17 @@ public class GroupContactTest extends TestBase {
         ClientData grClient = before.iterator().next();
         GroupData groupChoice = app.db().groups().iterator().next();
 
-   /*     app.contakt().optGroupC(groupChoice);
-        app.wd.findElements(By.id("search_count")).size();
-        System.out.println("gr - " + grClient.inGroup());
-
-        app.contakt().optGroupCn("[none]");
-    */
-       /* app.contakt().optGroupC(groupChoice);
-
-       <span id="search_count">3</span>
-        id="search_count">0
-
-        app.contakt().optGroupC(groupChoice);
-
-        app.goTo().gotoHomePage();       */
 
         System.out.println("**************************");
         System.out.println("before - " + before);
         System.out.println("grClient - " + grClient);
         System.out.println("groupChoice - " + groupChoice);
-       // System.out.println("grContact - " + grClient.inGroup());
         System.out.println("**************************");
 
         app.contakt().selectGroupC(grClient,groupChoice);
 
-        //app.contakt().proverkaGroupC(grClient,groupChoice);
+
+      //  app.contakt().proverkaGroupC(grClient,groupChoice);
 
         app.goTo().gotoHomePage();
         app.contakt().optGroupCn("");

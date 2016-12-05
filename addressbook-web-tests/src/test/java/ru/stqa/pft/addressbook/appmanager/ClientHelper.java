@@ -226,23 +226,36 @@ public class ClientHelper extends HelperBase{
 
 
   public void selectGroupC(ClientData clientData, GroupData groupData) {
+    //значение в header
+    //System.out.println(app.wd.findElement(By.id("search_count")).getText());
     if (clientData.getGroups().size() == 0) {
+      optGroupC(groupData);
+       int allNb = Integer.parseInt (app.wd.findElement(By.id("search_count")).getText());
+      optGroupCn("");
       selectAddNewById(clientData.getId());
       wd.findElement(By.xpath("//select[@name='to_group']//option[@value='" + groupData.getId() + "']")).click();
       click(By.xpath("//input[@name='add']"));
       click(By.xpath("//div[@class='msgbox']//a[.='group page \"" + groupData.getName() + "\"']"));
-     //сразу после внесения изменения, данные сдесь не обновляются, почему-то
+        int allNc = Integer.parseInt (app.wd.findElement(By.id("search_count")).getText());
+     //сразу после внесения изменения, данные здесь не обновляются, почему-то
     //  System.out.println("inf gr size - " + clientData.getGroups().size());
       selectAddNewById(clientData.getId());
       click(By.xpath("//input[@name='remove']"));
+      click(By.xpath("//div[@class='msgbox']//a[.='group page \"" + groupData.getName() + "\"']"));
+        int allNe = Integer.parseInt (app.wd.findElement(By.id("search_count")).getText());
+      //проверка на добавление контакта в группу
+        Assert.assertTrue(allNc == allNb+1);
+      //проверка на кол-во контактов в группе в начале и в конце
+        Assert.assertTrue(allNb == allNe);
     }
     else  {
       System.out.println("***-------------------***");
       System.out.println("inf gr- " + clientData.getGroups());
       System.out.println("inf gr size - " + clientData.getGroups().size());
-     // Assert.assertTrue(clientData.getGroups().hashCode() == groupData.getId());
-     // System.out.println("dfsf- " + clientData.getId().iterator().);
+     // Assert.assertTrue(clientData.getGroups() == groupChoice);
     }
+
+
 
   }
 
@@ -250,8 +263,8 @@ public class ClientHelper extends HelperBase{
     wd.findElement(By.xpath("//select[@name='group']//option[@value='"+ groupData.getId()+"']")).click();
   }
 
-  public void optGroupCn(String none) {
-    wd.findElement(By.xpath("//select[@name='group']//option[@value='"+ none+"']")).click();
+  public void optGroupCn(String name) {
+    wd.findElement(By.xpath("//select[@name='group']//option[@value='"+ name+"']")).click();
   }
 
   public void proverkaGroupC(ClientData clientData, GroupData groupChoice) {
