@@ -19,6 +19,7 @@ public class ApplicationManager {
   WebDriver wd;
 
   private String browser;
+  private RegistrationHelper registrationHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -29,27 +30,10 @@ public class ApplicationManager {
     String target = System.getProperty("target", "local");
        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
-   // String browser = BrowserType.FIREFOX;
-    if (Objects.equals(browser, BrowserType.FIREFOX)) {
-      wd = new FirefoxDriver();
-    } else if (Objects.equals(browser, BrowserType.CHROME)) {
-      wd = new ChromeDriver();
-    } else if (Objects.equals(browser, BrowserType.IE)) {
-      wd = new InternetExplorerDriver();
-    }
-    //Ожидание всех элементов на форме, касательно всего проекта
-   // wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    //DriverWait, явные ожидание конкретного элемента с заданным временем в секундах
-   // WebDriverWait wait = new WebDriverWait(wd, 10);
-    // В GroupHelper не получается установить блок ожидания элемента selected. Где он должен быть, в какой вкладке?
-//  WebElement selected = wait.until(presenceOfElementLocated(By.name("selected[]")));
-
-    //серия действий для входа в систему
-    wd.get(properties.getProperty("web.baseUrl"));
     }
 
   public void stop() {
+   if (wd != null)
     wd.quit();
   }
 
@@ -61,5 +45,35 @@ public class ApplicationManager {
 
   public String getProperty(String key) {
    return properties.getProperty(key);
+  }
+
+  public RegistrationHelper registration() {
+    if (registrationHelper == null) {
+      registrationHelper = new RegistrationHelper(this);
+    }
+    return registrationHelper;
+  }
+
+  public WebDriver getDriver() {
+    //отдельный метод, для включения браузера, по необходимости
+    //Ожидание всех элементов на форме, касательно всего проекта
+    // wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+   // wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    //DriverWait, явные ожидание конкретного элемента с заданным временем в секундах
+    // WebDriverWait wait = new WebDriverWait(wd, 10);
+    if (wd == null) {
+      // String browser = BrowserType.FIREFOX;
+      if (Objects.equals(browser, BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      } else if (Objects.equals(browser, BrowserType.CHROME)) {
+        wd = new ChromeDriver();
+      } else if (Objects.equals(browser, BrowserType.IE)) {
+        wd = new InternetExplorerDriver();
+      }
+
+      //серия действий для входа в систему
+      wd.get(properties.getProperty("web.baseUrl"));
+    }
+    return  wd;
   }
 }

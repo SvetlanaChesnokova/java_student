@@ -21,13 +21,13 @@ import java.util.List;
  */
 public class HttpSession {
     //получаем и запоменаем ссылку
-    private CloseableHttpClient httpClient;
+    private CloseableHttpClient httpclient;
     private ApplicationManager app;
 
     public HttpSession(ApplicationManager app) {
         this.app = app;
         //создаем новый клиен - сессия, сам перенаправляет благодаря new LaxRedirectStrategy()
-        httpClient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
+        httpclient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
     }
 
     //выполняет логин в браузер
@@ -44,10 +44,12 @@ public class HttpSession {
         post.setEntity(new UrlEncodedFormEntity(params));
         //запрос выполняется
         //response - ответ о результате входа
-        CloseableHttpResponse response = httpClient.execute(post);
+        CloseableHttpResponse response = httpclient.execute(post);
         String body = geTextFrom(response);
         //проверка успешного входа пользователем, что на странице присутствует его имя
-        return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+        //return body.contains(String.format("<span class=\"field-value\">%s</span>", username));
+        //return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+        return body.contains(String.format("<span id=\"logged-in-user\">%s</span>", username));
     }
 
     private String geTextFrom(CloseableHttpResponse response) throws IOException{
@@ -61,7 +63,7 @@ public class HttpSession {
     //оперделяет какой пользователь (виртуальный), залогинен в данный момент
     public boolean isLoggedInAs (String username) throws IOException {
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
-        CloseableHttpResponse response = httpClient.execute(get);
+        CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextFrom(response);
         return body.contains(String.format("<span class=\"italic\">%s</span>", username));
     }
