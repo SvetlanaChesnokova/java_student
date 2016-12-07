@@ -11,16 +11,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 
-public class ApplicationManager {
+public class ApplicationManager{// implements WebDriver {
   private final Properties properties;
   WebDriver wd;
 
   private String browser;
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
+  private MailHelper mailHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -84,5 +84,12 @@ public class ApplicationManager {
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return  wd;
+  }
+
+  public MailHelper mail() {
+    if (mailHelper == null) {
+      mailHelper = new MailHelper(this);
+    }
+    return mailHelper;
   }
 }
