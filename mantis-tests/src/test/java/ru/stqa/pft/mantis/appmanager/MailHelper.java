@@ -1,11 +1,11 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
-import com.sun.xml.internal.org.jvnet.mimepull.MIMEMessage;
-import org.apache.tools.mail.MailMessage;
+
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
+import ru.stqa.pft.mantis.model.MailMessage;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.List;
@@ -24,9 +24,14 @@ public class MailHelper {
         wiser = new Wiser();
     }
 
+    //метод ожидания получения почты
+    // параметры: count-кол-во писем,  timeout - время ожидания
     public List<MailMessage> waitForMail (int count, long timeout) throws MessagingException,IOException{
+        //узнаем текущее время
         long start = System.currentTimeMillis();
+        //проверяем, сколько времени прошло
         while (System.currentTimeMillis() < start + timeout) {
+            //если писем пришло достаточно много, то ожидание можно прекратить
             if (wiser.getMessages().size() >= count) {
                 return wiser.getMessages().stream().map((m)-> toModelMail(m)).collect(Collectors.toList());
             }
@@ -40,7 +45,8 @@ public class MailHelper {
     }
 
     private static MailMessage toModelMail(WiserMessage m) {
-        try{
+       try{
+           //для текста у нас предусмотрена рассылка
             MimeMessage mm = m.getMimeMessage();
             return new MailMessage(mm.getAllRecipients()[0].toString(), (String) mm.getContent());
         }   catch (MessagingException e) {
@@ -49,8 +55,6 @@ public class MailHelper {
         }   catch (IOException e) {
             e.printStackTrace();
             return null;
-        } catch (javax.mail.MessagingException e) {
-            e.printStackTrace();
         }
     }
 

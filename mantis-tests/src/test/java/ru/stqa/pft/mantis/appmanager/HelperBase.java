@@ -15,7 +15,7 @@ public class HelperBase {
   protected ApplicationManager app;
 
 
-  public HelperBase(ApplicationManager wd) {
+  public HelperBase(ApplicationManager app) {
     this.app = app;
     this.wd = app.getDriver();
     //DriverWait, явные ожидание конкретного элемента с заданным временем в секундах
@@ -29,7 +29,7 @@ public class HelperBase {
   protected void type(By locator, String text) {
     click(locator); //используется во всех лекциях, поэтому оставила.
     //временно комментирую, блок очень нужный
-   // if (text != null)   {
+    //if (text != null)   {
     if ((text != null) && !text.equals( wd.findElement(locator).getAttribute("value")))  {
       String existingText = wd.findElement(locator).getAttribute("value");
       //Проверка на совпадение текста, если совпадает, то не вводить.

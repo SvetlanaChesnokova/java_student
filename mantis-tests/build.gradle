@@ -9,6 +9,8 @@ repositories{
 dependencies {
   //библиотека скопирована с сайта http://search.maven.org/
   compile 'org.testng:testng:6.9.13.6'
+  //библиотека для протоколирования данных, сайт документации http://logback.qos.ch/manual/configuration.html
+  compile 'ch.qos.logback:logback-classic:1.1.7'
   //compile 'org.seleniumhq.selenium:selenium-java:3.0.1'
   compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
 
@@ -19,6 +21,10 @@ dependencies {
 
   //для работы с почтой
   compile 'org.subethamail:subethasmtp:3.1.7'
+
+ //для построения регулярных выражений
+  compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.4'
+
 
 
 
