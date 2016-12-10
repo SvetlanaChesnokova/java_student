@@ -1,7 +1,9 @@
 package ru.stqa.pft.mantis.tests;
 
 import org.openqa.selenium.By;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.mantis.appmanager.SessionHelper;
 import ru.stqa.pft.mantis.model.MailMessage;
 
 import javax.mail.MessagingException;
@@ -14,8 +16,18 @@ import static org.testng.Assert.assertTrue;
  * Created by chesnokova.sa on 09.12.2016.
  */
 public class PasswordUserTest extends TestBase {
+
+    @BeforeMethod
+    public void startMailServer(){
+        app.mail().start();
+    }
+
     @Test
     public void testPasswordUser() throws IOException, MessagingException {
+      //  TestBase.app.session().login("administrator", "root");
+        TestBase.app.session().login("administrator", "root");
+       // assertTrue(app.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
+      //  SessionHelper.resetPassword();
 
        // assertTrue(wd.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
       /*  assertTrue(app.newSession().login(user, password));
@@ -23,8 +35,6 @@ public class PasswordUserTest extends TestBase {
         String email= String.format("user%s@localhost.localdomain", now);
         String user = String.format("user%s", now);
         String password = "password";
-        //чтобы работал тест, надо внести изменения в пути  конфигурационного файла C:\xampp\htdocs\mantisbt-1.3.4\config
-        // и так тоже не работает
         TestBase.app.registration().start(user, email);
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
         //находим именно наше письмо

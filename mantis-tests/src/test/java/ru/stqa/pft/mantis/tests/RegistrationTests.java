@@ -30,12 +30,11 @@ public class RegistrationTests extends TestBase {
         String email= String.format("user%s@localhost.localdomain", now);
         String user = String.format("user%s", now);
          String password = "password";
-          //чтобы работал тест, надо внести изменения в пути  конфигурационного файла C:\xampp\htdocs\mantisbt-1.3.4\config
-        // и так тоже не работает
          TestBase.app.registration().start(user, email);
          List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
         //находим именно наше письмо
          String confirmationLink = findConfirmationLink(mailMessages, email);
+        //Считывание текста из письма и пароля
          app.registration().finish(confirmationLink, password);
  //        assertTrue(app.newSession().login(user, password));
      }

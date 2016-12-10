@@ -1,5 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import com.thoughtworks.selenium.webdriven.ElementFinder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -11,6 +12,7 @@ import java.io.File;
  * Created by Светлана on 01.11.2016.
  */
 public class HelperBase {
+
   protected WebDriver wd;
   protected ApplicationManager app;
 
