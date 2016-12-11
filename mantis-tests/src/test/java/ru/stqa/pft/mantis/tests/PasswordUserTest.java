@@ -27,7 +27,7 @@ public class PasswordUserTest extends TestBase {
       //  TestBase.app.session().login("administrator", "root");
         TestBase.app.session().login("administrator", "root");
        // assertTrue(app.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
-      //  SessionHelper.resetPassword();
+        TestBase.app.session().resetPassword();
 
        // assertTrue(wd.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
       /*  assertTrue(app.newSession().login(user, password));

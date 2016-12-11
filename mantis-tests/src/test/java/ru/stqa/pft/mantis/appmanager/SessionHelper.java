@@ -23,18 +23,19 @@ public class SessionHelper extends HelperBase {
         click(By.cssSelector("input[value='Войти']"));
 
        // assertTrue(wd.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
-
-        click(By.cssSelector("a[class='manage-menu-link']"));
-
-       //class="menu" <a href="/mantisbt-1.3.4/manage_user_page.php">Управление пользователями</a>
-        click(By.cssSelector("ul[class='menu']"));
-
   }
 
- /* public static void resetPassword(){
-    //<a class="manage-menu-link" href="/mantisbt-1.3.4/manage_overview_page.php">управление</a
-   // click(By.cssSelector("a[class='manage-menu-link']"));
-  };
-        */
+  public void resetPassword(){
+    click(By.cssSelector("a[class='manage-menu-link']"));
+
+    click(By.xpath("//ul[@class='menu']//a[.='Управление пользователями']"));
+
+    //выбираем 4-го пользователя в первом столбце, у меня это  user1
+    // user1
+    click(By.xpath("//div/div[4]/div[3]/table/tbody/tr[4]/td[1]/a"));
+    // нажимаем кнопку Reset Password
+    click(By.xpath("//form[@id='manage-user-reset-form']/fieldset/span/input"));
+  }
+
 
 }
