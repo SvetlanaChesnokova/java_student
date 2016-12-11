@@ -23,6 +23,7 @@ public class ApplicationManager{// implements WebDriver {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private DbHelper dbHelper;
+  private JamesHelper jamesHelper;
 
 
   public ApplicationManager(String browser) {
@@ -106,5 +107,12 @@ public class ApplicationManager{// implements WebDriver {
 
   public DbHelper db() {
     return dbHelper;
+  }
+
+  public JamesHelper james() {
+    if (jamesHelper == null) {
+      jamesHelper = new JamesHelper(this);
+    }
+    return jamesHelper;
   }
 }

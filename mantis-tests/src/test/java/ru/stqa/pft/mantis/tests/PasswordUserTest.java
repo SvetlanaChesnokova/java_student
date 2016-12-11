@@ -24,12 +24,15 @@ public class PasswordUserTest extends TestBase {
 
     @Test
     public void testPasswordUser() throws IOException, MessagingException {
-        app.session().login("administrator", "root");
+        String login = app.getProperty("web.adminLogin");
+        String password = app.getProperty("web.adminPassword");
+        app.session().login(login, password);
+        //app.session().login("administrator", "root");
        // assertTrue(app.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
        // Assert.assertTrue(app.newSession().login(app.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))).text, "administrator"));
 
         //String email= (By.xpath("//div[@id='manage-user-div']/table/tbody/tr[5]/td[3]");
-        String password = "password";
+        String password_new = "password";
         UserData userBD = app.session().selectUser();
 
         TestBase.app.session().resetPassword(userBD.getId());
@@ -37,9 +40,9 @@ public class PasswordUserTest extends TestBase {
         //находим именно наше письмо
         String confirmationLink = findConfirmationLink(mailMessages, userBD.getEmail());
         //Считывание текста из письма и пароля
-        app.registration().finish(confirmationLink, password);
-       // app.session().login(userBD.getName(), password);
-        Assert.assertTrue(app.newSession().login(userBD.getName(), password));
+        app.registration().finish(confirmationLink, password_new);
+       // app.session().login(userBD.getName(), password_new);
+        Assert.assertTrue(app.newSession().login(userBD.getName(), password_new));
     }
 
 
