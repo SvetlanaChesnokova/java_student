@@ -37,7 +37,7 @@ public class HttpSession {
         //набор данных для заполнения и передачи
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("Текущий пароль", password));
+        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("secure_session", "on"));
         params.add(new BasicNameValuePair("return", "index.php"));
         //упаковка данных
@@ -47,8 +47,6 @@ public class HttpSession {
         CloseableHttpResponse response = httpclient.execute(post);
         String body = geTextFrom(response);
         //проверка успешного входа пользователем, что на странице присутствует его имя
-        //return body.contains(String.format("<span class=\"field-value\">%s</span>", username));
-        //return body.contains(String.format("<span class=\"italic\">%s</span>", username));
         return body.contains(String.format("<span id=\"logged-in-user\">%s</span>", username));
     }
 

@@ -36,7 +36,7 @@ public class RegistrationTests extends TestBase {
          String confirmationLink = findConfirmationLink(mailMessages, email);
         //Считывание текста из письма и пароля
          app.registration().finish(confirmationLink, password);
- //        assertTrue(app.newSession().login(user, password));
+         assertTrue(app.newSession().login(user, password));
      }
 
 

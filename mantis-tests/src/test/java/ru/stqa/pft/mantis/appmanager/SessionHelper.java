@@ -19,8 +19,6 @@ public class SessionHelper extends HelperBase {
         type(By.name("username"),username);
         type(By.name("password"), password);
         click(By.cssSelector("input[value='Войти']"));
-
-       // assertTrue(wd.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
   }
 
 
@@ -44,9 +42,7 @@ public class SessionHelper extends HelperBase {
 
     click(By.xpath("//ul[@class='menu']//a[.='Управление пользователями']"));
 
-    //выбираем 5-го пользователя в первом столбце, у меня это  user1481330452267
-    // user1481330452267
-  //  click(By.xpath("//div/div[4]/div[3]/table/tbody/tr[5]/td[1]/a"));
+    //выбираем случайного пользователя в бд
     click (By.cssSelector("a[href='manage_user_edit_page.php?user_id="+ id +"']"));
     // нажимаем кнопку Reset Password
     click(By.xpath("//form[@id='manage-user-reset-form']/fieldset/span/input"));

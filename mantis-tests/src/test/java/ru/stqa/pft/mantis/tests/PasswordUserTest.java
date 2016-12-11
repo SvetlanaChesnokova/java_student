@@ -24,8 +24,7 @@ public class PasswordUserTest extends TestBase {
 
     @Test
     public void testPasswordUser() throws IOException, MessagingException {
-      //  TestBase.app.session().login("administrator", "root");
-        TestBase.app.session().login("administrator", "root");
+        app.session().login("administrator", "root");
        // assertTrue(app.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
        // Assert.assertTrue(app.newSession().login(app.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))).text, "administrator"));
 
@@ -34,16 +33,13 @@ public class PasswordUserTest extends TestBase {
         UserData userBD = app.session().selectUser();
 
         TestBase.app.session().resetPassword(userBD.getId());
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         //находим именно наше письмо
         String confirmationLink = findConfirmationLink(mailMessages, userBD.getEmail());
         //Считывание текста из письма и пароля
         app.registration().finish(confirmationLink, password);
+       // app.session().login(userBD.getName(), password);
         Assert.assertTrue(app.newSession().login(userBD.getName(), password));
-       // assertTrue(wd.findElement(By.xpath(String.format("<span id=\"logged-in-user\">"))));
-      /*
-        app.registration().finish(confirmationLink, password);
-        assertTrue(app.newSession().login(user, password));  */
     }
 
 
