@@ -1,8 +1,9 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+
 import org.apache.commons.net.telnet.TelnetClient;
 import ru.stqa.pft.mantis.model.MailMessage;
+
 
 import javax.mail.*;
 import javax.mail.Flags;
@@ -169,7 +170,8 @@ public class JamesHelper {
     public List<MailMessage> getAllMail(String username, String password) throws javax.mail.MessagingException {
        //открытие
         Folder inbox = openInbox(username, password);
-        List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+        List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m) ->
+                toModelMail(m)).collect(Collectors.toList());
         closeFolder( inbox);
         // закрытие почтового ящика
         return messages;
@@ -188,7 +190,7 @@ public class JamesHelper {
     }
 
 
-    public static MailMessage toModelMail (Message m) throws javax.mail.MessagingException {
+    public static MailMessage toModelMail (Message m)  {
         //берем первое письмо, читаем его и по полученому письму строем объект
         try {
             return new  MailMessage (m.getAllRecipients()[0].toString(),(String) m.getContent());
