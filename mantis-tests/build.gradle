@@ -35,6 +35,8 @@ dependencies {
 
   compile 'com.google.code.gson:gson-parent:2.8.0'
 
+  //SOAP шаблон для проекта mantis
+  compile 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
 
 
 
@@ -71,4 +73,24 @@ dependencies {
     }
   }
 
+}
+buildscript{
+  repositories{
+    jcenter()
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'no.nils:wsdl2java:0.10'
+  }
+}
+apply plugin: 'no.nils.wsdl2java'
+
+wsdl2java {
+  //куда будут размещены файлы, которые генерируются из этого описания
+  generatedWsdlDir = file("src/main/java")  // target directory for generated source coude
+  //где будут браться файлы
+  wsdlDir = file("src/main/resources") // define to support incremental build
+  wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
+                        ['src/main/resources/geoipservice.wsdl'],
+  ]
 }

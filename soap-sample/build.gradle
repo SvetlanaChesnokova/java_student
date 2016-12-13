@@ -9,6 +9,8 @@ repositories{
 dependencies {
   //библиотека скопирована с сайта http://search.maven.org/
   compile 'org.testng:testng:6.9.13.6'
+  compile 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
+
 }
 
 buildscript{
