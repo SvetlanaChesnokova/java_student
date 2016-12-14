@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+//откуда надо загружать библиотеки
+repositories{
+  mavenCentral()
+}
+
+//указание зависимости, добавление новой библиотеки
+dependencies {
+  //библиотека скопирована с сайта http://search.maven.org/
+  compile 'org.testng:testng:6.9.13.6'
+  compile 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
+  //для работы с  gson
+  compile 'com.google.code.gson:gson:2.8.0'
+  //для написания запросов, документация на https://сайтеbugify.com/api
+  compile 'org.apache.httpcomponents:httpclient:4.5.2'
+  compile 'org.apache.httpcomponents:fluent-hc:4.5.2'
+
+}
