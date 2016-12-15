@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+//откуда надо загружать библиотеки
+repositories{
+  mavenCentral()
+}
+
+//указание зависимости, добавление новой библиотеки
+dependencies {
+  //библиотека скопирована с сайта http://search.maven.org/
+  compile 'org.testng:testng:6.9.13.6'
+  //подключение REST: взаимодействие с GitHub
+  compile 'com.jcabi:jcabi-github:0.28'
+}
