@@ -38,7 +38,7 @@ import static org.testng.Assert.assertEquals;
 
     @Test
     public void testCheckBolean () throws RemoteException, ServiceException, MalformedURLException {
-                skipIfNotFixed(0000003);
+                skipIfNotFixed(0000002);
                 System.out.println("Задание №21: Реализовать интеграцию тестов с баг-трекером MantisBT");
             }
 
