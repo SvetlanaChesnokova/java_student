@@ -1,4 +1,4 @@
-package ru.stqa.pft.rest;
+package ru.stqa.pft.rest.tests;
 
 /**
  * Created by chesnokova.sa on 15.12.2016.

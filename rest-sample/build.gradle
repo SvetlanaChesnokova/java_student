@@ -9,6 +9,32 @@ repositories{
 dependencies {
   //библиотека скопирована с сайта http://search.maven.org/
   compile 'org.testng:testng:6.9.13.6'
+  //библиотека для протоколирования данных, сайт документации http://logback.qos.ch/manual/configuration.html
+  compile 'ch.qos.logback:logback-classic:1.1.7'
+  //compile 'org.seleniumhq.selenium:selenium-java:3.0.1'
+  compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
+  //Hamcrest: улучшение внешнего вида проверок
+  compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+
+  //Передача файлов на удалённую машину по протоколу FTP Гиперссылка
+  compile 'commons-net:commons-net:3.5'
+
+  //для работы с почтой
+  compile 'org.subethamail:subethasmtp:3.1.7'
+
+  //для построения регулярных выражений
+  compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.4'
+
+  //для работы с БД mysql, сайт документации http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-connect-drivermanager.html
+  compile 'mysql:mysql-connector-java:6.0.5'
+
+  // для соединения с БД, сайт документации http://docs.jboss.org/hibernate/orm/5.1/quickstart/html_single/
+  compile 'org.hibernate:hibernate-core:5.2.5.Final'
+
+  compile 'com.thoughtworks.xstream:xstream:1.4.9'
+
+
+
   compile 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
   //для работы с  gson
   compile 'com.google.code.gson:gson:2.8.0'
