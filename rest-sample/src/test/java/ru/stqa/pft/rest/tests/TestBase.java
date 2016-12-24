@@ -10,10 +10,7 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 import org.testng.SkipException;
 
-import javax.xml.rpc.ServiceException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
 import java.util.Set;
 
 
@@ -55,23 +52,6 @@ public class TestBase {
     }
 
 
- /*public void skipIfNotFixed(int issueId) throws RemoteException, MalformedURLException, ServiceException {
-         if (isIssueOpen(issueId)) {
-             throw new SkipException("Ignored because of issue " + issueId);
-         }
-     }
-
- private boolean isIssueOpen(int issueId) throws IOException, ServiceException {
-     String issue = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues.json"))
-             .returnContent().asString();
-     System.out.println("Статус - " + issue.getStatus().getName());
-     if (issue.getStatus().getName() == "resolved") {
-      return false;
-      } else {
-      return true;
-     }
-  }
-   */
 
 
 
