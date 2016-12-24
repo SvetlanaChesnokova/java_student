@@ -20,16 +20,16 @@ import java.util.Set;
 
 public class TestBase {
 
-    RestAssured.proxy("192.168.0.2", 8080);
-
-
     public Set<Issue> getIssues() throws IOException {
-        String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues.json"))
+        //Вход и просмотр старых бага
+        String json = getExecutor().execute(
+                Request.Get("http://demo.bugify.com/api/issues.json").viaProxy("192.168.0.2:8080"))
                 .returnContent().asString();
+      /*  String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues.json"))
+                .returnContent().asString();  */
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
-
     }
 
     private Executor getExecutor() {
@@ -38,17 +38,24 @@ public class TestBase {
     }
 
     public int createIssue(Issue newIssue) throws IOException {
-        String json = getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json")
+        //вход и создание нового бага
+        String json = getExecutor().execute(
+                Request.Get("http://demo.bugify.com/api/issues.json").viaProxy("192.168.0.2:8080")
                 .bodyForm(new BasicNameValuePair("subject", new Issue().getSubject()),
                         new BasicNameValuePair("description", new Issue().getDescription())))
                 .returnContent().asString();
+       /* RestAssured.proxy("192.168.0.2", 8080);
+        String json = getExecutor().execute(Request.Post("http://demo.bugify.com/api/issues.json")
+                .bodyForm(new BasicNameValuePair("subject", new Issue().getSubject()),
+                        new BasicNameValuePair("description", new Issue().getDescription())))
+                .returnContent().asString();  */
         JsonElement parsed = new JsonParser().parse(json);
         //возвращаем id созданного баг-репорта
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 
 
- public void skipIfNotFixed(int issueId) throws RemoteException, MalformedURLException, ServiceException {
+ /*public void skipIfNotFixed(int issueId) throws RemoteException, MalformedURLException, ServiceException {
          if (isIssueOpen(issueId)) {
              throw new SkipException("Ignored because of issue " + issueId);
          }
@@ -64,6 +71,31 @@ public class TestBase {
       return true;
      }
   }
+   */
+
+
+
+    public boolean isIssueOpen(int issueId) throws IOException {
+       String issue = getIssueById(issueId);
+       if (issue.equals("Resolved") || issue.equals("Closed")){
+          return false;
+       }
+       return true;
+    }
+
+    private String getIssueById(int issueId) {
+       String json = RestAssured.get(String.format(
+             "http://demo.bugify.com/api/issues/%s.json?attachments=false&comments=false&followers=false&history=false", issueId)).asString();
+       JsonElement parsed = new JsonParser().parse(json);
+       return parsed.getAsJsonObject().get("issues").getAsJsonArray().getAsJsonArray().get(0)
+                    .getAsJsonObject().get("state_name").getAsString();
+    }
+
+    public void skipIfNotFixed(int issueId) throws IOException {
+       if (isIssueOpen(issueId)) {
+          throw new SkipException(String.format("Ignored because of issue: " + issueId));
+       }
+    }
 
 
 

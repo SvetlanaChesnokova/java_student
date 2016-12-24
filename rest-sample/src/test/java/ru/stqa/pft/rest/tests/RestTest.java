@@ -30,7 +30,7 @@ public class RestTest extends TestBase{
 
 
     @Test
-    public void testCheckBolean () throws RemoteException, ServiceException, MalformedURLException {
+    public void testCheckBolean () throws IOException, ServiceException {
         skipIfNotFixed(0000002);
         System.out.println("Задание №22: Реализовать интеграцию тестов с баг-трекером Bugify");
     }
